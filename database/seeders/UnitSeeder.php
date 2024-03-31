@@ -21,5 +21,13 @@ class UnitSeeder extends Seeder
             'title' => 'وحدة الوراثة',
             'material_id' => '5'
         ]);
+        Unit::create([
+            'title' => 'الوحدة الاولى ',
+            'material_id' => '13'
+        ]);
+        Unit::create([
+            'title' => 'الوحدة الثانية ',
+            'material_id' => '13'
+        ]);
     }
 }
