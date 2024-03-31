@@ -29,5 +29,9 @@ class UnitSeeder extends Seeder
             'title' => 'الوحدة الثانية ',
             'material_id' => '13'
         ]);
+        Unit::create([
+            'title' => 'الوحدة الثالثة ',
+            'material_id' => '13'
+        ]);
     }
 }
