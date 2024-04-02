@@ -22,7 +22,9 @@ class DatabaseSeeder extends Seeder
             SectionSeeder::class,
             MaterialSeeder::class,
             UnitSeeder::class,
-            LockedQuestionsSeeder::class
+            LockedQuestionsSeeder::class,
+            BookSeeder::class,
+            SummerySeeder::class
         ]);
     }
 }

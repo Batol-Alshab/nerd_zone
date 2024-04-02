@@ -2,25 +2,27 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Http\Controllers\Controller;
-use App\Models\Summery;
 use App\Models\Unit;
+use App\Models\Summery;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use App\Http\Resources\SummeryResource;
 
 class SummeryController extends Controller
-{
+{use ApiResponse;
 
     public function index()
     {
         $summery_url = Summery::all();
-        return $this->successResponse($summery_url, 'Summery  Showed Successfully');
+        return $this->successresponse(SummeryResource::collection($summery_url), 'Book  Showed Successfully', 200);
+        // return $this->successResponse($summery_url, 'Summery  Showed Successfully');
     }
 
 
     public function store(Request $request)
     {
         $validatedData = $request->validate([
-            'title' => 'required|string',
+            'name' => 'required|string',
             'url' => 'required|mimes:pdf,doc,docx,txt|max:10240',
             'unit_id' => 'required|exists:unites,id'
         ]);
@@ -30,7 +32,7 @@ class SummeryController extends Controller
         // $summery = Unit::create([
         $path = $this->uploadFile($request, 'url', 'summeries');
         $summery = Summery::create([
-            'title' => $request->title,
+            'name' => $request->name,
             'url' => $path,
             'unit_id' => $request->unit_id
         ]);
@@ -51,7 +53,7 @@ class SummeryController extends Controller
     {
         $summery_url = Summery::find($id);
         $validatedData = $request->validate([
-            'title' => 'required|string',
+            'name' => 'required|string',
             'url' => 'required|mimes:pdf,doc,docx,txt|max:10240',
             'unit_id' => 'required|exists:unites,id'
         ]);
@@ -69,9 +71,12 @@ class SummeryController extends Controller
         $summery_url->delete();
         return $this->successResponse(null, 'Summery has been deleted successfully.');
     }
-    public function get_unit_summery($material_id,$unit_id)
+    // public function get_unit_summery($material_id,$unit_id)
+    public function get_unit_summery($unit_id)
     {
-        $summery = Summery::where('unit_id', $unit_id,'material_id',$material_id)->get();
-        return $this->successResponse($summery, 'success reply', 200);
+        // $summery = Summery::where('unit_id', $unit_id,'material_id',$material_id)->get();
+        $summery = Summery::where('unit_id', $unit_id)->get();
+        return $this->successresponse(SummeryResource::collection($summery), 'Book  Showed Successfully', 200);
+        // return $this->successResponse($summery, 'success reply', 200);
     }
 }

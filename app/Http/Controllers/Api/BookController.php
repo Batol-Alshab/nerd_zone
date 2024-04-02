@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Models\Book_url;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Http\Resources\BookResource;
 use App\Http\Controllers\Api\FileUploader;
 
 class BookController extends Controller
@@ -14,7 +15,9 @@ class BookController extends Controller
     public function index()
     {
         $book_url = Book_url::all();
-        return $this->successResponse($book_url, 'Book  Showed Successfully');
+        return $this->successresponse(BookResource::collection($book_url), 'Book  Showed Successfully', 200);
+
+        // return $this->successResponse($book_url, 'Book  Showed Successfully');
     }
 
 
@@ -22,7 +25,7 @@ class BookController extends Controller
     {
         $validatedData = $request->validate([
             'name' => 'required|string',
-            'book_url' => 'required|mimes:pdf,doc,docx,txt|max:10240',
+            'url' => 'required|mimes:pdf,doc,docx,txt|max:10240',
             'material_id' => 'required|exists:materials,id'
         ]);
         // $uploadedFile = $request->file('book_url');
@@ -30,7 +33,7 @@ class BookController extends Controller
         $path = $this->uploadFile($request, 'book_url', 'books');
         $book = Book_url::create([
             'name' => $request->name,
-            'book_url' => $path,
+            'url' => $path,
             'material_id' => $request->material_id
         ]);
 
@@ -51,7 +54,7 @@ class BookController extends Controller
         $book_url = Book_url::find($id);
         $validatedData = $request->validate([
             'name' => 'required|string',
-            'book_url' => 'required|mimes:pdf,doc,docx,txt|max:10240',
+            'url' => 'required|mimes:pdf,doc,docx,txt|max:10240',
             'material_id' => 'required|exists:materials,id'
         ]);
         $book_url->update($validatedData);
@@ -70,7 +73,9 @@ class BookController extends Controller
     public function get_material_book($material_id)
     {
         $book = Book_url::where('material_id', $material_id)->get();
-         return $this->successResponse($book, 'success reply', 200);
+        //  return $this->successResponse($book, 'success reply', 200);
+        return $this->successresponse(BookResource::collection($book), 'success reply', 200);
+
     }
 
 }

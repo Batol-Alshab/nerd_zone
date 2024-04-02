@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 class Book_url extends Model
 {
     use HasFactory;
-    protected $fillable = ['name', 'book_url', 'material_id'];
+    protected $fillable = ['name', 'url', 'material_id'];
 
     public function material()
     {

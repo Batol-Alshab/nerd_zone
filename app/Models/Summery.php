@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 class Summery extends Model
 {
     use HasFactory;
-    protected $fillable = ['url', 'title', 'unit_id'];
+    protected $fillable = ['name', 'url', 'unit_id'];
 
     public function unit()
     {

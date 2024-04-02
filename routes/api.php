@@ -57,7 +57,8 @@ route::get('/materials/sientific', [MaterialController::class, 'sientific_materi
 //عرض مواد الفرع الادبي
 route::get('/materials/literary', [MaterialController::class, 'literary_material']);
 //عرض ملخصات مادة
-Route::get('/summery/{material_id}/{unit_id}', [SummeryController::class, 'get_unit_summery']);
+// Route::get('/summery/{material_id}/{unit_id}', [SummeryController::class, 'get_unit_summery']);
+Route::get('/summery/{unit_id}', [SummeryController::class, 'get_unit_summery']);
 //عرض كتب مادة معينة
 Route::get('/material/book/{id}', [BookController::class, 'get_material_book']);
 //بيانات يوزر حسب المعرف

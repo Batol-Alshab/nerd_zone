@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('book_urls', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('book_url');
+            $table->string('url');
             $table->foreignId('material_id')->references('id')->on('materials')->cascadeOnDelete();
             $table->timestamps();
         });
