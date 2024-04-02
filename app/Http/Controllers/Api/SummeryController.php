@@ -14,7 +14,7 @@ class SummeryController extends Controller
     public function index()
     {
         $summery_url = Summery::all();
-        return $this->successresponse(SummeryResource::collection($summery_url), 'Book  Showed Successfully', 200);
+        return $this->successresponse(SummeryResource::collection($summery_url), 'Summery  Showed Successfully', 200);
         // return $this->successResponse($summery_url, 'Summery  Showed Successfully');
     }
 
@@ -45,7 +45,9 @@ class SummeryController extends Controller
     public function show(string $id)
     {
         $summery_url = Summery::find($id);
-        return $this->successResponse($summery_url, 'show  Summery Successfully');
+        return $this->successresponse(SummeryResource::collection($summery_url), 'Summery  Showed Successfully', 200);
+
+        // return $this->successResponse($summery_url, 'show  Summery Successfully');
     }
 
 
@@ -58,7 +60,8 @@ class SummeryController extends Controller
             'unit_id' => 'required|exists:unites,id'
         ]);
         $summery_url->update($validatedData);
-        return $this->successResponse($summery_url, 'Summery has been updated successfully.');
+        return $this->successresponse(SummeryResource::collection($summery_url), 'Summery  Showed Successfully', 200);
+        // return $this->successResponse($summery_url, 'Summery has been updated successfully.');
 
     }
 
@@ -76,7 +79,7 @@ class SummeryController extends Controller
     {
         // $summery = Summery::where('unit_id', $unit_id,'material_id',$material_id)->get();
         $summery = Summery::where('unit_id', $unit_id)->get();
-        return $this->successresponse(SummeryResource::collection($summery), 'Book  Showed Successfully', 200);
+        return $this->successresponse(SummeryResource::collection($summery), 'Summery Showed Successfully', 200);
         // return $this->successResponse($summery, 'success reply', 200);
     }
 }

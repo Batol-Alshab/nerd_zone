@@ -37,15 +37,16 @@ class BookController extends Controller
             'material_id' => $request->material_id
         ]);
 
-
-        return $this->successResponse($book, 'Book  store Successfully', 201);
+        return $this->successresponse(BookResource::collection($book), 'success reply', 200);
+        // return $this->successResponse($book, 'Book  store Successfully', 201);
     }
 
 
     public function show($id)
     {
         $book_url = Book_url::find($id);
-        return $this->successResponse($book_url, 'show  Book Successfully');
+        return $this->successresponse(BookResource::collection($book_url), 'success reply', 200);
+        // return $this->successResponse($book_url, 'show  Book Successfully');
     }
 
 
@@ -58,7 +59,8 @@ class BookController extends Controller
             'material_id' => 'required|exists:materials,id'
         ]);
         $book_url->update($validatedData);
-        return $this->successResponse($book_url, 'Book has been updated successfully.');
+        return $this->successresponse(BookResource::collection($book_url), 'success reply', 200);
+        // return $this->successResponse($book_url, 'Book has been updated successfully.');
     }
 
 

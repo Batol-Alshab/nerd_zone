@@ -5,16 +5,18 @@ namespace App\Http\Controllers\Api;
 use Illuminate\Http\Request;
 use App\Models\Locked_question;
 use App\Http\Controllers\Controller;
+use App\Http\Resources\LockedQuestionResource;
 
 class Locked_questionController extends Controller
-{
+{use ApiResponse;
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
         $Locked_question_url = Locked_question::all();
-        return $this->successResponse($Locked_question_url, 'Locked Question  Showed Successfully');
+        return $this->successresponse(LockedQuestionResource::collection($Locked_question_url), 'Locked  Showed Successfully', 200);
+        // return $this->successResponse($Locked_question_url, 'Locked Question  Showed Successfully');
     }
 
     /**
@@ -31,7 +33,8 @@ class Locked_questionController extends Controller
     public function show(string $id)
     {
         $Locked_question_url = Locked_question::find($id);
-        return $this->successResponse($Locked_question_url, 'show  Locked Question Successfully');
+        return $this->successresponse(LockedQuestionResource::collection($Locked_question_url), 'Locked  Showed Successfully', 200);
+        // return $this->successResponse($Locked_question_url, 'show  Locked Question Successfully');
     }
 
     /**
@@ -57,6 +60,7 @@ class Locked_questionController extends Controller
     {
         // $locked_question = Locked_question::where('unit_id', $unit_id,'material_id',$material_id)->get();
         $locked_question = Locked_question::where('unit_id', $unit_id)->get();
-        return $this->successResponse($locked_question, 'success reply', 200);
+        return $this->successresponse(LockedQuestionResource::collection($locked_question), 'Locked  Showed Successfully', 200);
+        // return $this->successResponse($locked_question, 'success reply', 200);
     }
 }

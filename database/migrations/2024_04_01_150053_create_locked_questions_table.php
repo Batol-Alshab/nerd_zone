@@ -14,9 +14,8 @@ return new class extends Migration
         Schema::create('locked_questions', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
+            $table->string('name');
             $table->string('url');
-            $table->string('title');
-            // $table->string('rate');
             $table->integer('rate');
             $table->foreignId('unit_id')->references('id')->on('units')->cascadeOnDelete();
         });

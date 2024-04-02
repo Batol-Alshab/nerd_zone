@@ -6,10 +6,11 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\BookController;
 use App\Http\Controllers\Api\UnitController;
-use App\Http\Controllers\Api\SectionController;
-use App\Http\Controllers\Api\MaterialController;
-use App\Http\Controllers\Api\SummeryController;
 use App\Http\Controllers\Api\UserController;
+use App\Http\Controllers\Api\SectionController;
+use App\Http\Controllers\Api\SummeryController;
+use App\Http\Controllers\Api\MaterialController;
+use App\Http\Controllers\Api\Locked_questionController;
 
 /*
 |--------------------------------------------------------------------------
@@ -59,6 +60,8 @@ route::get('/materials/literary', [MaterialController::class, 'literary_material
 //عرض ملخصات مادة
 // Route::get('/summery/{material_id}/{unit_id}', [SummeryController::class, 'get_unit_summery']);
 Route::get('/summery/{unit_id}', [SummeryController::class, 'get_unit_summery']);
+//عرض اسئلة مقفولة لوحدة 
+Route::get('/locked/{unit_id}', [Locked_questionController::class, 'get_unit_locked_question']);
 //عرض كتب مادة معينة
 Route::get('/material/book/{id}', [BookController::class, 'get_material_book']);
 //بيانات يوزر حسب المعرف

@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Locked_question extends Model
 {
     use HasFactory;
-    protected $fillable = ['url', 'title', 'rate', 'unit_id'];
+    protected $fillable = ['name', 'url', 'rate', 'unit_id'];
 
     public function unit()
     {

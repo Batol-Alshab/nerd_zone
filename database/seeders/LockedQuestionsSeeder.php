@@ -14,8 +14,8 @@ class LockedQuestionsSeeder extends Seeder
     public function run(): void
     {
         Locked_question::create([
+            'name' => 'الاختبار الاول',
             'url'=>'الاختبار الاول.pdf',
-            'title' => 'الاختبار الاول',
             'rate'=>10,
             'unit_id'=> '1',
         ]);   
