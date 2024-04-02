@@ -21,7 +21,8 @@ class DatabaseSeeder extends Seeder
         $this->call([
             SectionSeeder::class,
             MaterialSeeder::class,
-            UnitSeeder::class
+            UnitSeeder::class,
+            LockedQuestionsSeeder::class
         ]);
     }
 }

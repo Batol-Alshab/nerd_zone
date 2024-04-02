@@ -14,4 +14,8 @@ class Unit extends Model
     {
         return $this->hasMany(Summery::class);
     }
+    public function locked_questions()
+    {
+        return $this->hasMany(locked_question::class);
+    }
 }
