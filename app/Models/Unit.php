@@ -2,8 +2,8 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Unit extends Model
 {
@@ -17,5 +17,9 @@ class Unit extends Model
     public function locked_questions()
     {
         return $this->hasMany(locked_question::class);
+    }
+    public function openquestions()
+    {
+        return $this->hasMany(OpenQuestion::class);
     }
 }

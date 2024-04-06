@@ -24,7 +24,9 @@ class DatabaseSeeder extends Seeder
             UnitSeeder::class,
             LockedQuestionsSeeder::class,
             BookSeeder::class,
-            SummerySeeder::class
+            SummerySeeder::class,
+            OpenQuestionSeeder::class,
+            AnswerSeeder::class
         ]);
     }
 }
