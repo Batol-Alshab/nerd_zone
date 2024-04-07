@@ -7,6 +7,7 @@ use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\BookController;
 use App\Http\Controllers\Api\UnitController;
 use App\Http\Controllers\Api\UserController;
+use App\Http\Controllers\Api\ImageController;
 use App\Http\Controllers\Api\SectionController;
 use App\Http\Controllers\Api\SummeryController;
 use App\Http\Controllers\Api\MaterialController;
@@ -67,3 +68,7 @@ Route::get('/material/book/{id}', [BookController::class, 'get_material_book']);
 //بيانات يوزر حسب المعرف
 Route::get('/getuser',[AuthController::class, 'getUser'])->middleware('jwt.auth');
 Route::get('/user/info', [UserController::class, 'show'])->middleware('jwt.auth');
+//تحميل صورة 
+Route::post('/upload',[ImageController::class,'upload']);
+// عرض الصور
+Route::get('/images',[ImageController::class,'index']);
