@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\AnswerController;
 use App\Models\Material;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -11,18 +12,9 @@ use App\Http\Controllers\Api\ImageController;
 use App\Http\Controllers\Api\SectionController;
 use App\Http\Controllers\Api\SummeryController;
 use App\Http\Controllers\Api\MaterialController;
+use App\Http\Controllers\Api\OpenQuestionController;
 use App\Http\Controllers\Api\Locked_questionController;
-
-/*
-|--------------------------------------------------------------------------
-| API Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register API routes for your application. These
-| routes are loaded by the RouteServiceProvider and all of them will
-| be assigned to the "api" middleware group. Make something great!
-|
-*/
+use App\Models\OpenQuestion;
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
@@ -48,8 +40,13 @@ Route::post('/summery/create/{unit_id}', [SummeryController::class, 'store']);
 // Route::post('/section/update/{id}',[SectionController::class,'update']);
 //تعديل الملف الشخصي
 Route::put('/users/{user}',[UserController::class,'update'])->middleware('jwt.auth');
-
+//admin
 Route::apiResource('books', BookController::class);
+Route::apiResource('open_questions', OpenQuestionController::class);
+//
+Route::get('/questions/{unit_id}/{model}',[AnswerController::class,'getQuestionsWithAnswers']);
+//عرض نماذج مادة معينة
+Route::get('/material/unit/model/{unit_id}',[OpenQuestionController::class, 'getModelsForUnit']);
 //عرص وحدات مادة
 Route::get('/material/unites/{material_id}', [UnitController::class, 'get_material_unites']);
 //عرض المواد
@@ -61,7 +58,7 @@ route::get('/materials/literary', [MaterialController::class, 'literary_material
 //عرض ملخصات مادة
 // Route::get('/summery/{material_id}/{unit_id}', [SummeryController::class, 'get_unit_summery']);
 Route::get('/summery/{unit_id}', [SummeryController::class, 'get_unit_summery']);
-//عرض اسئلة مقفولة لوحدة 
+//عرض اسئلة مقفولة لوحدة
 Route::get('/locked/{unit_id}', [Locked_questionController::class, 'get_unit_locked_question']);
 //عرض كتب مادة معينة
 Route::get('/material/book/{id}', [BookController::class, 'get_material_book']);
