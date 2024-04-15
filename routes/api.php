@@ -1,20 +1,22 @@
 <?php
 
-use App\Http\Controllers\Api\AnswerController;
 use App\Models\Material;
+use App\Models\OpenQuestion;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\BookController;
+use App\Http\Controllers\Api\TermController;
 use App\Http\Controllers\Api\UnitController;
 use App\Http\Controllers\Api\UserController;
 use App\Http\Controllers\Api\ImageController;
+use App\Http\Controllers\Api\AnswerController;
 use App\Http\Controllers\Api\SectionController;
 use App\Http\Controllers\Api\SummeryController;
 use App\Http\Controllers\Api\MaterialController;
+use App\Http\Controllers\Api\TradeOffController;
 use App\Http\Controllers\Api\OpenQuestionController;
 use App\Http\Controllers\Api\Locked_questionController;
-use App\Models\OpenQuestion;
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
@@ -47,10 +49,12 @@ Route::apiResource('open_questions', OpenQuestionController::class);
 Route::get('/questions/{unit_id}/{model}',[AnswerController::class,'getQuestionsWithAnswers']);
 //عرض نماذج مادة معينة
 Route::get('/material/unit/model/{unit_id}',[OpenQuestionController::class, 'getModelsForUnit']);
-//عرص وحدات مادة
-Route::get('/material/unites/{material_id}', [UnitController::class, 'get_material_unites']);
 //عرض المواد
 Route::get('/materials', [MaterialController::class, 'index']);
+//عرص وحدات مادة
+Route::get('/material/unites/{material_id}', [UnitController::class, 'get_material_unites']);
+//عرض دورات مادة
+Route::get('/material/terms/{material_id}', [TermController::class, 'get_material_terms']);
 //عرض مواد الفرع العلمي
 route::get('/materials/sientific', [MaterialController::class, 'sientific_material']);
 //عرض مواد الفرع الادبي
@@ -65,6 +69,9 @@ Route::get('/material/book/{id}', [BookController::class, 'get_material_book']);
 //بيانات يوزر حسب المعرف
 Route::get('/getuser',[AuthController::class, 'getUser'])->middleware('jwt.auth');
 Route::get('/user/info', [UserController::class, 'show'])->middleware('jwt.auth');
+
+//عرض المفاضلات ل فرع محدد
+Route::get('/section/trade/{id}',[TradeOffController::class, 'get_section_trade']);
 //تحميل صورة 
 Route::post('/upload',[ImageController::class,'upload']);
 // عرض الصور

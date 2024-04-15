@@ -26,7 +26,8 @@ class DatabaseSeeder extends Seeder
             BookSeeder::class,
             SummerySeeder::class,
             OpenQuestionSeeder::class,
-            AnswerSeeder::class
+            AnswerSeeder::class,
+            TermSeeder::class
         ]);
     }
 }

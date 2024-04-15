@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class OpenQuestion extends Model
 {
     use HasFactory;
-    protected $fillable = ['content', 'rate', 'model'];
+    protected $fillable = ['title','content', 'rate', 'model'];
 
     public function unit()
     {

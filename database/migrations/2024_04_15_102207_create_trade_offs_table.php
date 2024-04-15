@@ -11,22 +11,22 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('open_questions', function (Blueprint $table) {
+        Schema::create('trade_offs', function (Blueprint $table) {
             $table->id();
-            $table->string('title');
-            $table->integer('rate')->default(5);
-            $table->text('content');
-            $table->string('model');
-            $table->foreignId('unit_id')->references('id')->on('units')->cascadeOnDelete();
             $table->timestamps();
+            $table->string('name');
+            $table->string('url');
+            $table->foreignId('section_id')->references('id')->on('sections')->cascadeOnDelete();
+
         });
     }
+    
 
     /**
      * Reverse the migrations.
      */
     public function down(): void
     {
-        Schema::dropIfExists('open_questions');
+        Schema::dropIfExists('trade_offs');
     }
 };

@@ -20,22 +20,20 @@ class ImageController extends Controller
             $image = $request->file('image');
             $name =  time() . '_' . $image->getClientOriginalName();
             $image->move('images/',$name);
-            // $name= asset('images/1712430218_t1.png');
+            $name= asset('images/'.$name);
             Image::create(['name'=>$name]);
-            // return response()->json(['success'=>'Upload successfully']);
-            return $this->successResponse(Image::all(), 'getting user information successfully', 200);
+            return response()->json(['success'=>'Upload successfully']);
 
         }
         return response()->json('Upload error');
     }
     public function index()
     {
-        return $this->successResponse(Image::all(), 'getting user information successfully', 200);
 
-        // return response()->json(
-        //     Image::all()
+        return response()->json(
+            Image::all()
             
-        // );
+        );
     }
 
     /**
