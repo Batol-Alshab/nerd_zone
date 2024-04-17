@@ -14,9 +14,7 @@ return new class extends Migration
         Schema::create('materials', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            // $table->string('image')->nullable()->default('C:/xampp/htdocs/nerd_zone/nerd_zone/public/images/material_image/BOOK.png');
-            // $table->string('image')->nullable()->default('./BOOK.png');
-            $table->string('image')->nullable()->default('BOOK.png');
+            $table->string('image')->nullable()->default('http://127.0.0.1:8000/images/material_image/BOOK.png');
             $table->foreignId('section_id')->references('id')->on('sections')->cascadeOnDelete();
             $table->timestamps();
         });

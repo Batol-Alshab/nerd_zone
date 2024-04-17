@@ -10,13 +10,14 @@ use App\Http\Resources\MaterialResource;
 class MaterialController extends Controller
 {
     use apiResponse;
+    use FileUploader;
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
         $materials = Material::all();
-        return $this->successresponse(MaterialResource::collection($materials), 'success', 200);
+        return $this->successResponse(MaterialResource::collection($materials), 'Material index  successfully', 200);
     }
 
     /**
@@ -24,7 +25,33 @@ class MaterialController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        try{
+            $validatedata=$request->validate([
+                'name'=>'required|string|unique:materials,name',
+                'image'=>'mimes:jpg,png,jpeg,gif',
+                'section_id'=>'required|exists:sections,id'
+            ]);
+            if($request->hasFile('image')) {
+                $path = $this->uploadAll($request, 'images/', 'material_image/');
+                $material=Material::create([
+                    'name'=>$request->name,
+                    'image'=>$request->image,
+                    'section_id'=>$request->section_id
+                ]);
+            } 
+            else
+            {
+                $material=Material::create([
+                    'name'=>$request->name,
+                    'image'=>'http://127.0.0.1:8000/images/material_image/BOOK.png',
+                    'section_id'=>$request->section_id
+                ]);
+            }
+                return $this->successResponse(new MaterialResource($material),'Material store Successfully!',201);
+            
+        }catch (\Exception $e) {
+            return $this->errorResponse('the material is store already', 500);
+        }
     }
 
     /**
@@ -32,15 +59,31 @@ class MaterialController extends Controller
      */
     public function show(string $id)
     {
-        //
+        try{
+            $material=Material::find($id);
+            return $this->successResponse(new MaterialResource($material),'Material show  successfully', 200);
+        }catch (\Exception $e) {
+            return $this->errorResponse('the Material is not found ', 500);
+        }
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+
+    public function update(Request $request, $id)
     {
-        //
+        $material=Material::find($id);
+        if($request->image);
+            {
+                $path=$this->uploadAll($request,'images/','material_image/');
+            }
+        $material->update([
+            'name'=>($request->name) ? $request->name :$material->name ,
+            'image'=>($request->image) ?$request->image :$material->image,
+            'section_id'=>($request->section_id) ? $request->section_id :$material->section_id
+        ]);
+        return $this->successResponse(new MaterialResource($material), 'Material updated Successfully!', 200);
     }
 
     /**
@@ -48,7 +91,19 @@ class MaterialController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        try{
+            $material=Material::find($id);
+            if($material){
+                $material->delete();
+                return $this->successResponse(null,'Materail has been destroyed successfully',200);
+            }else {
+                return $this->errorResponse('Material not found',404);
+            }
+        }catch(\Exception $e){
+                return $this->errorResponse('Failed to destroy the section.', 500);
+            }
+            
+
     }
 
     public function sientific_material()

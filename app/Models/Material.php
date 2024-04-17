@@ -12,7 +12,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 class Material extends Model
 {
     use HasFactory;
-    protected $fillable = ['name', 'section_id'];
+    protected $fillable = ['name', 'image', 'section_id'];
 
     public function section()
     {

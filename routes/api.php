@@ -36,10 +36,44 @@ Route::post('/summery/create/{unit_id}', [SummeryController::class, 'store']);
 
 
 //except admin
-// Route::get('/section/index', [SectionController::class, 'index']);
-// Route::post('/section/create', [SectionController::class, 'store']);
-// Route::delete('/section/destroy/{id}', [SectionController::class, 'destroy']);
-// Route::post('/section/update/{id}',[SectionController::class,'update']);
+
+/* SECTION*/
+//عرض كل الافرع
+ Route::get('/section/index', [SectionController::class, 'index']);
+ //اضافة فرع جديد
+ Route::post('/section/create', [SectionController::class, 'store']);
+ //اظهار فرع محدد
+ Route::get('/section/show/{id}', [SectionController::class, 'show']);
+ //تعديل على فرع محدد
+ Route::post('/section/update/{id}', [SectionController::class, 'update']);
+ //حذف فرع محدد
+ Route::get('/section/destroy/{id}', [SectionController::class, 'destroy']);
+/* SECTION*/
+////////////////////////////////////////////////////////////////////////////
+/*MATERIAL*/
+//عرض كل المواد
+Route::get('/material',[MaterialController::class,'index']);
+//اضافة مادة جديدة
+Route::post('material/create',[MaterialController::class,'store']);
+//اظهار مادة محددة
+Route::get('/material/show/{id}',[MaterialController::class,'show']);
+//تعديل على مادة محددة
+Route::post('/material/update/{id}',[MaterialController::class, 'update']);
+//حذف مادة محددة
+Route::get('/material/destroy/{id}',[MaterialController::class,'destroy']);
+/*MATERIAL*/
+
+
+//عرص وحدات مادة
+Route::get('/material/unites/{material_id}', [UnitController::class, 'get_material_unites']);
+//عرض دورات مادة
+Route::get('/material/terms/{material_id}', [TermController::class, 'get_material_terms']);
+//عرض مواد الفرع العلمي
+route::get('/materials/sientific', [MaterialController::class, 'sientific_material']);
+//عرض مواد الفرع الادبي
+route::get('/materials/literary', [MaterialController::class, 'literary_material']);
+
+
 //تعديل الملف الشخصي
 Route::put('/users/{user}',[UserController::class,'update'])->middleware('jwt.auth');
 //admin
@@ -51,6 +85,9 @@ Route::get('/questions/{unit_id}/{model}',[AnswerController::class,'getQuestions
 Route::get('/material/unit/model/{unit_id}',[OpenQuestionController::class, 'getModelsForUnit']);
 //عرض المواد
 Route::get('/materials', [MaterialController::class, 'index']);
+//////////////add material
+//Rout::get('/material/add',[MaterialController::class,'store']);
+
 //عرص وحدات مادة
 Route::get('/material/unites/{material_id}', [UnitController::class, 'get_material_unites']);
 //عرض دورات مادة

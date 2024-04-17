@@ -7,7 +7,7 @@ use App\Models\Section;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\SectionResource;
-
+use Illuminate\Validation\Validator;
 
 class SectionController extends Controller
 {
@@ -26,41 +26,55 @@ class SectionController extends Controller
      */
     public function store(Request $request)
     {
-        $validatedData = $request->validate([
-            'name' => 'required|string|uniqe',
-        ]);
-        $section = Section::create([
-            "name" => $request->name,
-        ]);
-
-        return $this->successResponse($section, "create section successfully", 200);
+        try{
+            $validatedData = $request->validate([
+                'name' => 'required|string|unique:sections,name',
+            ]);
+            
+            $section = Section::create([
+                "name" => $request->name,
+            ]);
+            return $this->successResponse(new SectionResource($section), "create section successfully", 201);
+        }catch (\Exception $e) {
+            return $this->errorResponse('the section is store already', 500);
+        }
     }
 
-
-    // public function show(string $id)
-    // {
-    //     $section = Section::find($id);
-    //     return $this->successResponse($section, 'section  Showed Successfully');
-    // }
-    public function show(Section $section)
+    /**
+     * Display the specified resource.
+     */
+    public function show(string $id)
     {
-        // $section = Section::find($id);
-        return $this->successResponse($section, 'section  Showed Successfully');
+        try{
+            $section = Section::find($id);
+            return $this->successResponse(new SectionResource($section), 'section  Showed Successfully',200);
+        }catch (\Exception $e) {
+            return $this->errorResponse('the section is not found', 500);
+        }
     }
-
-
-
+        
+    /**
+     * Update the specified resource in storage.
+    */
     public function update(Request $request, string $id)
     {
         $section = Section::find($id);
-        $validatedData = $request->validate([
-            'name' => 'required|string',
-        ]);
-        $section->update($validatedData);
-        return $this->successResponse($section, 'Section has been updated successfully.');
+        try{
+            $validatedData = $request->validate([
+                'name' => 'required|string|unique:sections,name',
+            ]);
+            
+            $section->update($validatedData);
+            return $this->successResponse(new SectionResource($section), 'Section has been updated successfully.');
+        }
+        catch (\Exception $e) {
+            return $this->errorResponse('the section is found alreay', 500);
+        }
     }
 
-
+    /**
+     * Remove the specified resource from storage.
+     */
     public function destroy(string $id)
     {
         try {
@@ -68,7 +82,7 @@ class SectionController extends Controller
 
             if ($section) {
                 $section->delete();
-                return $this->successResponse(null, 'Section has been destroyed successfully.', 204);
+                return $this->successResponse(null, 'Section has been destroyed successfully.', 200);
             } else {
                 return $this->errorResponse('Section not found.', 404);
             }
@@ -78,20 +92,4 @@ class SectionController extends Controller
         }
     }
 
-    // public function get_section_scientific_material($id)
-    // {
-    //     // $section = new Section();
-    //     $section = Section::find($id);
-    //     if (!$section) {
-    //         return $this->errorResponse('Section not found', 404);
-    //     }
-    //     // $materials = $section->materials();
-    //     return $this->successResponse($section, 'مواد الفرع العلمي', 204);
-    // }
-    // public function get_section_literary_material()
-    // {
-    //     $section = new Section();
-    //     $materials = $section->materials()->where('id', '2')->get();
-    //     return $this->successResponse($materials, 'مواد الفرع الادبي', 204);
-    // }
 }

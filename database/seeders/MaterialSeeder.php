@@ -24,16 +24,17 @@ class MaterialSeeder extends Seeder
             ' التربية الوطنية ',
             'التربية الدينية',
         ];
+        $url='http://127.0.0.1:8000/images/material_image/';
         $image=[
-            'BOOK.png',
-            'BOOK.png',
-            'BOOK.png',
-            'BOOK.png',
-            'biology.jpg',
-            'english.jpg',
-            'BOOK.png',
-            'BOOK.png',
-            'BOOK.png',  
+            $url.'BOOk.png',
+            $url.'BOOK.png',
+            $url.'BOOK.png',
+            $url.'arabic.jpg',     
+            $url.'biology.jpg',
+            $url.'english.jpg',
+            $url.'BOOK.png',
+            $url.'BOOK.png',
+            $url.'BOOK.png',  
         ];
         $l_material=[
             'الفلسفة',
