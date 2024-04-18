@@ -108,7 +108,7 @@ Route::get('/getuser',[AuthController::class, 'getUser'])->middleware('jwt.auth'
 Route::get('/user/info', [UserController::class, 'show'])->middleware('jwt.auth');
 
 //عرض المفاضلات ل فرع محدد
-Route::get('/section/trade/{id}',[TradeOffController::class, 'get_section_trade']);
+Route::get('/section/trade_off/{section}',[TradeOffController::class, 'get_section_trade']);
 //تحميل صورة 
 Route::post('/upload',[ImageController::class,'upload']);
 // عرض الصور
