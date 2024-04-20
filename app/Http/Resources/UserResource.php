@@ -23,14 +23,15 @@ class UserResource extends JsonResource
 
                 'fname' => $this->fname,
                 'lname' => $this->lname,
-                'email' => $this->email,
-                'phone_number' => $this->phone_number,
+                // 'email' => $this->email,
+                // 'phone_number' => $this->phone_number,
                 'sex' => $this->sex,
                 'section_id' => $this->section_id,
                 'rate'=>$this->rate,
                 'image'=>$this->image,
-                'level'=>$this->level,
-                'opinion'=>$this->opinion
+                // 'level'=>$this->level,
+                'opinion'=>$this->opinion,
+                'summeries' => SummeryResource::collection($this->whenLoaded('summeries')),
 
         ];
     }
