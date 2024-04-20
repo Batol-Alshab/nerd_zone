@@ -13,24 +13,32 @@ class UnitSeeder extends Seeder
      */
     public function run(): void
     {
+        $url='http://127.0.0.1:8000/images/material_image/';
+        
+            
         Unit::create([
-            'title' => 'وحدة العصبية',
+            'name' => 'وحدة العصبية',
+            'image'=>$url.'BOOk.png',
             'material_id' => '5'
         ]);
         Unit::create([
-            'title' => 'وحدة الوراثة',
+            'name' => 'وحدة الوراثة',
+            'image'=>$url.'BOOk.png',
             'material_id' => '5'
         ]);
         Unit::create([
-            'title' => 'الوحدة الاولى ',
+            'name' => 'الوحدة الاولى ',
+            'image'=>$url.'BOOk.png',
             'material_id' => '13'
         ]);
         Unit::create([
-            'title' => 'الوحدة الثانية ',
+            'name' => 'الوحدة الثانية ',
+            'image'=>$url.'BOOk.png',
             'material_id' => '13'
         ]);
         Unit::create([
-            'title' => 'الوحدة الثالثة ',
+            'name' => 'الوحدة الثالثة ',
+            'image'=>$url.'BOOk.png',
             'material_id' => '13'
         ]);
     }

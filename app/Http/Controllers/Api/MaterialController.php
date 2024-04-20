@@ -61,9 +61,16 @@ class MaterialController extends Controller
     {
         try{
             $material=Material::find($id);
+            if($material)
+            {
             return $this->successResponse(new MaterialResource($material),'Material show  successfully', 200);
+            }
+            else
+            {
+                return $this->errorResponse('the Material is not found ', 404);
+            }
         }catch (\Exception $e) {
-            return $this->errorResponse('the Material is not found ', 500);
+            return $this->errorResponse('Failed to show Materail', 500);
         }
     }
 
@@ -93,15 +100,18 @@ class MaterialController extends Controller
     {
         try{
             $material=Material::find($id);
-            if($material){
+            if($material)
+            {
                 $material->delete();
                 return $this->successResponse(null,'Materail has been destroyed successfully',200);
-            }else {
+            }
+            else 
+            {
                 return $this->errorResponse('Material not found',404);
             }
         }catch(\Exception $e){
-                return $this->errorResponse('Failed to destroy the section.', 500);
-            }
+                return $this->errorResponse('Failed to destroy the Materail.', 500);
+        }
             
 
     }

@@ -9,16 +9,16 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\SummeryResource;
 
 class SummeryController extends Controller
-{use ApiResponse;
-
+{
+    use ApiResponse;
+    use FileUploader; 
     public function index()
     {
-        $summery_url = Summery::all();
-        return $this->successresponse(SummeryResource::collection($summery_url), 'Summery  Showed Successfully', 200);
-        // return $this->successResponse($summery_url, 'Summery  Showed Successfully');
+        $summeries = Summery::all();
+        return $this->successresponse(SummeryResource::collection($summeries), 'Summery  index Successfully', 200);
     }
 
-
+    
     public function store(Request $request)
     {
         $validatedData = $request->validate([
@@ -26,19 +26,13 @@ class SummeryController extends Controller
             'url' => 'required|mimes:pdf,doc,docx,txt|max:10240',
             'unit_id' => 'required|exists:unites,id'
         ]);
-        // $uploadedFile = $request->file('book_url');
-        // $filePath = $uploadedFile->store('books', 'public');
-        // $path = $this->uploadFile($request, 'url', 'summery');
-        // $summery = Unit::create([
-        $path = $this->uploadFile($request, 'url', 'summeries');
+        $path = $this->uploadFile($request, 'file/', 'summeries/');
         $summery = Summery::create([
             'name' => $request->name,
-            'url' => $path,
+            'url' => $request->url,
             'unit_id' => $request->unit_id
         ]);
-
-
-        return $this->successResponse($summery, 'Summery  store Successfully', 201);
+        return $this->successResponse(new SummaryResource($summery) , 'Summery  store Successfully', 201);
     }
 
 

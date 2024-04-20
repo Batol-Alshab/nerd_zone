@@ -14,6 +14,16 @@ class UserController extends Controller
 {
     use ApiResponse;
     use FileUploader;
+    public function updateRate(Request $request)
+    {
+        $user = User::where('id', 1)->first(); 
+        $newRate=($user->rate)+($request->rate);
+        $user->update([
+            'rate'=>$newRate
+        ]);
+        return $this->successresponse($newRate, 'success reply', 200);
+
+    }
     /**
      * Display a listing of the resource.
      */

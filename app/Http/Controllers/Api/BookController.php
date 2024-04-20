@@ -15,67 +15,92 @@ class BookController extends Controller
     public function index()
     {
         $book_url = Book_url::all();
-        return $this->successresponse(BookResource::collection($book_url), 'Book  Showed Successfully', 200);
-
-        // return $this->successResponse($book_url, 'Book  Showed Successfully');
+        return $this->successresponse(BookResource::collection($book_url), 'Book  index Successfully', 200);
     }
 
 
     public function store(Request $request)
     {
+        try{
         $validatedData = $request->validate([
             'name' => 'required|string',
             'url' => 'required|mimes:pdf,doc,docx,txt|max:10240',
             'material_id' => 'required|exists:materials,id'
         ]);
-        // $uploadedFile = $request->file('book_url');
-        // $filePath = $uploadedFile->store('books', 'public');
-        $path = $this->uploadFile($request, 'book_url', 'books');
+        $path = $this->uploadFile($request, 'file/', 'books/');
         $book = Book_url::create([
             'name' => $request->name,
-            'url' => $path,
+            'url' => $request->url,
             'material_id' => $request->material_id
         ]);
 
-        return $this->successresponse(BookResource::collection($book), 'success reply', 200);
-        // return $this->successResponse($book, 'Book  store Successfully', 201);
+        return $this->successresponse(new BookResource($book), 'Book store Successfully!',201);
+    }catch (\Exception $e) {
+        return $this->errorResponse('the book is not store', 500);
+    }
     }
 
 
-    public function show($id)
+    public function show(string $id)
     {
-        $book_url = Book_url::find($id);
-        return $this->successresponse(BookResource::collection($book_url), 'success reply', 200);
-        // return $this->successResponse($book_url, 'show  Book Successfully');
+        try{
+            $book = Book_url::find($id);
+            if($book){            
+                return $this->successresponse(new BookResource($book), 'Book show successfully', 200);
+            }else{
+                return $this->errorResponse('the Book is not found ', 404);
+            }
+        }catch (\Exception $e) {
+            return $this->errorResponse('Failed to show Book', 500);
+        }
     }
 
 
     public function update(Request $request, $id)
     {
-        $book_url = Book_url::find($id);
-        $validatedData = $request->validate([
-            'name' => 'required|string',
-            'url' => 'required|mimes:pdf,doc,docx,txt|max:10240',
-            'material_id' => 'required|exists:materials,id'
-        ]);
-        $book_url->update($validatedData);
-        return $this->successresponse(BookResource::collection($book_url), 'success reply', 200);
-        // return $this->successResponse($book_url, 'Book has been updated successfully.');
+        try{
+            $book=Book_url::find($id);
+            if($request->url )
+            {
+                $path=$this->uploadFile($request,'file/','books/');
+            }
+            if ($book)
+            {
+                $book->update([
+                    'name'=>($request->name) ? $request->name : $book->name,
+                    'url'=>($request->url) ? $request->url : $book->url,
+                    'material_id'=>($request->material_id) ? $request->material_id : $book->material_id
+                ]);
+                return $this->successresponse(new BookResource($book), 'Book updated Successfully!', 200);   
+            }
+            else{
+                return $this->errorResponse('the book not found',404);
+            }
+    }catch(\Exception $e){
+            return $this->errorResponse('Failed to update Book',500);
+        }
     }
 
 
     public function destroy(string $id)
     {
-        $book_url = Book_url::find($id);
-        $book_url->delete();
-        return $this->successResponse(null, 'Book has been deleted successfully.');
+        try{
+            $book=Book_url::find($id);
+            if($book){
+                $book->delete();
+                return $this->successResponse(null,'Book has been deleted successfully.');
+            }else {
+                return $this->errorResponse('the Book not found',404);
+            }
+        }catch(\Exception $e){
+            return $this->errorResponse('Failed to destroy Book',500);
+        }
     }
 
 
     public function get_material_book($material_id)
     {
         $book = Book_url::where('material_id', $material_id)->get();
-        //  return $this->successResponse($book, 'success reply', 200);
         return $this->successresponse(BookResource::collection($book), 'success reply', 200);
 
     }

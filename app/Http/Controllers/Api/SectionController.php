@@ -47,9 +47,16 @@ class SectionController extends Controller
     {
         try{
             $section = Section::find($id);
-            return $this->successResponse(new SectionResource($section), 'section  Showed Successfully',200);
+            if($section)
+            {
+                return $this->successResponse(new SectionResource($section), 'section  Showed Successfully',200);
+            }
+            else
+            {
+                return $this->errorResponse('Section not found ',404);
+            }
         }catch (\Exception $e) {
-            return $this->errorResponse('the section is not found', 500);
+            return $this->errorResponse('Failed to show Section', 500);
         }
     }
         
@@ -58,14 +65,20 @@ class SectionController extends Controller
     */
     public function update(Request $request, string $id)
     {
-        $section = Section::find($id);
         try{
-            $validatedData = $request->validate([
-                'name' => 'required|string|unique:sections,name',
-            ]);
-            
-            $section->update($validatedData);
-            return $this->successResponse(new SectionResource($section), 'Section has been updated successfully.');
+            $section = Section::find($id);
+            if($section)
+            {
+                $validatedData = $request->validate([
+                    'name' => 'required|string|unique:sections,name',
+                ]);  
+                $section->update($validatedData);
+                return $this->successResponse(new SectionResource($section), 'Section has been updated successfully.');
+            }
+            else
+            {
+                return $this->errorResponse('the section is not found ', 404);
+            }
         }
         catch (\Exception $e) {
             return $this->errorResponse('the section is found alreay', 500);
@@ -79,16 +92,17 @@ class SectionController extends Controller
     {
         try {
             $section = Section::find($id);
-
-            if ($section) {
+            if ($section) 
+            {
                 $section->delete();
                 return $this->successResponse(null, 'Section has been destroyed successfully.', 200);
-            } else {
+            } 
+            else 
+            {
                 return $this->errorResponse('Section not found.', 404);
             }
         } catch (\Exception $e) {
-            // Log the exception or handle it as needed
-            return $this->errorResponse('Failed to destroy the section.', 500);
+            return $this->errorResponse('Failed to destroy the Section.', 500);
         }
     }
 

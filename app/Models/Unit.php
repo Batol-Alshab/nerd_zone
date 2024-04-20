@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 class Unit extends Model
 {
     use HasFactory;
-    protected $fillable = ['title ', 'material_id'];
+    protected $fillable = ['name', 'image','material_id'];
 
     public function summeries()
     {

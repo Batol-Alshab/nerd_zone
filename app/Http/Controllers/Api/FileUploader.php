@@ -29,6 +29,30 @@ trait FileUploader
         }
     }
 
+    public function uploadFile($request, $data, $name, $inputName = 'url')
+    {
+        $requestFile = $request->file($inputName);
+        
+        try {
+            $dir = $data. $name;
+            $fixName=$requestFile->getClientOriginalName();
+            if ($requestFile) {
+                $requestFile->move($dir, $fixName);
+                $fullPath= asset($data. $name.$fixName);
+                $request->url = $fullPath;
+                $data->update([
+                    $inputName => $request->url,
+                ]);
+            }
+
+            return true;
+        } catch (\Throwable $th) {
+            report($th);
+
+            return $th->getMessage();
+        }
+    }
+
     // delete file
     public function deleteFile($fileName = 'files')
     {

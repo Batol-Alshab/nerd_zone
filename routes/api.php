@@ -29,9 +29,9 @@ Route::post('/logout', [AuthController::class, 'logout'])->middleware('jwt.auth'
 
 // Route::post('/refresh', [AuthController::class, 'refresh'])->middleware('jwt.auth');
 // Route::get('/getuser', [AuthController::class, 'getuser'])->middleware('jwt.auth');
-Route::apiResource('sections', SectionController::class);
-Route::apiResource('books', BookController::class);
-Route::post('/book/create', [BookController::class, 'store']);
+// Route::apiResource('sections', SectionController::class);
+// Route::apiResource('books', BookController::class);
+// Route::post('/book/create', [BookController::class, 'store']);
 Route::post('/summery/create/{unit_id}', [SummeryController::class, 'store']);
 
 
@@ -49,7 +49,7 @@ Route::post('/summery/create/{unit_id}', [SummeryController::class, 'store']);
  //حذف فرع محدد
  Route::get('/section/destroy/{id}', [SectionController::class, 'destroy']);
 /* SECTION*/
-////////////////////////////////////////////////////////////////////////////
+
 /*MATERIAL*/
 //عرض كل المواد
 Route::get('/material',[MaterialController::class,'index']);
@@ -63,7 +63,28 @@ Route::post('/material/update/{id}',[MaterialController::class, 'update']);
 Route::get('/material/destroy/{id}',[MaterialController::class,'destroy']);
 /*MATERIAL*/
 
+/*UNIT */
+Route::get('/unit',[UnitController::class, 'index']);
+Route::post('/unit/create',[UnitController::class, 'store']);
+Route::get('/unit/show/{id}',[UnitController::class, 'show']);
+Route::post('/unit/update/{id}',[UnitController::class, 'update']);
+Route::get('/unit/destroy/{id}',[UnitController::class, 'destroy']);
 
+/*UNIT */
+
+
+/*BOOK */
+Route::get('/book',[BookController::class, 'index']);
+Route::post('/book/create',[BookController::class, 'store']);
+Route::get('/book/show/{id}',[BookController::class, 'show']);
+Route::post('book/update/{id}',[BookController::class, 'update']);
+Route::get('book/destroy/{id}',[BookController::class, 'destroy']);
+/*BOOK */
+
+/*SUMMERY */
+Route::get('summery',[SummeryController::class, 'index']);
+Route::post('summery/create',[SummeryController::class, 'store']);
+/*SUMMERY */
 //عرص وحدات مادة
 Route::get('/material/unites/{material_id}', [UnitController::class, 'get_material_unites']);
 //عرض دورات مادة
@@ -108,8 +129,12 @@ Route::get('/getuser',[AuthController::class, 'getUser'])->middleware('jwt.auth'
 Route::get('/user/info', [UserController::class, 'show'])->middleware('jwt.auth');
 
 //عرض المفاضلات ل فرع محدد
-Route::get('/section/trade_off/{section}',[TradeOffController::class, 'get_section_trade']);
+Route::get('/section/trade_off/{section_id}',[TradeOffController::class, 'get_section_trade']);
 //تحميل صورة 
 Route::post('/upload',[ImageController::class,'upload']);
 // عرض الصور
 Route::get('/images',[ImageController::class,'index']);
+
+
+Route::post('/rate',[UserController::class, 'updateRate']);
+

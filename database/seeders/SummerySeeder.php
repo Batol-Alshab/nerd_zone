@@ -14,13 +14,13 @@ class SummerySeeder extends Seeder
     public function run(): void
     {
         Summery::create([
-            'name'=>'الاختبار الاول',
-            'url'=>'الاختبار الاول.pdf', 
+            'name'=>'الملخص الاول',
+            'url'=>'الملخص الاول.pdf', 
             'unit_id'=> '1' 
             ]);
         Summery::create([
-            'name'=>'الاختبار الثاني',
-            'url'=>'الاختبار الثاني.pdf', 
+            'name'=>'الملخص الثاني',
+            'url'=>'الملخص الثاني.pdf', 
             'unit_id'=> '1' 
             ]);
     }
