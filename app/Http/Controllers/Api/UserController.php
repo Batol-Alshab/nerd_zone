@@ -35,7 +35,9 @@ class UserController extends Controller
     public function show(User $user)
     {
         $user = Auth::user();
-        return $this->successResponse(new UserResource($user), 'getting user information successfully', 200);
+        $user = User::with('summeries')->findOrFail($user->id);
+
+        return $this->successResponse(new UserResource($user), 'User information retrieved successfully', 200);
     }
 
     /**
@@ -95,4 +97,5 @@ class UserController extends Controller
     {
         //
     }
+   
 }
