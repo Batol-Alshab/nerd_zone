@@ -64,10 +64,15 @@ Route::get('/material/destroy/{id}',[MaterialController::class,'destroy']);
 /*MATERIAL*/
 
 /*UNIT */
+//عرض كل الوحدات
 Route::get('/unit',[UnitController::class, 'index']);
+//اضافة واحدة جديدة لمادة محددة
 Route::post('/unit/create',[UnitController::class, 'store']);
+// اظهار وحدة محددة
 Route::get('/unit/show/{id}',[UnitController::class, 'show']);
+//التعديل علة وحدة محددة
 Route::post('/unit/update/{id}',[UnitController::class, 'update']);
+//حذف وحدة محددة
 Route::get('/unit/destroy/{id}',[UnitController::class, 'destroy']);
 
 /*UNIT */
