@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\UserResource;
 use Illuminate\Support\Facades\Auth;
+use Tymon\JWTAuth\Facades\JWTAuth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 
@@ -16,17 +17,23 @@ class UserController extends Controller
     use FileUploader;
     public function updateRate(Request $request)
     {
-        $user = User::where('id', 1)->first(); 
-        $newRate=($user->rate)+($request->rate);
-        $user->update([
-            'rate'=>$newRate
-        ]);
-        return $this->successresponse($newRate, 'success reply', 200);
-
+            $user = Auth::user();
+            $newRate = ($user->rate) + ($request->rate);
+            $user->update([
+                'rate' => $newRate
+            ]);
+            return $this->successresponse($user->rate, 'success reply', 200);
     }
     /**
      * Display a listing of the resource.
      */
+// if(Auth::attempt(['email' => $request->email, 'password' => $request->password], $request->get('remember'))){
+//             $token = auth()->user()->createToken('Token name')->accessToken;
+//             return response()->json(['token' => $token], 200);
+//         } else {
+//             // خطأ في البيانات المدخلة
+//         }
+
     public function index()
     {
     }

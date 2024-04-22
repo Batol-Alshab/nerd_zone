@@ -27,7 +27,7 @@ Route::group(['middleware' => ['jwt.auth']], function () {
     //تعديل الملف الشخصي
     Route::put('/users/{user}', [UserController::class, 'update'])->middleware('jwt.auth');
     //عرض نماذج مادة معينة
-    Route::get('/material/unit/model/{unit_id}', [OpenQuestionController::class, 'getModelsForUnit']);
+    // Route::get('/material/unit/model/{unit_id}', [OpenQuestionController::class, 'getModelsForUnit']);
     //عرض ملخصات مادة
     Route::get('/summery/{unit_id}', [SummeryController::class, 'get_unit_summery']);
     //بيانات يوزر حسب المعرف
@@ -40,6 +40,11 @@ Route::group(['middleware' => ['jwt.auth']], function () {
 
     Route::post('/logout', [AuthController::class, 'logout']);
 });
+/////////غروب
+Route::get('/material/unit/model/{unit_id}', [OpenQuestionController::class, 'getModelsForUnit']);
+
+
+
 Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);
 
@@ -143,7 +148,7 @@ Route::get('/material/book/{id}', [BookController::class, 'get_material_book']);
 Route::get('/getuser', [AuthController::class, 'getUser'])->middleware('jwt.auth');
 
 //عرض المفاضلات ل فرع محدد
-<<<<<<< HEAD
+
 Route::get('/section/trade_off/{section_id}',[TradeOffController::class, 'get_section_trade']);
 //تحميل صورة 
 Route::post('/upload',[ImageController::class,'upload']);
@@ -151,12 +156,11 @@ Route::post('/upload',[ImageController::class,'upload']);
 Route::get('/images',[ImageController::class,'index']);
 
 
-Route::post('/rate',[UserController::class, 'updateRate']);
+Route::post('/rate',[UserController::class, 'updateRate'])->middleware('jwt.auth');;
 
-=======
+
 Route::get('/section/trade_off/{section_id}', [TradeOffController::class, 'get_section_trade']);
 //تحميل صورة
 Route::post('/upload', [ImageController::class, 'upload']);
 // عرض الصور
 Route::get('/images', [ImageController::class, 'index']);
->>>>>>> e4925457259a17219d38da21767414761b2a28e4
