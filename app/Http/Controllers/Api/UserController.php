@@ -52,7 +52,7 @@ class UserController extends Controller
     public function show(User $user)
     {
         $user = Auth::user();
-        $user = User::with('summeries')->findOrFail($user->id);
+        $user = User::with('favouritesummeries')->findOrFail($user->id);
 
         return $this->successResponse(new UserResource($user), 'User information retrieved successfully', 200);
     }
@@ -114,5 +114,12 @@ class UserController extends Controller
     {
         //
     }
-   
+    public function getFavoriteSummaries($userId)
+{
+    $user = User::find($userId);
+    $favoriteSummaries = $user->favoriteSummaries;
+
+    return response()->json($favoriteSummaries);
+}
+
 }

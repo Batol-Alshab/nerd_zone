@@ -13,14 +13,15 @@ class SummerySeeder extends Seeder
      */
     public function run(): void
     {
+        $url='http://127.0.0.1:8000/file/summeries/';
         Summery::create([
-            'name'=>'الملخص الاول',
-            'url'=>'الملخص الاول.pdf', 
+            'name'=>'ملخص عصبية',
+            'url'=>$url.'ملخص عصبية.pdf', 
             'unit_id'=> '1' 
             ]);
         Summery::create([
-            'name'=>'الملخص الثاني',
-            'url'=>'الملخص الثاني.pdf', 
+            'name'=>'ملخص مستقبلات',
+            'url'=>$url.'ملخص مستقبلات.pdf', 
             'unit_id'=> '1' 
             ]);
     }

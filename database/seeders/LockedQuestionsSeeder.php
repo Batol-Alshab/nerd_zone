@@ -13,15 +13,16 @@ class LockedQuestionsSeeder extends Seeder
      */
     public function run(): void
     {
+        $url='http://127.0.0.1:8000/file/books/';
         Locked_question::create([
             'name' => 'الاختبار الاول',
-            'url'=>'الاختبار الاول.pdf',
+            'url'=>$url.'الاختبار الاول.pdf',
             'rate'=>10,
             'unit_id'=> '1',
         ]);   
         Locked_question::create([
             'name' => 'الاختبار الثاني',
-            'url'=>'الاختبار الثاني.pdf',
+            'url'=>$url.'الاختبار الثاني.pdf',
             'rate'=>10,
             'unit_id'=> '1',
         ]);

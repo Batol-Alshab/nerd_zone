@@ -3,22 +3,25 @@
 namespace App\Http\Controllers\Api;
 
 use App\Models\Unit;
+use App\Models\User;
 use App\Models\Summery;
 use Illuminate\Http\Request;
+use Tymon\JWTAuth\Facades\JWTAuth;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 use App\Http\Resources\SummeryResource;
 
 class SummeryController extends Controller
 {
     use ApiResponse;
-    use FileUploader; 
+    use FileUploader;
     public function index()
     {
         $summeries = Summery::all();
         return $this->successresponse(SummeryResource::collection($summeries), 'Summery  index Successfully', 200);
     }
 
-    
+
     public function store(Request $request)
     {
         $validatedData = $request->validate([
@@ -32,7 +35,7 @@ class SummeryController extends Controller
             'url' => $request->url,
             'unit_id' => $request->unit_id
         ]);
-        return $this->successResponse(new SummaryResource($summery) , 'Summery  store Successfully', 201);
+        return $this->successResponse(new SummeryResource($summery), 'Summery  store Successfully', 201);
     }
 
 
@@ -59,21 +62,30 @@ class SummeryController extends Controller
 
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
+
     public function destroy($id)
     {
         $summery_url = Summery::find($id);
         $summery_url->delete();
         return $this->successResponse(null, 'Summery has been deleted successfully.');
     }
-    // public function get_unit_summery($material_id,$unit_id)
     public function get_unit_summery($unit_id)
     {
-        // $summery = Summery::where('unit_id', $unit_id,'material_id',$material_id)->get();
         $summery = Summery::where('unit_id', $unit_id)->get();
         return $this->successresponse(SummeryResource::collection($summery), 'Summery Showed Successfully', 200);
-        // return $this->successResponse($summery, 'success reply', 200);
+    }
+
+
+    public function getAllSummariesWithFavoriteStatus($unit_id)
+    {
+        $user = JWTAuth::user();
+        $user_id = $user->id;
+
+        $summaries = Summery::where('unit_id', $unit_id)
+            ->with(['favouriteUsers' => function ($query) use ($user_id) {
+                $query->where('user_id', $user_id);
+            }])
+            ->get();
+        return $this->successResponse(SummeryResource::collection($summaries), "success replay", 200);
     }
 }

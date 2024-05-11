@@ -35,7 +35,8 @@ class AuthController extends Controller
             ]);
 
 
-            $token = JWTAuth::fromUser($user);
+            // $token = JWTAuth::fromUser($user);
+            $token=md5(time()).'-'.md5($request->email);
 
             $data = [
                 // 'id' => $user->id,
@@ -60,13 +61,18 @@ class AuthController extends Controller
         $credentials = $request->only('email', 'password');
 
         try {
-            if (!$token = JWTAuth::attempt($credentials)) {
+            if (!JWTAuth::attempt($credentials))
+            // if (!($credentials))
+
+             {
                 return $this->errorResponse('error Invalid credentials');
             }
         } catch (JWTException $e) {
             return $this->errorResponse($e->getMessage());
         }
         $user = JWTAuth::user();
+        $token=md5(time()).'-'.md5($request->email);
+
         $data = [
             // 'id' => $user->id,
             'fname' => $user->fname,

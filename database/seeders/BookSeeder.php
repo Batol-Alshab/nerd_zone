@@ -13,14 +13,10 @@ class BookSeeder extends Seeder
      */
     public function run(): void
     {
+        $url='http://127.0.0.1:8000/file/books/';
         Book_url::create([
-        'name'=>'العصبية',
-        'url'=>'العصبية.pdf', 
-        'material_id'=> '5' 
-        ]);
-        Book_url::create([
-        'name'=>'المستقبلات',
-        'url'=>'المستقبلات.pdf', 
+        'name'=>'كتاب العلوم',
+        'url'=>$url.'كتاب العلوم.pdf', 
         'material_id'=> '5' 
         ]);
     }

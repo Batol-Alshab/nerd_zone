@@ -15,8 +15,13 @@ class Summery extends Model
     {
         return $this->belongsTo(Unit::class);
     }
-    public function users()
+    // public function users()
+    // {
+    //     return $this->belongsToMany(User::class)->using(Favourite::class);;
+    // }
+
+    public function favouriteUsers()
     {
-        return $this->belongsToMany(User::class);
+        return $this->belongsToMany(User::class, 'favourites', 'summery_id', 'user_id');
     }
 }

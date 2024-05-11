@@ -25,7 +25,7 @@ class RegisterRequest extends FormRequest
             'fname' => 'required|string',
             'lname' => 'required|string',
             'password' => 'required|confirmed|min:6',
-            'email' => 'required|string|email:rfc,dns|max:100|unique:users,email',
+            'email' => 'required|string|email:filter|max:100|unique:users,email',
             'phone_number' => 'string|nullable|regex:/^([0-9\s\-\+\(\)]*)$/|min:10',
             'sex' => 'required',
             'section_id' => 'required|exists:sections,id'

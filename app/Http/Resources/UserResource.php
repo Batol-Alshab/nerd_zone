@@ -31,7 +31,7 @@ class UserResource extends JsonResource
                 'image'=>$this->image,
                 // 'level'=>$this->level,
                 'opinion'=>$this->opinion,
-                'summeries' => SummeryResource::collection($this->whenLoaded('summeries')),
+                'summeries' => SummeryResource::collection($this->whenLoaded('favouritesummeries')),
 
         ];
     }

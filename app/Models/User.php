@@ -72,8 +72,9 @@ class User extends Authenticatable  implements JWTSubject
     {
         return $this->belongsTo(Section::class);
     }
-    public function summeries()
+
+    public function favouriteSummeries()
     {
-        return $this->belongsToMany(Summery::class);
+        return $this->belongsToMany(Summery::class, 'favourites', 'user_id', 'summery_id');
     }
 }
