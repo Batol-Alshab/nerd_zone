@@ -35,8 +35,8 @@ class AuthController extends Controller
             ]);
 
 
-            // $token = JWTAuth::fromUser($user);
-            $token=md5(time()).'-'.md5($request->email);
+            $token = JWTAuth::fromUser($user);
+            // $token=md5(time()).'-'.md5($request->email);
 
             $data = [
                 // 'id' => $user->id,
@@ -71,7 +71,8 @@ class AuthController extends Controller
             return $this->errorResponse($e->getMessage());
         }
         $user = JWTAuth::user();
-        $token=md5(time()).'-'.md5($request->email);
+        // $token=md5(time()).'-'.md5($request->email);
+        $token = JWTAuth::fromUser($user);
 
         $data = [
             // 'id' => $user->id,
