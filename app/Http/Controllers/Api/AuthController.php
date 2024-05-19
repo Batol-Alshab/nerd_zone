@@ -61,9 +61,7 @@ class AuthController extends Controller
         $credentials = $request->only('email', 'password');
 
         try {
-            if (!JWTAuth::attempt($credentials))
-            // if (!($credentials))
-
+            if (!$token=JWTAuth::attempt($credentials))
              {
                 return $this->errorResponse('error Invalid credentials');
             }
@@ -71,10 +69,9 @@ class AuthController extends Controller
             return $this->errorResponse($e->getMessage());
         }
         $user = JWTAuth::user();
-        $token=md5(time()).'-'.md5($request->email);
+        // $token=md5(time()).'-'.md5($request->email);
 
         $data = [
-            // 'id' => $user->id,
             'fname' => $user->fname,
             'lname' => $user->lname,
             'email' => $user->email,
@@ -96,11 +93,7 @@ class AuthController extends Controller
         return response()->json(['message' => 'Logged out successfully']);
     }
 
-    // public function refresh()
-    // {
-    //     $token = JWTAuth::parseToken()->refresh();
-    //     return response()->json(['access_token' => $token]);
-    // }
+   
 
     public function getUser(Request $request)
     {
