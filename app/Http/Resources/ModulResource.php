@@ -17,19 +17,17 @@ class ModulResource extends JsonResource
      */
     // $user
     public function toArray(Request $request): array
-    {  
-        // $user = JWTAuth::user();
+    {
 
-        // $moduls=Modul::with(['modulUsers' => function($query) use ($user){
-        //     $query->where('user_id', $user);
-        // }]) 
-        //        ->get();
        return [
             'id'=>$this->id,
             'name'=>$this->name,
             'is_open'=>$this->is_open,
             'rate'=>$this->rate,
-            'percent' => ModulUserResource::collection($this->whenLoaded('modulUsers')),
+            'pivot' => ModulUserResource::collection($this->whenLoaded('modulUsers')),
+            // 'percent' => $this->userModuls->pivot->percent ?? 0,
        ];
+
     }
 }
+

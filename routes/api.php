@@ -30,7 +30,7 @@ Route::group(['middleware' => ['jwt.auth']], function () {
     //تعديل الملف الشخصي
     Route::put('/users/{user}', [UserController::class, 'update'])->middleware('jwt.auth');
     //عرض نماذج مادة معينة
-    Route::get('/material/unit/model/{unit_id}', [OpenQuestionController::class, 'getModelsForUnit']);
+    // Route::get('/material/unit/model/{unit_id}', [OpenQuestionController::class, 'getModelsForUnit']);
     //بيانات يوزر حسب المعرف
     Route::get('/user/profile', [UserController::class, 'show'])->middleware('jwt.auth');
     //اضافة الى المفضلة
@@ -43,16 +43,11 @@ Route::group(['middleware' => ['jwt.auth']], function () {
 
     //favourite index
     Route::get('/user/favourit', [FavouriteController::class, 'index']);
+    //النماذج لوحدة
+    Route::get('/model/{is_open}/{unit_id}', [ModulController::class, 'getModelForUnit']);
     //الاسئلة مع الاجوبة
-    Route::get('/questions/{unit_id}/{model}', [AnswerController::class, 'getQuestionsWithAnswers']);
-    //نماذج وحدة 
-    Route::get('/modul/{unit_id}',[ModulController::class, 'getAllModulsWithSolved']);
+    Route::get('/question/{modul_id}', [QuestionController::class, 'getQuestionFormodul']);
 
-    Route::get('/modulOpen/{unit_id}',[ModulController::class, 'getAllOpenModulsWithSolved']);
-
-    Route::get('/modulLocked/{unit_id}',[ModulController::class, 'getAllLockedModulsWithSolved']);
-
-    
 });
 
 
@@ -132,7 +127,7 @@ route::get('/materials/literary', [MaterialController::class, 'literary_material
 
 //admin
 Route::apiResource('books', BookController::class);
-Route::apiResource('open_questions', OpenQuestionController::class);
+// Route::apiResource('open_questions', OpenQuestionController::class);
 
 //عرض المواد
 Route::get('/materials', [MaterialController::class, 'index']);
@@ -148,7 +143,7 @@ route::get('/materials/sientific', [MaterialController::class, 'sientific_materi
 route::get('/materials/literary', [MaterialController::class, 'literary_material']);
 
 //عرض اسئلة مقفولة لوحدة****************
-Route::get('/locked/{unit_id}', [Locked_questionController::class, 'get_unit_locked_question']);
+// Route::get('/locked/{unit_id}', [Locked_questionController::class, 'get_unit_locked_question']);
 //عرض كتب مادة معينة
 Route::get('/material/book/{id}', [BookController::class, 'get_material_book']);
 
@@ -157,7 +152,7 @@ Route::get('/section/trade_off/{section_id}', [TradeOffController::class, 'get_s
 
 
 //***************** */
-Route::post('/rate', [UserController::class, 'updateRate'])->middleware('jwt.auth');;
+Route::post('/rate', [ModulUserController::class, 'updateRate'])->middleware('jwt.auth');;
 
 //تحميل صورة
 Route::post('/upload', [ImageController::class, 'upload']);
@@ -173,14 +168,9 @@ Route::get('/article/{atricle_id}', [ArticleController::class, 'getHtmlContent']
 
 //اسئلة
 Route::get('/questions', [QuestionController::class, 'index']);
-//
-Route::get('/question/{modul_id}', [QuestionController::class, 'getQuestionFormodul']);
+
 // Route::get('/mu', [ModulUserController::class, 'index']);
 
 
 //حل
 Route::get('/answers', [AnswerController::class, 'index']);
-
-
-
-

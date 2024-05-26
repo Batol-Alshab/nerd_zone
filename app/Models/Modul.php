@@ -17,7 +17,7 @@ class Modul extends Model
     }
     public function qestions(){
         return $this->hasMany(Question::class);
-    }  
+    }
     public function  get_moduls($unit_id){
         return $this->where('unit_id',$unit_id)->get();
     }
@@ -25,7 +25,7 @@ class Modul extends Model
     public function modulUsers()
     {
         return $this->belongsToMany(User::class,'modul_users')->withPivot('percent');
-        //,'user_id','modul_id')->withPivot('percent');;
+        
     }
-    
+
 }

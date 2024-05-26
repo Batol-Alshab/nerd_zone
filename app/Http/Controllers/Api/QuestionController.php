@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Models\Question;
 use Illuminate\Http\Request;
+use Tymon\JWTAuth\Facades\JWTAuth;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\QuestionResource;
 
@@ -16,7 +17,7 @@ class QuestionController extends Controller
     public function index()
     {
         // $questions=Question::all();
-        $questions = Question::with(['answers'])->get(); 
+        $questions = Question::with(['answers'])->get();
         return $this->successresponse(QuestionResource::collection($questions), 'question  index Successfully', 200);
     }
 
@@ -52,6 +53,10 @@ class QuestionController extends Controller
         //
     }
     public function getQuestionFormodul ($modul_id){
+
+        if (!JWTAuth::user()) {
+            return $this->unauthorized();
+        }
         $questions=new Question();
         $questions=$questions->get_questions($modul_id);
         return $this->successresponse(QuestionResource::collection($questions), 'question  modul Successfully', 200);
