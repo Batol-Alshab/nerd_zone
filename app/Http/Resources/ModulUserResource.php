@@ -5,7 +5,7 @@ namespace App\Http\Resources;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class OpenQuestionResource extends JsonResource
+class ModulUserResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -15,12 +15,7 @@ class OpenQuestionResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
-            'title'=>$this->title,
-            'content'=>$this->content,
-            'id'=>$this->id,
-            'image'=>$this->image,
-            'a'=>'2',
-            'answers'=> AnswerResource::collection($this->whenLoaded('openAnswers')),
+            'percent'=>($this->pivot)->percent
         ];
     }
 }

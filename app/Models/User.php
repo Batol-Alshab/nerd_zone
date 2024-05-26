@@ -3,7 +3,9 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use App\Models\Modul;
 use App\Models\Section;
+use App\Models\Summery;
 use Laravel\Sanctum\HasApiTokens;
 use Tymon\JWTAuth\Contracts\JWTSubject;
 use Illuminate\Notifications\Notifiable;
@@ -76,5 +78,10 @@ class User extends Authenticatable  implements JWTSubject
     public function favouriteSummeries()
     {
         return $this->belongsToMany(Summery::class, 'favourites', 'user_id', 'summery_id');
+    }
+
+    public function userModuls()
+    {
+        return $this->belongsToMany(Modul::class,'modul_users')->withPivot('percent');//,'user_id','modul_id')->withPivot('percent');;
     }
 }

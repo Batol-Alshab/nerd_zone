@@ -2,23 +2,27 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Models\Answer;
+use App\Models\ModulUser;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Http\Resources\AnswerResource;
 
-class AnswerController extends Controller
+class ModulUserController extends Controller
 {
-    use ApiResponse;
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $answers=Answer::all();
-        return $this->successresponse(AnswerResource::collection($answers), 'answer  modul Successfully', 200);
+        // $user = Auth::user();
+        // $fav=Favourite::find($user->id);
+        // $id = $user->favouriteSummeries->id;
+        // $summery=Summery::find($id);
+        // $unit=Unit::find($summery->unit_id);
+        // $material=$unit->material_id;
 
-        return $answers;
+        // return $id;
+        // return $this->successresponse(FavouritResource::collection($favorites), '  index Successfully', 200);
+    
     }
 
     /**

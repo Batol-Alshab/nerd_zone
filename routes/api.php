@@ -6,19 +6,21 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\BookController;
+
 use App\Http\Controllers\Api\TermController;
 use App\Http\Controllers\Api\UnitController;
 use App\Http\Controllers\Api\UserController;
 use App\Http\Controllers\Api\ImageController;
+use App\Http\Controllers\Api\ModulController;
 use App\Http\Controllers\Api\AnswerController;
 use App\Http\Controllers\Api\ArticleController;
 use App\Http\Controllers\Api\SectionController;
 use App\Http\Controllers\Api\SummeryController;
 use App\Http\Controllers\Api\MaterialController;
+use App\Http\Controllers\Api\QuestionController;
 use App\Http\Controllers\Api\TradeOffController;
 use App\Http\Controllers\Api\FavouriteController;
-use App\Http\Controllers\Api\OpenQuestionController;
-use App\Http\Controllers\Api\Locked_questionController;
+use App\Http\Controllers\Api\ModulUserController;
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
@@ -42,7 +44,15 @@ Route::group(['middleware' => ['jwt.auth']], function () {
     //favourite index
     Route::get('/user/favourit', [FavouriteController::class, 'index']);
     //الاسئلة مع الاجوبة
-Route::get('/questions/{unit_id}/{model}', [AnswerController::class, 'getQuestionsWithAnswers']);
+    Route::get('/questions/{unit_id}/{model}', [AnswerController::class, 'getQuestionsWithAnswers']);
+    //نماذج وحدة 
+    Route::get('/modul/{unit_id}',[ModulController::class, 'getAllModulsWithSolved']);
+
+    Route::get('/modulOpen/{unit_id}',[ModulController::class, 'getAllOpenModulsWithSolved']);
+
+    Route::get('/modulLocked/{unit_id}',[ModulController::class, 'getAllLockedModulsWithSolved']);
+
+    
 });
 
 
@@ -155,3 +165,22 @@ Route::post('/upload', [ImageController::class, 'upload']);
 Route::get('/images', [ImageController::class, 'index']);
 //مقالات
 Route::get('/article/{atricle_id}', [ArticleController::class, 'getHtmlContent']);
+// نماذج
+// Route::get('/moduls', [ModulController::class, 'index']);
+//نماذج وحدة محددة
+// Route::get('/modul/{unit_id}', [ModulController::class, 'getModulsForUnit']);
+
+
+//اسئلة
+Route::get('/questions', [QuestionController::class, 'index']);
+//
+Route::get('/question/{modul_id}', [QuestionController::class, 'getQuestionFormodul']);
+// Route::get('/mu', [ModulUserController::class, 'index']);
+
+
+//حل
+Route::get('/answers', [AnswerController::class, 'index']);
+
+
+
+

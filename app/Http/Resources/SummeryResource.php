@@ -25,9 +25,6 @@ class SummeryResource extends JsonResource
             'url' => $this->url,
             'is_favorite' => $this->favouriteUsers->contains($user)
 
-
-
-
         ];
     }
 }

@@ -11,13 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('open_questions', function (Blueprint $table) {
+        Schema::create('modul_users', function (Blueprint $table) {
             $table->id();
-            $table->string('title');
-            $table->integer('rate')->default(5);
-            $table->text('content');
-            $table->string('model');
-            $table->foreignId('unit_id')->references('id')->on('units')->cascadeOnDelete();
+            $table->foreignId('user_id')->references('id')->on('users')->cascadeOnDelete();
+            $table->foreignId('modul_id')->references('id')->on('moduls')->cascadeOnDelete();
+            $table->integer('percent')->default(0);
             $table->timestamps();
         });
     }
@@ -27,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('open_questions');
+        Schema::dropIfExists('modul_users');
     }
 };

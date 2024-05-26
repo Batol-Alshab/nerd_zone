@@ -35,8 +35,8 @@ class AuthController extends Controller
             ]);
 
 
-            // $token = JWTAuth::fromUser($user);
-            $token=md5(time()).'-'.md5($request->email);
+            $token = JWTAuth::fromUser($user);
+            // $token=md5(time()).'-'.md5($request->email);
 
             $data = [
                 // 'id' => $user->id,
@@ -70,6 +70,7 @@ class AuthController extends Controller
         }
         $user = JWTAuth::user();
         // $token=md5(time()).'-'.md5($request->email);
+        $token = JWTAuth::fromUser($user);
 
         $data = [
             'fname' => $user->fname,
@@ -93,7 +94,11 @@ class AuthController extends Controller
         return response()->json(['message' => 'Logged out successfully']);
     }
 
-   
+    // public function refresh()
+    // {
+    //     $token = JWTAuth::parseToken()->refresh();
+    //     return response()->json(['access_token' => $token]);
+    // }
 
     public function getUser(Request $request)
     {

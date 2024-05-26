@@ -2,19 +2,22 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Models\Unit;
-use App\Models\OpenQuestion;
+use App\Models\Question;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Http\Resources\QuestionResource;
 
-class OpenQuestionController extends Controller
-{  use ApiResponse;
+class QuestionController extends Controller
+{
+    use ApiResponse;
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        return $this->successResponse(OpenQuestion::all(),"Questions Returned Successfully",200);
+        // $questions=Question::all();
+        $questions = Question::with(['answers'])->get(); 
+        return $this->successresponse(QuestionResource::collection($questions), 'question  index Successfully', 200);
     }
 
     /**
@@ -48,9 +51,9 @@ class OpenQuestionController extends Controller
     {
         //
     }
-    public function getModelsForUnit($unit_id)
-    {   $Question=new OpenQuestion();
-        $models=$Question->get_models($unit_id);
-        return $this->successResponse($models,"Models Returned Successfully",200);
+    public function getQuestionFormodul ($modul_id){
+        $questions=new Question();
+        $questions=$questions->get_questions($modul_id);
+        return $this->successresponse(QuestionResource::collection($questions), 'question  modul Successfully', 200);
     }
 }

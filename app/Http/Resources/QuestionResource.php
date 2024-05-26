@@ -3,9 +3,10 @@
 namespace App\Http\Resources;
 
 use Illuminate\Http\Request;
+use App\Http\Resources\AnswerResource;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class OpenQuestionResource extends JsonResource
+class QuestionResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -19,8 +20,7 @@ class OpenQuestionResource extends JsonResource
             'content'=>$this->content,
             'id'=>$this->id,
             'image'=>$this->image,
-            'a'=>'2',
-            'answers'=> AnswerResource::collection($this->whenLoaded('openAnswers')),
+            'answers'=> AnswerResource::collection($this->whenLoaded('answers')),
         ];
     }
 }
