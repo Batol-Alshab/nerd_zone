@@ -30,11 +30,6 @@ class ModulResource extends JsonResource
             'is_open'=>$this->is_open,
             'rate'=>$this->rate,
             'percent' => ModulUserResource::collection($this->whenLoaded('modulUsers')),
-            // 'modulUsers'=>$this->unit
-            // 'modulUsers'=> ModulUserResource::collection($this->whenLoaded('modulUsers')),
-
-            // 'percent' => $this->modulUsers
-            // ->percent
        ];
     }
 }
