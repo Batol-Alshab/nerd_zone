@@ -11,13 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('locked_questions', function (Blueprint $table) {
+        Schema::create('moduls', function (Blueprint $table) {
             $table->id();
-            $table->timestamps();
             $table->string('name');
-            $table->string('url');
+            $table->boolean('is_open');            
             $table->integer('rate');
             $table->foreignId('unit_id')->references('id')->on('units')->cascadeOnDelete();
+            $table->timestamps();
         });
     }
 
@@ -26,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('locked_questions');
+        Schema::dropIfExists('moduls');
     }
 };
