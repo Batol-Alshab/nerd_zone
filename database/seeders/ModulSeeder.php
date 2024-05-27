@@ -16,21 +16,45 @@ class ModulSeeder extends Seeder
         Modul::create([
             'name' => 'النموذج الاول',
             'is_open' => 1,
-            'rate'=>10,
+            'rate'=>50,
             'unit_id'=> '1',
         ]);
 
         Modul::create([
             'name' => 'النموذج الثاني',
             'is_open' => 1,
-            'rate'=>10,
+            'rate'=>50,
+            'unit_id'=> '1',
+        ]);
+        Modul::create([
+            'name' => 'النموذج الثالث',
+            'is_open' => 1,
+            'rate'=>70,
             'unit_id'=> '1',
         ]);
         Modul::create([
             'name' => 'النموذج الاول',
             'is_open' => 0,
+            'rate'=>50,
+            'unit_id'=> '1',
+        ]);
+        Modul::create([
+            'name' => 'النموذج الثاني',
+            'is_open' => 0,
+            'rate'=>35,
+            'unit_id'=> '1',
+        ]);
+        Modul::create([
+            'name' => 'النموذج الثالث',
+            'is_open' => 0,
             'rate'=>20,
-            'unit_id'=> '2',
+            'unit_id'=> '1',
+        ]);
+        Modul::create([
+            'name' => 'النموذج الرابع',
+            'is_open' => 0,
+            'rate'=>25,
+            'unit_id'=> '1',
         ]);
     }
 }
