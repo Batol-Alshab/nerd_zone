@@ -23,7 +23,7 @@ use App\Http\Controllers\Api\ModulUserController;
 // Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 //     return $request->user();
 // });
-Route::git(['middleware' => ['jwt.auth']], function () {
+Route::group(['middleware' => ['jwt.auth']], function () {
 
     //تعديل الملف الشخصي
     Route::put('/users/{user}', [UserController::class, 'update'])->middleware('jwt.auth');
