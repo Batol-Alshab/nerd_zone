@@ -1,7 +1,5 @@
 <?php
 
-use App\Models\Material;
-use App\Models\OpenQuestion;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\AuthController;
@@ -22,38 +20,69 @@ use App\Http\Controllers\Api\TradeOffController;
 use App\Http\Controllers\Api\FavouriteController;
 use App\Http\Controllers\Api\ModulUserController;
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
-Route::group(['middleware' => ['jwt.auth']], function () {
+// Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+//     return $request->user();
+// });
+Route::git(['middleware' => ['jwt.auth']], function () {
 
     //تعديل الملف الشخصي
     Route::put('/users/{user}', [UserController::class, 'update'])->middleware('jwt.auth');
-    //عرض نماذج مادة معينة
-    // Route::get('/material/unit/model/{unit_id}', [OpenQuestionController::class, 'getModelsForUnit']);
     //بيانات يوزر حسب المعرف
     Route::get('/user/profile', [UserController::class, 'show'])->middleware('jwt.auth');
     //اضافة الى المفضلة
     Route::post('/user/favourite/{summaryId}', [FavouriteController::class, 'AddOrRemoveFavourite']);
-
     //عرض ملخصات مادة
     Route::get('/summery/{unit_id}', [SummeryController::class, 'getAllSummariesWithFavoriteStatus']);
-
+    //تسجيل الخروج
     Route::post('/logout', [AuthController::class, 'logout']);
-
-    //favourite index
-    Route::get('/user/favourit', [FavouriteController::class, 'index']);
     //النماذج لوحدة
     Route::get('/model/{is_open}/{unit_id}', [ModulController::class, 'getModelForUnit']);
     //الاسئلة مع الاجوبة
     Route::get('/question/{modul_id}', [QuestionController::class, 'getQuestionFormodul']);
-
 });
-
-
 Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);
-
+//عرص وحدات مادة
+Route::get('/material/unites/{material_id}', [UnitController::class, 'get_material_unites']);
+//عرض دورات مادة
+Route::get('/material/terms/{material_id}', [TermController::class, 'get_material_terms']);
+//عرض المواد
+Route::get('/materials', [MaterialController::class, 'index']);
+//عرص وحدات مادة
+Route::get('/material/unites/{material_id}', [UnitController::class, 'get_material_unites']);
+//عرض دورات مادة
+Route::get('/material/terms/{material_id}', [TermController::class, 'get_material_terms']);
+//عرض مواد الفرع العلمي
+route::get('/materials/sientific', [MaterialController::class, 'sientific_material']);
+//عرض مواد الفرع الادبي
+route::get('/materials/literary', [MaterialController::class, 'literary_material']);
+//عرض كتب مادة معينة
+Route::get('/material/book/{id}', [BookController::class, 'get_material_book']);
+//عرض المفاضلات ل فرع محدد
+Route::get('/section/trade_off/{section_id}', [TradeOffController::class, 'get_section_trade']);
+//*******************/
+Route::post('/rate', [ModulUserController::class, 'updateRate'])->middleware('jwt.auth');
+//create questions and answers for model
+Route::post('/storeModelData/{model_id}', [AnswerController::class, 'storeQuestionsAndAnswers']);
+//create model
+Route::post('/model/create', [ModulController::class, 'store']);
+//create question
+Route::post('/question/create', [QuestionController::class, 'store']);
+//create answer
+Route::post('/answer/create/{question_id}', [AnswerController::class, 'store']);
+//تحميل صورة
+// Route::post('/upload', [ImageController::class, 'upload']);
+// عرض الصور
+// Route::get('/images', [ImageController::class, 'index']);
+//مقالات
+// Route::get('/article/{atricle_id}', [ArticleController::class, 'getHtmlContent']);
+//نماذج وحدة محددة
+// Route::get('/modul/{unit_id}', [ModulController::class, 'getModulsForUnit']);
+//اسئلة
+// Route::get('/questions', [QuestionController::class, 'index']);
+// Route::get('/mu', [ModulUserController::class, 'index']);
+//admin
+// Route::apiResource('books', BookController::class);
 // Route::post('/refresh', [AuthController::class, 'refresh'])->middleware('jwt.auth');
 // Route::get('/getuser', [AuthController::class, 'getuser'])->middleware('jwt.auth');
 // Route::apiResource('sections', SectionController::class);
@@ -115,62 +144,3 @@ Route::get('book/destroy/{id}', [BookController::class, 'destroy']);
 Route::get('summery', [SummeryController::class, 'index']);
 Route::post('summery/create', [SummeryController::class, 'store']);
 /*SUMMERY */
-//عرص وحدات مادة
-Route::get('/material/unites/{material_id}', [UnitController::class, 'get_material_unites']);
-//عرض دورات مادة
-Route::get('/material/terms/{material_id}', [TermController::class, 'get_material_terms']);
-//عرض مواد الفرع العلمي
-route::get('/materials/sientific', [MaterialController::class, 'sientific_material']);
-//عرض مواد الفرع الادبي
-route::get('/materials/literary', [MaterialController::class, 'literary_material']);
-
-
-//admin
-Route::apiResource('books', BookController::class);
-// Route::apiResource('open_questions', OpenQuestionController::class);
-
-//عرض المواد
-Route::get('/materials', [MaterialController::class, 'index']);
-
-
-//عرص وحدات مادة
-Route::get('/material/unites/{material_id}', [UnitController::class, 'get_material_unites']);
-//عرض دورات مادة
-Route::get('/material/terms/{material_id}', [TermController::class, 'get_material_terms']);
-//عرض مواد الفرع العلمي
-route::get('/materials/sientific', [MaterialController::class, 'sientific_material']);
-//عرض مواد الفرع الادبي
-route::get('/materials/literary', [MaterialController::class, 'literary_material']);
-
-//عرض اسئلة مقفولة لوحدة****************
-// Route::get('/locked/{unit_id}', [Locked_questionController::class, 'get_unit_locked_question']);
-//عرض كتب مادة معينة
-Route::get('/material/book/{id}', [BookController::class, 'get_material_book']);
-
-//عرض المفاضلات ل فرع محدد
-Route::get('/section/trade_off/{section_id}', [TradeOffController::class, 'get_section_trade']);
-
-
-//***************** */
-Route::post('/rate', [ModulUserController::class, 'updateRate'])->middleware('jwt.auth');;
-
-//تحميل صورة
-Route::post('/upload', [ImageController::class, 'upload']);
-// عرض الصور
-Route::get('/images', [ImageController::class, 'index']);
-//مقالات
-Route::get('/article/{atricle_id}', [ArticleController::class, 'getHtmlContent']);
-// نماذج
-// Route::get('/moduls', [ModulController::class, 'index']);
-//نماذج وحدة محددة
-// Route::get('/modul/{unit_id}', [ModulController::class, 'getModulsForUnit']);
-
-
-//اسئلة
-Route::get('/questions', [QuestionController::class, 'index']);
-
-// Route::get('/mu', [ModulUserController::class, 'index']);
-
-
-//حل
-Route::get('/answers', [AnswerController::class, 'index']);

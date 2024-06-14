@@ -28,7 +28,13 @@ class ModulController extends Controller
      */
     public function store(Request $request)
     {
-        //
+       $moduls= Modul::create([
+            'name'=>$request->name,
+            'is_open'=>$request->is_open,
+            'rate'=>$request->rate,
+            'unit_id'=>$request->unit_id
+        ]);
+        return $this->successResponse($moduls,"created succesfully",200);
     }
 
     /**
