@@ -91,6 +91,7 @@ Route::post('/answer/create/{question_id}', [AnswerController::class, 'store']);
 // Route::post('/summery/create/{unit_id}', [SummeryController::class, 'store']);
 //add material
 //Rout::get('/material/add',[MaterialController::class,'store']);
+/* SECTION*/
 //عرض كل الافرع
 Route::get('/section', [SectionController::class, 'index']);
 //اضافة فرع جديد
@@ -162,3 +163,4 @@ Route::get('/tradeoff/show/{id}', [TradeOffController::class, 'show']);
 Route::post('tradeoff/update/{id}', [TradeOffController::class, 'update']);
 Route::get('tradeoff/destroy/{id}', [TradeOffController::class, 'destroy']);
 /*TRADEOFF */
+Route::get('/up',[ImageController::class, 'store']);

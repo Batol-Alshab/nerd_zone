@@ -21,6 +21,16 @@ class UnitSeeder extends Seeder
             'material_id' => '5'
         ]);
         Unit::create([
+            'name' => 'وحدة المستقبلات',
+            'image'=>$url.'unit1.png',
+            'material_id' => '5'
+        ]);
+        Unit::create([
+            'name' => 'وحدة عاريات و مغلفات',
+            'image'=>$url.'unit2.png',
+            'material_id' => '5'
+        ]);
+        Unit::create([
             'name' => 'وحدة الوراثة',
             'image'=>$url.'unit2.png',
             'material_id' => '5'
