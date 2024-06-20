@@ -49,7 +49,7 @@ class AuthController extends Controller
                 'token' => $token
             ];
 
-            return $this->successResponse($data, ' user successfully registered', 201);
+            return $this->successResponse($data, 'تم إنشاء حسابك بنجاح', 201);
         } catch (\Exception $e) {
             return $this->errorResponse($e->getMessage());
         }
@@ -60,8 +60,8 @@ class AuthController extends Controller
         $credentials = $request->only('email', 'password');
 
         try {
-            if (!$token = JWTAuth::attempt($credentials,['exp'=>carbon::now()->addDays(7)->timestamp])) {
-                return $this->errorResponse('error Invalid credentials');
+            if (!$token = JWTAuth::attempt($credentials, ['exp' => carbon::now()->addDays(7)->timestamp])) {
+                return $this->errorResponse('الإيميل أو كلمة المرور غير صحيحة');
             }
         } catch (JWTException $e) {
             return $this->errorResponse($e->getMessage());
@@ -83,7 +83,7 @@ class AuthController extends Controller
         ];
 
 
-        return $this->successResponse($data, "User successfully logged", 200);
+        return $this->successResponse($data, "تم تسجيل الدخول بنجاح", 200);
     }
 
 
@@ -91,7 +91,7 @@ class AuthController extends Controller
     {
         $token = JWTAuth::parseToken()->getToken();
         JWTAuth::invalidate($token);
-        return response()->json(['message' => 'Logged out successfully']);
+        return response()->json(['message' => 'تم تسجيل الخروج بنجاح']);
     }
 
     // public function refresh()
@@ -108,6 +108,6 @@ class AuthController extends Controller
 
         $user = JWTAuth::authenticate($request->token);
 
-        return $this->successResponse(new UserResource($user), 'successfully', 200);
+        return $this->successResponse(new UserResource($user), 'تمت العملية بنجاح', 200);
     }
 }
