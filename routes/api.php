@@ -146,7 +146,6 @@ Route::get('summery/show/{id}',[SummeryController::class, 'show']);// have is_fa
 Route::post('summery/update/{id}', [SummeryController::class, 'update']);
 Route::get('summery/destroy/{id}', [SummeryController::class, 'destroy']);
 /*SUMMERY */
-<<<<<<< HEAD
 
 /*TERM */
 Route::get('/term', [TermController::class, 'index']);
@@ -163,5 +162,3 @@ Route::get('/tradeoff/show/{id}', [TradeOffController::class, 'show']);
 Route::post('tradeoff/update/{id}', [TradeOffController::class, 'update']);
 Route::get('tradeoff/destroy/{id}', [TradeOffController::class, 'destroy']);
 /*TRADEOFF */
-=======
->>>>>>> f751b38fca60ffe8a92105f242f2f41d5b457fb4
