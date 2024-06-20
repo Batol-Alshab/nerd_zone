@@ -22,7 +22,7 @@ class ModulSeeder extends Seeder
         Modul::create([
             'name' => 'النموذج الثاني من وحدة العصبية',
             'is_open' => 0,
-            'rate'=>5,
+            'rate'=>10,
             'unit_id'=> '1',
         ]);
         Modul::create([
