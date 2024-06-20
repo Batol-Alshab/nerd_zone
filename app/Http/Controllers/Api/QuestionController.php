@@ -26,7 +26,24 @@ class QuestionController extends Controller
      */
     public function store(Request $request)
     {
-        //
+
+        try{
+            // $validatedData = $request->validate([
+            //     'title' => 'required|string',
+            //     'content'=>'longtext',
+            //     'modul_id'=>'exists:modul,id'
+            // ]);
+
+            $model=Question::create([
+                'title'=>$request->title,
+                'content'=>$request->content,
+                'image'=>$request->image ?? null ,
+                'modul_id'=>$request->modul_id
+            ]);
+            return $this->successResponse($model, "create Question successfully", 201);
+        }catch (\Exception $e) {
+            return $this->errorResponse($e->getMessage(), 500);
+        }
     }
 
     /**

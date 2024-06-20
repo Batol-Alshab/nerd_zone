@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
+use Carbon\carbon;
 use App\Models\User;
 use Monolog\Registry;
 use Illuminate\Http\Request;
@@ -9,8 +10,9 @@ use Tymon\JWTAuth\Facades\JWTAuth;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\UserResource;
 use Illuminate\Support\Facades\Hash;
-use App\Http\Requests\RegisterRequest;
 
+use Tymon\JWTAuth\Facades\JWTFactory;
+use App\Http\Requests\RegisterRequest;
 use Illuminate\Support\Facades\Validator;
 use Tymon\JWTAuth\Exceptions\JWTException;
 use Tymon\JWTAuth\Contracts\Providers\Auth;
@@ -33,10 +35,7 @@ class AuthController extends Controller
                 'sex' => $request->sex,
                 'section_id' => $request->section_id
             ]);
-
-
             $token = JWTAuth::fromUser($user);
-            // $token=md5(time()).'-'.md5($request->email);
 
             $data = [
                 // 'id' => $user->id,
@@ -46,12 +45,12 @@ class AuthController extends Controller
                 'phone_number' =>  $user->phone_number,
                 'sex' => $user->sex,
                 'section_id' => $user->section_id,
+                'rate' => $user->rate,
                 'token' => $token
             ];
 
             return $this->successResponse($data, ' user successfully registered', 201);
         } catch (\Exception $e) {
-            // Log the exception or handle it as needed
             return $this->errorResponse($e->getMessage());
         }
     }
@@ -61,16 +60,16 @@ class AuthController extends Controller
         $credentials = $request->only('email', 'password');
 
         try {
-            if (!$token=JWTAuth::attempt($credentials))
-             {
+            if (!$token = JWTAuth::attempt($credentials,['exp'=>carbon::now()->addDays(7)->timestamp])) {
                 return $this->errorResponse('error Invalid credentials');
             }
         } catch (JWTException $e) {
             return $this->errorResponse($e->getMessage());
         }
         $user = JWTAuth::user();
-        // $token=md5(time()).'-'.md5($request->email);
-        $token = JWTAuth::fromUser($user);
+
+        // $token = JWTAuth::fromUser($user);
+        // $token = JWTAuth::factory()->setTTL(60 * 24 * 7)->get();
 
         $data = [
             'fname' => $user->fname,
@@ -79,6 +78,7 @@ class AuthController extends Controller
             'phone_number' => $user->phone_number,
             'sex' => $user->sex,
             'section_id' => $user->section_id,
+            'rate' => $user->rate,
             'token' => $token
         ];
 
@@ -108,6 +108,6 @@ class AuthController extends Controller
 
         $user = JWTAuth::authenticate($request->token);
 
-        return $this->successResponse(new UserResource($user),'successfully',200);
+        return $this->successResponse(new UserResource($user), 'successfully', 200);
     }
 }

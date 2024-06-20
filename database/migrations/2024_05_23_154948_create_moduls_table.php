@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('moduls', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->boolean('is_open');            
+            $table->boolean('is_open');
             $table->integer('rate');
             $table->foreignId('unit_id')->references('id')->on('units')->cascadeOnDelete();
             $table->timestamps();
