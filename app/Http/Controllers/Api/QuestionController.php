@@ -72,10 +72,11 @@ class QuestionController extends Controller
     public function getQuestionFormodul ($modul_id){
 
         if (!JWTAuth::user()) {
-            return $this->unauthorized();
+            return $this->errorResponse('قم بتسجيل الدخول للحصول على النموذج', 401);
+            // return $this->unauthorized();
         }
         $questions=new Question();
         $questions=$questions->get_questions($modul_id);
-        return $this->successresponse(QuestionResource::collection($questions), 'question  modul Successfully', 200);
+        return $this->successresponse(QuestionResource::collection($questions), 'تم عرض النموذج بنجاح', 200);
     }
 }

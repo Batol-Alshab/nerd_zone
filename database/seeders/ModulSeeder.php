@@ -14,47 +14,22 @@ class ModulSeeder extends Seeder
     public function run(): void
     {
         Modul::create([
-            'name' => 'النموذج الاول',
+            'name' => 'النموذج الأول من وحدة العصبية',
             'is_open' => 1,
-            'rate'=>50,
+            'rate'=>10,
             'unit_id'=> '1',
         ]);
-
         Modul::create([
-            'name' => 'النموذج الثاني',
+            'name' => 'النموذج الثاني من وحدة العصبية',
+            'is_open' => 0,
+            'rate'=>5,
+            'unit_id'=> '1',
+        ]);
+        Modul::create([
+            'name' => 'النموذج الأول من وحدة المستقبلات',
             'is_open' => 1,
-            'rate'=>50,
-            'unit_id'=> '1',
-        ]);
-        Modul::create([
-            'name' => 'النموذج الثالث',
-            'is_open' => 1,
-            'rate'=>70,
-            'unit_id'=> '1',
-        ]);
-        Modul::create([
-            'name' => 'النموذج الاول',
-            'is_open' => 0,
-            'rate'=>50,
-            'unit_id'=> '1',
-        ]);
-        Modul::create([
-            'name' => 'النموذج الثاني',
-            'is_open' => 0,
-            'rate'=>35,
-            'unit_id'=> '1',
-        ]);
-        Modul::create([
-            'name' => 'النموذج الثالث',
-            'is_open' => 0,
-            'rate'=>20,
-            'unit_id'=> '1',
-        ]);
-        Modul::create([
-            'name' => 'النموذج الرابع',
-            'is_open' => 0,
-            'rate'=>25,
-            'unit_id'=> '1',
+            'rate'=>10,
+            'unit_id'=> '2',
         ]);
     }
 }
