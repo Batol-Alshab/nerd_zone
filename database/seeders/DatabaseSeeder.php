@@ -28,7 +28,8 @@ class DatabaseSeeder extends Seeder
             SummerySeeder::class,
             QuestionSeeder::class,
             AnswerSeeder::class,
-            TermSeeder::class
+            TermSeeder::class,
+            TradeOffSeeder::class
         ]);
     }
 }

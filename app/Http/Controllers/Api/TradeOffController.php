@@ -6,6 +6,7 @@ use App\Models\TradeOff;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\TradeOffResource;
+use Illuminate\Support\Facades\File;
 
 class TradeOffController extends Controller
 {
@@ -71,7 +72,12 @@ class TradeOffController extends Controller
                     'url' => 'nullable|mimes:pdf|max:10240',
                     'section_id' => 'nullable|exists:sections,id'
                 ]);
-                $path = $this->uploadFile($request, 'file/','tradeOffs/');
+                if($request->hasFile('url')){
+                    $url=$trade_off->url;
+                    $trade_off_url=parse_url($url);
+                    $trade_off_url=$trade_off_url['path'];
+                    $path = $this->uploadFile($request, 'file/','tradeOffs/');
+                }
                 $trade_off->update([
                     'name'=>($request->name) ? $request->name : $trade_off->name,
                     'url'=>($request->url) ? $path : $trade_off->url,
@@ -94,6 +100,10 @@ class TradeOffController extends Controller
         try{
             $trade_off=TradeOff::find($id);
             if($trade_off){
+                $url=$trade_off->url;
+                $trade_off_url=parse_url($url);
+                $trade_off_url=$trade_off_url['path'];
+                File::delete(public_path($trade_off_url));
                 $trade_off->delete();
                 return $this->successResponse(null, 'تم حذف المفاضلة بنجاح');
             }else{
@@ -102,6 +112,15 @@ class TradeOffController extends Controller
         }catch(\Exception $e){
             return $this->errorresponse($e->getMessage(),400);
         }    
+    }
+
+    public function download($id)
+    {
+        $trade_off=TradeOff::find($id);
+        $url = $trade_off->url;
+        $trade_off_url = parse_url($url);
+        $trade_off_url = $trade_off_url['path'];
+        return response()->download(public_path($trade_off_url));  
     }
     
     public function get_section_trade($section_id)

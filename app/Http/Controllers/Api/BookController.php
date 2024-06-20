@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\BookResource;
 use App\Http\Controllers\Api\FileUploader;
+use Illuminate\Support\Facades\File;
 
 class BookController extends Controller
 {
@@ -66,7 +67,13 @@ class BookController extends Controller
                     'url' => 'nullable|mimes:pdf|max:10240',
                     'material_id' => 'nullable|exists:materials,id'
                 ]);
-                $path=$this->uploadFile($request,'file/','books/');
+                if($request->hasFile('url')){
+                    $url = $book->url;
+                    $book_url = parse_url($url);
+                    $book_url = $book_url['path'];
+                    File::delete(public_path($book_url));
+                    $path=$this->uploadFile($request,'file/','books/');
+                }
                 $book->update([
                     'name'=>($request->name) ? $request->name : $book->name,
                     'url'=>($request->url) ?  $path : $book->url,
@@ -87,6 +94,10 @@ class BookController extends Controller
         try{
             $book=Book_url::find($id);
             if($book){
+                $url = $book->url;
+                $book_url = parse_url($url);
+                $book_url = $book_url['path'];
+                File::delete(public_path($book_url));
                 $book->delete();
                 return $this->successResponse(null,'تم حذف الكتاب بنجاح');
             }else {
@@ -95,6 +106,15 @@ class BookController extends Controller
         }catch(\Exception $e){
             return $this->errorResponse($e->getMessage(),400);
         }
+    }
+
+    public function download($id)
+    {
+        $book=Book_url::find($id);
+        $url = $book->url;
+        $book_url = parse_url($url);
+        $book_url = $book_url['path'];
+        return response()->download(public_path($book_url));  
     }
 
     public function get_material_book($material_id)

@@ -152,15 +152,19 @@ Route::get('summery/destroy/{id}', [SummeryController::class, 'destroy']);
 Route::get('/term', [TermController::class, 'index']);
 Route::post('/term/create', [TermController::class, 'store']);
 Route::get('/term/show/{id}', [TermController::class, 'show']);
-Route::post('term/update/{id}', [TermController::class, 'update']);
-Route::get('term/destroy/{id}', [TermController::class, 'destroy']);
+Route::post('/term/update/{id}', [TermController::class, 'update']);
+Route::get('/term/destroy/{id}', [TermController::class, 'destroy']);
 /*TERM */
 
 /*TRADEOFF */
 Route::get('/tradeoff', [TradeOffController::class, 'index']);
 Route::post('/tradeoff/create', [TradeOffController::class, 'store']);
 Route::get('/tradeoff/show/{id}', [TradeOffController::class, 'show']);
-Route::post('tradeoff/update/{id}', [TradeOffController::class, 'update']);
-Route::get('tradeoff/destroy/{id}', [TradeOffController::class, 'destroy']);
+Route::post('/tradeoff/update/{id}', [TradeOffController::class, 'update']);
+Route::get('/tradeoff/destroy/{id}', [TradeOffController::class, 'destroy']);
 /*TRADEOFF */
-Route::get('/up',[ImageController::class, 'store']);
+Route::get('/bookDownload/{id}',[BookController::class, 'download']);
+Route::get('/summeryDownload/{id}',[SummeryController::class, 'download']);
+Route::get('/termDownload/{id}',[TermController::class, 'download']);
+Route::get('/tradeoffDownload/{id}',[TradeOffController::class, 'download']);
+
