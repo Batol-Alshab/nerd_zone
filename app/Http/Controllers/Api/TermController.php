@@ -6,7 +6,6 @@ use App\Models\Term;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\TermResource;
-
 class TermController extends Controller
 {
     use ApiResponse;
@@ -14,7 +13,7 @@ class TermController extends Controller
     public function index()
     {
         $term_url = Term::all();
-        return $this->successresponse(TermResource::collection($term_url), 'Term  Showed Successfully', 200);
+        return $this->successresponse(TermResource::collection($term_url), 'تم عرض كل الدورات بنجاح', 200);
     }
 
     /**
@@ -22,7 +21,23 @@ class TermController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        try{
+            $validatedata=$request->validate([
+                'name'=>'required|string',
+                'url'=>'required|mimes:pdf|max:5000',
+                'material_id'=>'required|exists:materials,id'
+            ]);
+            $path=$this->uploadFile($request,'file/','terms/');
+            $term=Term::create([
+                'name' => $request->name,
+                'url' =>  $path,
+                'material_id'=>$request->material_id
+            ]);
+            return $this->successResponse(new TermResource($term), 'تم إضافة دورة بنجاح', 201);
+    
+        }catch(\Exception $e){
+            return $this->errorresponse($e->getMessage(), 400);
+        }
     }
 
     /**
@@ -30,8 +45,17 @@ class TermController extends Controller
      */
     public function show(string $id)
     {
-        $term_url = Term::find($id);
-        return $this->successresponse(TermResource::collection($term_url), 'success reply', 200);
+        try{
+            $term = Term::find($id);
+            if($term){
+                return $this->successresponse(new TermResource($term), 'تم عرض الدورة بنجاح', 200);
+            }else{
+                return $this->errorResponse('الدورة الذي تبحث عنها غير موجودة', 404);
+            }
+        }catch(\Exception $e){
+            return $this->errorresponse($e->getMessage(),400);
+        }
+        
     }
 
     /**
@@ -39,7 +63,27 @@ class TermController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        try{
+            $term = Term::find($id);
+            if($term){
+                $validatedata = $request->validate([
+                    'name' => 'nullable|string',
+                    'url' => 'nullable|mimes:pdf|max:10240',
+                    'material_id' => 'nullable|exists:materials,id'
+                ]);
+                $path = $this->uploadFile($request, 'file/', 'terms/');
+                $term->update([
+                    'name'=>($request->name) ? $request->name : $term->name,
+                    'url'=>($request->url) ?  $path : $term->url,
+                    'material_id'=>($request->material_id) ? $request->material_id : $term->material_id
+                ]);
+                return $this->successresponse($term, 'تم تعديل الدورة بنجاح', 200);
+            }else{
+                return $this->errorResponse('الدورة الذي تبحث عنها غير موجودة', 404);
+            }
+        }catch(\Exception $e){
+            return $this->errorResponse($e->getMessage(), 400);
+        }   
     }
 
     /**
@@ -47,14 +91,24 @@ class TermController extends Controller
      */
     public function destroy(string $id)
     {
-        $term_url=Term::find($id);
-        $term_url->delete();
-        return $this->successResponse(null, 'Term has been deleted successfully.');
+        try{
+            $term=Term::find($id);
+            if($term){
+                $term->delete();
+                return $this->successResponse(null, 'تم حذف الدورة بنجاح');
+            }else{
+                return $this->errorResponse('الدورة الذي تبحث عنها غير موجودة',404);
+            }
+        }catch(\Exception $e){
+            return $this->errorresponse($e->getMessage(),400);
+        }
     }
+
+
     public function get_material_terms($material_id)
     {
         $term = Term::where('material_id', $material_id)->get();
-        return $this->successresponse(TermResource::collection($term), 'success reply', 200);
+        return $this->successresponse(TermResource::collection($term), 'تم غرض كل دورات مادة', 200);
 
     }
 }

@@ -17,40 +17,31 @@ class MaterialController extends Controller
     public function index()
     {
         $materials = Material::all();
-        return $this->successResponse(MaterialResource::collection($materials), 'Material index  successfully', 200);
+        return $this->successResponse(MaterialResource::collection($materials), 'تم عرض كل المواد بنجاح', 200);
     }
 
     /**
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
-    {
-        try{
+    {  
+        try{  
             $validatedata=$request->validate([
                 'name'=>'required|string|unique:materials,name',
-                'image'=>'mimes:jpg,png,jpeg,gif',
+                'image'=>'nullable|mimes:jpg,png,jpeg,gif|max:2000',
                 'section_id'=>'required|exists:sections,id'
             ]);
-            if($request->hasFile('image')) {
+                
                 $path = $this->uploadAll($request, 'images/', 'material_image/');
                 $material=Material::create([
                     'name'=>$request->name,
-                    'image'=>$request->image,
+                    'image'=>($request->image) ?  $path :'http://127.0.0.1:8000/images/material_image/BOOK.png',
                     'section_id'=>$request->section_id
                 ]);
-            } 
-            else
-            {
-                $material=Material::create([
-                    'name'=>$request->name,
-                    'image'=>'http://127.0.0.1:8000/images/material_image/BOOK.png',
-                    'section_id'=>$request->section_id
-                ]);
-            }
-                return $this->successResponse(new MaterialResource($material),'Material store Successfully!',201);
+                return $this->successResponse(new MaterialResource($material),'تم إضافة مادة بنجاح',201);
             
         }catch (\Exception $e) {
-            return $this->errorResponse('the material is store already', 500);
+            return $this->errorResponse($e->getMessage(), 400);
         }
     }
 
@@ -63,34 +54,46 @@ class MaterialController extends Controller
             $material=Material::find($id);
             if($material)
             {
-            return $this->successResponse(new MaterialResource($material),'Material show  successfully', 200);
+            return $this->successResponse(new MaterialResource($material),'تم عرض المادة بنجاح', 200);
             }
             else
             {
-                return $this->errorResponse('the Material is not found ', 404);
+                return $this->errorResponse('المادة التي تبحث عنها غير موجودة', 404);
             }
         }catch (\Exception $e) {
-            return $this->errorResponse('Failed to show Materail', 500);
+            return $this->errorResponse($e->getMessage(), 400);
         }
     }
 
     /**
      * Update the specified resource in storage.
      */
-
+    
     public function update(Request $request, $id)
     {
-        $material=Material::find($id);
-        if($request->image);
+        try{  
+            $material=Material::find($id);
+            if($material)
             {
-                $path=$this->uploadAll($request,'images/','material_image/');
-            }
-        $material->update([
-            'name'=>($request->name) ? $request->name :$material->name ,
-            'image'=>($request->image) ?$request->image :$material->image,
-            'section_id'=>($request->section_id) ? $request->section_id :$material->section_id
-        ]);
-        return $this->successResponse(new MaterialResource($material), 'Material updated Successfully!', 200);
+                $validatedata=$request->validate([
+                    'name'=>'nullable|unique:materials,name',
+                    'image'=>'nullable|mimes::jpg,png,jpeg,gif|max:2000',
+                    'section_id'=>'nullable|exists:sections,id'
+                ]);
+                $path = $this->uploadAll($request, 'images/', 'material_image/');
+                $material->update([
+                    'name'=>($request->name) ? $request->name :$material->name ,
+                    'image'=>($request->image) ? $path :$material->image,
+                    'section_id'=>($request->section_id) ? $request->section_id :$material->section_id
+                ]);
+                return $this->successResponse(new MaterialResource($material), 'تم تعديل المادة بنجاح', 200);
+        
+            }else{
+                return $this->errorResponse('المادة التي تبحث عنها غير موجودة',404);
+            }      
+        }catch (\Exception $e) {
+            return $this->errorResponse($e->getMessage(), 400);
+        }
     }
 
     /**
@@ -103,14 +106,14 @@ class MaterialController extends Controller
             if($material)
             {
                 $material->delete();
-                return $this->successResponse(null,'Materail has been destroyed successfully',200);
+                return $this->successResponse(null,'تم حذف المادة بنجاح',200);
             }
             else 
             {
-                return $this->errorResponse('Material not found',404);
+                return $this->errorResponse('المادة التي تبحث عنها غير موجودة',404);
             }
         }catch(\Exception $e){
-                return $this->errorResponse('Failed to destroy the Materail.', 500);
+                return $this->errorResponse($e->getMessage(), 400);
         }
             
 
@@ -120,12 +123,12 @@ class MaterialController extends Controller
     {
         $materials = Material::where('section_id', '1')->get();
 
-        return $this->successResponse(MaterialResource::collection($materials), "sientific Subjects");
+        return $this->successResponse(MaterialResource::collection($materials), "تم عرض مواد الفرع العلمي بنجاح");
     }
     public function literary_material()
     {
         $materials = Material::where('section_id', '2')->get();
 
-        return $this->successResponse(MaterialResource::collection($materials), "literary Subjects");
+        return $this->successResponse(MaterialResource::collection($materials), "تم عرض مواد الفرع الأدبي بنجاح");
     }
 }

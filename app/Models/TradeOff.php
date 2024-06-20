@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 class TradeOff extends Model
 {
     use HasFactory;
-    protected $fillable=['name', 'url'];
+    protected $fillable=['name', 'url','section_id'];
     
     public function section()
     {

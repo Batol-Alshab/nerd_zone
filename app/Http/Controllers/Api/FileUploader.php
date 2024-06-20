@@ -13,15 +13,11 @@ trait FileUploader
             $dir = $data. $name;
             $fixName=$requestFile->getClientOriginalName();
             if ($requestFile) {
-                $requestFile->move($dir, $fixName);
-                $fullPath= asset($data. $name.$fixName);
-                $request->image = $fullPath;
-                $data->update([
-                    $inputName => $request->image,
-                ]);
+                $requestFile->move($dir, time().'_'.$fixName);
+                $fullPath= asset($data. $name.time().'_'.$fixName);
             }
 
-            return true;
+            return $fullPath;
         } catch (\Throwable $th) {
             report($th);
 
@@ -37,15 +33,11 @@ trait FileUploader
             $dir = $data. $name;
             $fixName=$requestFile->getClientOriginalName();
             if ($requestFile) {
-                $requestFile->move($dir, $fixName);
-                $fullPath= asset($data. $name.$fixName);
-                $request->url = $fullPath;
-                $data->update([
-                    $inputName => $request->url,
-                ]);
+                $requestFile->move($dir, time().'_'.$fixName);
+                $fullPath= asset($data. $name.time().'_'.$fixName);
             }
 
-            return true;
+            return $fullPath;
         } catch (\Throwable $th) {
             report($th);
 

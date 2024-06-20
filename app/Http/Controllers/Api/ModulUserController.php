@@ -2,12 +2,16 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Models\Unit;
 use App\Models\User;
 use App\Models\Modul;
+use App\Models\Section;
+use App\Models\Material;
 use App\Models\ModulUser;
 use Illuminate\Http\Request;
 use Tymon\JWTAuth\Facades\JWTAuth;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 
 class ModulUserController extends Controller
 { use ApiResponse;
@@ -16,16 +20,33 @@ class ModulUserController extends Controller
      */
     public function index()
     {
-        // $user = Auth::user();
-        // $fav=Favourite::find($user->id);
-        // $id = $user->favouriteSummeries->id;
-        // $summery=Summery::find($id);
-        // $unit=Unit::find($summery->unit_id);
-        // $material=$unit->material_id;
-
-        // return $id;
-        // return $this->successresponse(FavouritResource::collection($favorites), '  index Successfully', 200);
-
+        $user = Auth::user();      
+        $section=Section::find($user->section_id);
+        $materialAverage;
+        $material=Material::where('section_id',$section->id)->get();
+            foreach($material as $m){
+                $sum=0;
+                $count=0;
+                $average=0;
+                $unit=Unit::where('material_id',$m->id)->get();
+                foreach($unit as $u){
+                    $modul=Modul::where('unit_id',$u->id)->get();
+                    foreach($modul as $mo){
+                        $solution=ModulUser::where('user_id',$user->id)->get();
+                        foreach($solution as $s){ 
+                            if($s->percent > 0){
+                                $sum+=$s->percent;
+                                $count+=1;
+                            }
+                        }
+                    }
+                }
+                if($count>0){
+                    $average=round($sum/$count);
+                }
+                $materialAverage[$m->name]=$average;
+            }
+            return $materialAverage;
     }
 
     /**

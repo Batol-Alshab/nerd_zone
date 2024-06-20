@@ -18,7 +18,7 @@ class SectionController extends Controller
     public function index()
     {
         $sections = Section::all();
-        return $this->successResponse(SectionResource::collection($sections), 'section index  successfully', 200);
+        return $this->successResponse(SectionResource::collection($sections), 'تم عرض كل الأفرع بنجاح', 200);
     }
 
     /**
@@ -34,9 +34,9 @@ class SectionController extends Controller
             $section = Section::create([
                 "name" => $request->name,
             ]);
-            return $this->successResponse(new SectionResource($section), "create section successfully", 201);
+            return $this->successResponse(new SectionResource($section), "تم إضافة الفرع بنجاح", 201);
         }catch (\Exception $e) {
-            return $this->errorResponse('the section is store already', 500);
+            return $this->errorResponse($e->getMessage(), 400);
         }
     }
 
@@ -49,14 +49,14 @@ class SectionController extends Controller
             $section = Section::find($id);
             if($section)
             {
-                return $this->successResponse(new SectionResource($section), 'section  Showed Successfully',200);
+                return $this->successResponse(new SectionResource($section), 'تم عرض الفرع بنجاح',200);
             }
             else
             {
-                return $this->errorResponse('Section not found ',404);
+                return $this->errorResponse('لم يتم ايجاد الفرع الذي تبحث عنه',404);
             }
         }catch (\Exception $e) {
-            return $this->errorResponse('Failed to show Section', 500);
+            return $this->errorResponse($e->getMessage(), 400);
         }
     }
         
@@ -73,15 +73,14 @@ class SectionController extends Controller
                     'name' => 'required|string|unique:sections,name',
                 ]);  
                 $section->update($validatedData);
-                return $this->successResponse(new SectionResource($section), 'Section has been updated successfully.');
+                return $this->successResponse(new SectionResource($section), 'تم تعديل الفرع بنجاح',200);
             }
             else
             {
-                return $this->errorResponse('the section is not found ', 404);
+                return $this->errorResponse('المادة التي تبحث عنه غير موجود',404);
             }
-        }
-        catch (\Exception $e) {
-            return $this->errorResponse('the section is found alreay', 500);
+        }catch (\Exception $e) {
+            return $this->errorResponse($e->getMessage(), 400);
         }
     }
 
@@ -95,14 +94,14 @@ class SectionController extends Controller
             if ($section) 
             {
                 $section->delete();
-                return $this->successResponse(null, 'Section has been destroyed successfully.', 200);
+                return $this->successResponse(null, 'تم حذف الفرع بنجاح', 200);
             } 
             else 
             {
-                return $this->errorResponse('Section not found.', 404);
+                return $this->errorResponse('الفرع التي تبحث عنه غير موجود', 404);
             }
         } catch (\Exception $e) {
-            return $this->errorResponse('Failed to destroy the Section.', 500);
+            return $this->errorResponse($e->getMessage(), 400);
         }
     }
 

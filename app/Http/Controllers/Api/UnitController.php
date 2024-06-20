@@ -18,7 +18,7 @@ class UnitController extends Controller
     public function index()
     {
         $units=Unit::all();
-        return $this->successResponse(UnitResource::collection($units),'Unit  index Successfully', 200);
+        return $this->successResponse(UnitResource::collection($units),'تم عرض كل الوحدات بنجاح', 200);
     }
 
     /**
@@ -30,19 +30,18 @@ class UnitController extends Controller
         try{
             $validateData=$request->validate([
                 'name'=>'required|string|unique:units,name',
-                'image'=>'required|mimes:png,jpg,jpeg,gif|max:5240',
+                'image'=>'required|mimes:png,jpg,jpeg,gif|max:2000',
                 'material_id'=>'required|exists:materials,id'
         ]);
-       
         $path= $this->uploadAll($request,'images/','unit_image/');
         $unit=Unit::create([
             'name'=>$request->name,
-            'image'=>$request->image,
+            'image'=> $path,
             'material_id'=>$request->material_id
         ]);
-        return $this->successResponse(new UnitResource($unit),'Unit store Successfully!',201);
+        return $this->successResponse(new UnitResource($unit),'تم إضافة الوحدة بنجاح',201);
         }catch(\Exception $e){
-            return $this->errorResponse('the Unit is store already', 500);
+            return $this->errorResponse($e->getMessage(), 400);
         }
     }
 
@@ -55,14 +54,14 @@ class UnitController extends Controller
             $unit=Unit::find($id);
             if($unit)
             {
-                return $this->successresponse(new unitResource($unit), 'Unit show successfully', 200);
+                return $this->successresponse(new unitResource($unit), 'تم عرض الوحدة بنجاح', 200);
             }
             else
             {
-                return $this->errorResponse('the Unit is not found ', 404);
+                return $this->errorResponse('الوحدة التي تبحث عنها غير موجودة', 404);
             }
         }catch (\Exception $e) {
-            return $this->errorResponse('Failed to show Unit', 500);
+            return $this->errorResponse($e->getMessage(), 400);
         }
     }
 
@@ -73,25 +72,27 @@ class UnitController extends Controller
     {
         try{
             $unit=Unit::find($id);
-            if($request->image)
-            {
-                $path=$this->uploadAll($request,'images/','unit_image');
-            }
             if($unit)
             {
+                $validatedata=$request->validate([
+                    'name'=>'nullable|string|unique:units,name',
+                    'image'=>'nullable|mimes:png,jpg,jpeg,gif|max:2000',
+                    'material_id'=>'nullable|exists:materials,id'
+                ]);
+                $path=$this->uploadAll($request,'images/','unit_image');
                 $unit->update([
                     'name'=>($request->name) ? $request->name :$unit->name ,
-                    'image'=>($request->image) ?$request->image :$unit->image,
+                    'image'=>($request->image) ? $path :$unit->image,
                     'material_id'=>($request->material_id) ? $request->material_id :$unit->material_id            
                 ]);
-                return $this->successresponse(new unitResource($unit), 'Unit Update successfully', 200);
+                return $this->successresponse(new unitResource($unit), 'تم تعديل الوحدة بنجاح', 200);
             }
             else
             {
-                return $this->errorResponse('the Unit is not found ', 404);
+                return $this->errorResponse('الوحدة التي تبحث عنها غير موجودة', 404);
             }
         }catch (\Exception $e) {
-            return $this->errorResponse('Failed to update Unit', 500);
+            return $this->errorResponse($e->getMessage(), 400);
         } 
     }       
     
@@ -105,14 +106,14 @@ class UnitController extends Controller
             if($unit)
             {
                 $unit->delete();
-                return $this->successResponse(null,'Unit has been deleted successfully.');
+                return $this->successResponse(null,'تم حذف الوحدة بنجاح');
             }
             else
             {
-                return $this->errorResponse('the unit not found ',404);
+                return $this->errorResponse('الوحدة التي تبحث عنها غير موجودة',404);
             }
         }catch(\Exception $e){
-            return $this->errorResponse('Failed to destroy Unit',500);
+            return $this->errorResponse($e->getMessage(),400);
 
         }
     }
@@ -120,6 +121,6 @@ class UnitController extends Controller
     public function get_material_unites($material_id)
     {
         $units=Unit::where('material_id',$material_id)->get();
-        return $this->successResponse(UnitResource::collection($units),'successfully',200);
+        return $this->successResponse(UnitResource::collection($units),'تم عرض كل وحدات المادة',200);
     }
 }
