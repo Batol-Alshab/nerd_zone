@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 class Question extends Model
 {
     use HasFactory;
-    protected $fillable=['title', 'content','image' ,'modul_id'];
+    protected $fillable=['title', 'content' ,'modul_id'];
 
     public function modul(){
         return $this->belongsTo(Modul::class);

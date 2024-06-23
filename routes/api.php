@@ -75,7 +75,7 @@ Route::post('/answer/create/{question_id}', [AnswerController::class, 'store']);
 // عرض الصور
 // Route::get('/images', [ImageController::class, 'index']);
 //مقالات
-// Route::get('/article/{atricle_id}', [ArticleController::class, 'getHtmlContent']);
+Route::get('/article/{atricle_id}', [ArticleController::class, 'show']);
 //نماذج وحدة محددة
 // Route::get('/modul/{unit_id}', [ModulController::class, 'getModulsForUnit']);
 //اسئلة

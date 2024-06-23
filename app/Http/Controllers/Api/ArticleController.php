@@ -34,8 +34,8 @@ class ArticleController extends Controller
         if (!$article) {
             return response()->json(['message' => 'Article not found'], 404);
         }
-
-        return response()->json($article, 200);
+       return $article;
+        // return response()->json($article, 200);
     }
 
 
@@ -70,5 +70,12 @@ class ArticleController extends Controller
             return response($htmlContent, 200)
             ->header('Content-Type', 'text/html');
         // return $this->successResponse($htmlContent,'Success Responce',200);
+    }
+
+    public function getNews()
+    {
+        $article=Article::where('type','1')->get();
+        return $this->successResponse(MaterialResource::collection($materials), "تم عرض مواد الفرع العلمي بنجاح");
+
     }
 }
