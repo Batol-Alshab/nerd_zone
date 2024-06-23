@@ -10,6 +10,7 @@ use Tymon\JWTAuth\Facades\JWTAuth;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Resources\SummeryResource;
+use Illuminate\Support\Facades\File;
 
 class SummeryController extends Controller
 {
@@ -63,20 +64,26 @@ class SummeryController extends Controller
     public function update(Request $request, $id)
     {
         try{
-            $summery_url = Summery::find($id);
-            if($summery_url){
+            $summery = Summery::find($id);
+            if($summery){
                 $validatedata = $request->validate([
                     'name' => 'nullable|string',
                     'url' => 'nullable|mimes:pdf|max:10240',
                     'unit_id' => 'nullable|exists:units,id'
                 ]);
-                $path = $this->uploadFile($request, 'file/', 'summeries/');
-                $summery_url->update([
-                    'name'=>($request->name) ? $request->name : $summery_url->name,
-                    'url'=>($request->url) ?  $path : $summery_url->url,
-                    'unit_id'=>($request->unit_id) ? $request->unit_id : $summery_url->unit_id
+                if($request->hasFile('url')){
+                    $url = $summery->url;
+                    $summery_url = parse_url($url);
+                    $summery_url = $summery_url['path'];
+                    File::delete(public_path($summery_url));
+                    $path = $this->uploadFile($request, 'file/', 'summeries/');
+                }
+                $summery->update([
+                    'name'=>($request->name) ? $request->name : $summery->name,
+                    'url'=>($request->url) ?  $path : $summery->url,
+                    'unit_id'=>($request->unit_id) ? $request->unit_id : $summery->unit_id
                 ]);
-                return $this->successresponse($summery_url, 'تم تعديل الملخص بنجاح', 200);
+                return $this->successresponse($summery, 'تم تعديل الملخص بنجاح', 200);
             }else{
                 return $this->errorResponse('الملخص الذي تبحث عنه غير موجود', 404);
             }
@@ -90,9 +97,13 @@ class SummeryController extends Controller
     public function destroy($id)
     {
         try{
-            $summery_url = Summery::find($id);
-            if($summery_url){
-                $summery_url->delete();
+            $summery = Summery::find($id);
+            if($summery){
+                $url = $summery->url;
+                $summery_url = parse_url($url);
+                $summery_url = $summery_url['path'];
+                File::delete(public_path($summery_url));
+                $summery->delete();
                 return $this->successResponse(null,'تم حذف الملخص بنجاح');
             }else {
                 return $this->errorResponse('الملخص الذي تبحث عنه غير موجود',404);
@@ -102,6 +113,14 @@ class SummeryController extends Controller
         }
     }
 
+    public function download($id)
+    {
+        $summery=Summery::find($id);
+        $url = $summery->url;
+        $summery_url = parse_url($url);
+        $summery_url = $summery_url['path'];
+        return response()->download(public_path($summery_url));  
+    }
 
     public function get_unit_summery($unit_id)
     {

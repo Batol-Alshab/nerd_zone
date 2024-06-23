@@ -6,6 +6,8 @@ use App\Models\Term;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\TermResource;
+use Illuminate\Support\Facades\File;
+
 class TermController extends Controller
 {
     use ApiResponse;
@@ -71,7 +73,13 @@ class TermController extends Controller
                     'url' => 'nullable|mimes:pdf|max:10240',
                     'material_id' => 'nullable|exists:materials,id'
                 ]);
-                $path = $this->uploadFile($request, 'file/', 'terms/');
+                if($request->hasFile('url')){
+                    $url=$term->url;
+                    $term_url=parse_url($url);
+                    $term_url=$term_url['path'];
+                    File::delete(public_path($term_url));
+                    $path = $this->uploadFile($request, 'file/', 'terms/');
+                }
                 $term->update([
                     'name'=>($request->name) ? $request->name : $term->name,
                     'url'=>($request->url) ?  $path : $term->url,
@@ -94,6 +102,10 @@ class TermController extends Controller
         try{
             $term=Term::find($id);
             if($term){
+                $url = $term->url;
+                $term_url = parse_url($url);
+                $term_url = $term_url['path'];
+                File::delete(public_path($term_url));
                 $term->delete();
                 return $this->successResponse(null, 'تم حذف الدورة بنجاح');
             }else{
@@ -102,6 +114,15 @@ class TermController extends Controller
         }catch(\Exception $e){
             return $this->errorresponse($e->getMessage(),400);
         }
+    }
+
+    public function download($id)
+    {
+        $term=Term::find($id);
+        $url = $term->url;
+        $term_url = parse_url($url);
+        $term_url = $term_url['path'];
+        return response()->download(public_path($term_url));  
     }
 
 

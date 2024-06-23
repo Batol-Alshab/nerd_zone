@@ -197,6 +197,129 @@ class AnswerSeeder extends Seeder
             'النجمية'
         ];
         //////////////////
+        $answer31 = [
+            'تصالب العصبين البصريين',
+            'الجسم المخطط',
+            'الوطاء',
+            'الفص الشمي'
+        ];
+        $answer32 = [
+            ' العصب الوركي',
+            '  العصب الشمي',
+            ' المادة الرمادية',
+            ' العصب البصري'
+        ];
+        $answer33 = [
+       ' الدبقية النجمية',
+        ' الدبقية الصغيرة',
+        ' الدبقية الساتلة',
+        ' الدبقية قليلة الاستطالات'
+        ];
+        $answer34 = [
+           ' نورادرينالين',
+           ' استيل كولين',
+            'دوبامين',
+           ' الخيار الاول والثالث'
+        ];
+        $answer35 = [
+            'الريوباز',
+            'الاستنفاد',
+           ' المفيد الاساسي',
+            'الكروناكسي'
+        ];
+        $answer36 = [
+           ' التسرب البروتينية',
+           ' التبويب الفولطية',
+           ' التبويب الكيميائية',
+           ' مضخة الصوديوم والبوتاسيوم'        
+        ];
+        $answer37 = [
+            'اندماج الحويصلات المشبكية مع الغشاء قبل المشبكي',
+            'تشكيل EPSP',
+            'تحرير النواقل العصبية في الفالق المشبكي',
+           ' الخيار الأول و الثالث'
+        ];
+        $answer38 = [
+           ' باحة فيرنكه',
+            'باحة الترابط الحافية',
+            'باحة الترابط الجدارية القفوية الصدغية',
+            'لا شيء صحيح'
+        ];
+        $answer39 = [
+            'البصلة السيسائية',
+            'المهاد',
+            'العقدة الشوكية',
+            'النخاع الشوكي'
+        ];
+        $answer40 = [
+           ' السويقة المخية',
+           ' الحدبة الحلقية',
+           ' الحدبات التوءمية الاربعة',
+            'الوطاء'
+        ];
+        ////////////////////////
+        $answer41 = [
+            'الشقيقة',
+            'باركنسون',
+            'الصرع',
+           ' التصلب اللويحي المتعدد'
+        ];
+        $answer42 = [
+            'المهاد',
+            'الوطاء',
+            'الجسم المخطط',
+            'قشرة المخ'
+
+        ];
+        $answer43 = [    
+            'الباحة المحركة الاولية',
+            'الباحة الحسية الجسمية الأولية',
+            'الباحة المحركة الثانوية',
+            'الباحة البصرية الاولية'
+        ];
+        $answer44 = [
+           ' باحة فيرنكه',
+            'باحة ترابط امام جبهية',
+            'باحة ترابط حافية',
+            'باحة ترابط جدارية قفوية صدغية'
+        ];
+        $answer45 = [
+           ' البصلة السيسائية',
+           ' النخاع الشوكي',
+           ' الوطاء',
+            'المهاد'
+        ];
+        $answer46 = [
+           ' الذاكرة الحسية',
+            'الذاكرة قصيرة الامد',
+            'الذاكرة طويلة الامد',
+            'المرونة العصبية'
+        ];
+        $answer47 = [
+           ' الحدبات التوءمية الاربعة',
+            'البصلة السيسائية بمادتها الرمادية',
+           ' النخاع الشوكي بمادته البيضاء',
+           ' النوى القاعدية'
+        ];
+        $answer48 = [
+           ' البصلة السيسائية',
+            'جسر فارول',
+            'الاعصاب الشوكية',
+            'السويقة المخية'
+        ];
+        $answer49 = [
+            '2',
+            '3',
+            '4',
+            '5'
+        ];
+        $answer50 = [    
+            'الزهايمر',
+            'باركنسون',
+            'التصلب اللويحي المتعدد',
+            'الشقيقة'
+        ];
+        //////////////////
         $index = ['0', '0', '1', '0'];
         foreach ($answer1 as $indexKey => $ans) {
             Answer::create([
@@ -426,6 +549,166 @@ class AnswerSeeder extends Seeder
                 'content' => $ans,
                 'is_true' => $index[$indexKey],
                 'question_id' => '30'
+            ]);
+            
+        }
+        foreach ($answer31 as $indexKey => $ans) {
+            Answer::create([
+                'content' => $ans,
+                'is_true' => $index[$indexKey],
+                'question_id' => '31'
+            ]);
+            
+        }
+        foreach ($answer32 as $indexKey => $ans) {
+            Answer::create([
+                'content' => $ans,
+                'is_true' => $index[$indexKey],
+                'question_id' => '32'
+            ]);
+            
+        }
+        foreach ($answer33 as $indexKey => $ans) {
+            Answer::create([
+                'content' => $ans,
+                'is_true' => $index[$indexKey],
+                'question_id' => '33'
+            ]);
+            
+        }
+        foreach ($answer34 as $indexKey => $ans) {
+            Answer::create([
+                'content' => $ans,
+                'is_true' => $index[$indexKey],
+                'question_id' => '34'
+            ]);
+            
+        }
+        foreach ($answer35 as $indexKey => $ans) {
+            Answer::create([
+                'content' => $ans,
+                'is_true' => $index[$indexKey],
+                'question_id' => '35'
+            ]);
+            
+        }
+        foreach ($answer36 as $indexKey => $ans) {
+            Answer::create([
+                'content' => $ans,
+                'is_true' => $index[$indexKey],
+                'question_id' => '36'
+            ]);
+            
+        }
+        foreach ($answer37 as $indexKey => $ans) {
+            Answer::create([
+                'content' => $ans,
+                'is_true' => $index[$indexKey],
+                'question_id' => '37'
+            ]);
+            
+        }
+        foreach ($answer38 as $indexKey => $ans) {
+            Answer::create([
+                'content' => $ans,
+                'is_true' => $index[$indexKey],
+                'question_id' => '38'
+            ]);
+            
+        }
+        foreach ($answer39 as $indexKey => $ans) {
+            Answer::create([
+                'content' => $ans,
+                'is_true' => $index[$indexKey],
+                'question_id' => '39'
+            ]);
+            
+        }
+        foreach ($answer40 as $indexKey => $ans) {
+            Answer::create([
+                'content' => $ans,
+                'is_true' => $index[$indexKey],
+                'question_id' => '40'
+            ]);
+            
+        }
+        foreach ($answer41 as $indexKey => $ans) {
+            Answer::create([
+                'content' => $ans,
+                'is_true' => $index[$indexKey],
+                'question_id' => '41'
+            ]);
+            
+        }
+        foreach ($answer42 as $indexKey => $ans) {
+            Answer::create([
+                'content' => $ans,
+                'is_true' => $index[$indexKey],
+                'question_id' => '42'
+            ]);
+            
+        }
+        foreach ($answer43 as $indexKey => $ans) {
+            Answer::create([
+                'content' => $ans,
+                'is_true' => $index[$indexKey],
+                'question_id' => '43'
+            ]);
+            
+        }
+        foreach ($answer44 as $indexKey => $ans) {
+            Answer::create([
+                'content' => $ans,
+                'is_true' => $index[$indexKey],
+                'question_id' => '44'
+            ]);
+        
+        }
+        foreach ($answer45 as $indexKey => $ans) {
+            Answer::create([
+                'content' => $ans,
+                'is_true' => $index[$indexKey],
+                'question_id' => '45'
+            ]);
+            
+        }
+        foreach ($answer46 as $indexKey => $ans) {
+            Answer::create([
+                'content' => $ans,
+                'is_true' => $index[$indexKey],
+                'question_id' => '46'
+            ]);
+            
+        }
+        foreach ($answer47 as $indexKey => $ans) {
+            Answer::create([
+                'content' => $ans,
+                'is_true' => $index[$indexKey],
+                'question_id' => '47'
+            ]);
+            
+        }
+        foreach ($answer48 as $indexKey => $ans) {
+            Answer::create([
+                'content' => $ans,
+                'is_true' => $index[$indexKey],
+                'question_id' => '48'
+            ]);
+            
+        }
+        foreach ($answer49 as $indexKey => $ans) {
+            Answer::create([
+                'content' => $ans,
+                'is_true' => $index[$indexKey],
+                'question_id' => '49'
+            ]);
+            
+        }
+        foreach ($answer50 as $indexKey => $ans) {
+            Answer::create([
+                'content' => $ans,
+                'is_true' => $index[$indexKey],
+                'question_id' => '50'
             ]);
             
         }

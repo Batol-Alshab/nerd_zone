@@ -29,6 +29,7 @@ class DatabaseSeeder extends Seeder
             QuestionSeeder::class,
             AnswerSeeder::class,
             TermSeeder::class,
+            TradeOffSeeder::class,
             ArticleSeeder::class
         ]);
     }

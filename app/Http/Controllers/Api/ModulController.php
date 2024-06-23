@@ -28,13 +28,13 @@ class ModulController extends Controller
      */
     public function store(Request $request)
     {
-       $moduls= Modul::create([
-            'name'=>$request->name,
-            'is_open'=>$request->is_open,
-            'rate'=>$request->rate,
-            'unit_id'=>$request->unit_id
+        $moduls = Modul::create([
+            'name' => $request->name,
+            'is_open' => $request->is_open,
+            'rate' => $request->rate,
+            'unit_id' => $request->unit_id
         ]);
-        return $this->successResponse($moduls,"created succesfully",200);
+        return $this->successResponse($moduls, "created succesfully", 200);
     }
 
     /**
@@ -64,21 +64,25 @@ class ModulController extends Controller
 
 
     public function getModelForUnit($is_open, $unit_id)
-{
-    $user = JWTAuth::user();
+    {
+        $user = JWTAuth::user();
 
-    if (!$user) {
-        return $this->unauthorized();
+        if (!$user) {
+            return $this->unauthorized();
+        }
+
+        $user_id = $user->id;
+
+        $loadRelationship = Modul::has('modulUsers');
+
+        $moduls = Modul::where('is_open', $is_open)
+            ->where('unit_id', $unit_id)
+            ->when($loadRelationship, function ($query) use ($user_id) {
+                return $query->with(['modulUsers' => function ($query) use ($user_id) {
+                    $query->where('user_id', $user_id); // Assuming you want to filter by user_id
+                }]);
+            })
+            ->get();
+        return $this->successResponse(ModulResource::collection($moduls), 'تم جلب البيانات بنجاح', 200);
     }
-
-    $user_id = $user->id;
-
-    $moduls = Modul::where('is_open', $is_open)
-                    ->where('unit_id', $unit_id)
-                    ->with('modulUsers')
-                    ->get();
-//  return $moduls;
-    return $this->successResponse(ModulResource::collection($moduls), 'Success response', 200);
-}
-
 }

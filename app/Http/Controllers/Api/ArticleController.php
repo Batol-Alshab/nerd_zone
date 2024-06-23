@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Models\Article;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Http\Resources\ArticleResource;
 
 class ArticleController extends Controller
 {    use ApiResponse;
@@ -74,8 +75,14 @@ class ArticleController extends Controller
 
     public function getNews()
     {
-        $article=Article::where('type','1')->get();
-        return $this->successResponse(MaterialResource::collection($materials), "تم عرض مواد الفرع العلمي بنجاح");
+        $articles=Article::where('type','1')->get();
+        return $this->successResponse(ArticleResource::collection($articles), "تم عرض اخر الاخبار بنجاح"  ,200);
+
+    }
+    public function getStudingSystems()
+    {
+        $articles=Article::where('type','0')->get();
+        return $this->successResponse(ArticleResource::collection($articles), "تم عرض الانظمة الدراسية بنجاح"  ,200);
 
     }
 }
