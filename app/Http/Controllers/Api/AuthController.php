@@ -33,7 +33,11 @@ class AuthController extends Controller
                 'email' => $request->email,
                 'phone_number' => $request->phone_number ?? null,
                 'sex' => $request->sex,
-                'section_id' => $request->section_id
+                'section_id' => $request->section_id,
+                'rate'=>$request->rate ?? 10,
+                'opinion'=>$request->opinion ?? null,
+                'image'=>$request->image ?? null
+
             ]);
             $token = JWTAuth::fromUser($user);
 
@@ -45,7 +49,7 @@ class AuthController extends Controller
                 'phone_number' =>  $user->phone_number,
                 'sex' => $user->sex,
                 'section_id' => $user->section_id,
-                'rate' => $user->rate,
+                'rate' => $user->rate ,
                 'token' => $token
             ];
 

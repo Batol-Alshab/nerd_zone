@@ -30,9 +30,10 @@ class User extends Authenticatable  implements JWTSubject
         'sex',
         'image',
         'level',
-        'rate',
         'opinion',
-        'section_id'
+        'section_id',
+        'rate'
+
 
 
 
