@@ -22,6 +22,7 @@ return new class extends Migration
             $table->longText('content2')->nullable();
             $table->longText('content3')->nullable();
             $table->string('imge')->nullable();
+            $table->string('cover');
             $table->string('type');
             $table->timestamps();
         });

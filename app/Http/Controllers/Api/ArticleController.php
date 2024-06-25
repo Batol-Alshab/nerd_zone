@@ -6,9 +6,11 @@ use App\Models\Article;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\ArticleResource;
+use App\Http\Resources\NewsSysytemResource;
 
 class ArticleController extends Controller
-{    use ApiResponse;
+{
+    use ApiResponse;
     /**
      * Display a listing of the resource.
      */
@@ -33,10 +35,9 @@ class ArticleController extends Controller
         $article = Article::find($id);
 
         if (!$article) {
-            return response()->json(['message' => 'Article not found'], 404);
+            return  $this->notFound();
         }
-       return $article;
-        // return response()->json($article, 200);
+        return $this->successResponse(new ArticleResource($article),'تم عرض المقالة بنجاح',200);
     }
 
 
@@ -68,21 +69,19 @@ class ArticleController extends Controller
 
         // return response()->json(['html' => $htmlContent], 200)
         //     ->header('Content-Type', 'application/json');
-            return response($htmlContent, 200)
+        return response($htmlContent, 200)
             ->header('Content-Type', 'text/html');
         // return $this->successResponse($htmlContent,'Success Responce',200);
     }
 
     public function getNews()
     {
-        $articles=Article::where('type','1')->get();
-        return $this->successResponse(ArticleResource::collection($articles), "تم عرض اخر الاخبار بنجاح"  ,200);
-
+        $articles = Article::where('type', '1')->get();
+        return $this->successResponse(NewsSysytemResource::collection($articles), "تم عرض اخر الاخبار بنجاح", 200);
     }
     public function getStudingSystems()
     {
-        $articles=Article::where('type','0')->get();
-        return $this->successResponse(ArticleResource::collection($articles), "تم عرض الانظمة الدراسية بنجاح"  ,200);
-
+        $articles = Article::where('type', '0')->get();
+        return $this->successResponse(NewsSysytemResource::collection($articles), "تم عرض الانظمة الدراسية بنجاح", 200);
     }
 }
