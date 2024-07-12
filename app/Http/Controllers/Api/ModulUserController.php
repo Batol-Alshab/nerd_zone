@@ -20,33 +20,7 @@ class ModulUserController extends Controller
      */
     public function index()
     {
-        $user = Auth::user();      
-        $section=Section::find($user->section_id);
-        $materialAverage;
-        $material=Material::where('section_id',$section->id)->get();
-            foreach($material as $m){
-                $sum=0;
-                $count=0;
-                $average=0;
-                $unit=Unit::where('material_id',$m->id)->get();
-                foreach($unit as $u){
-                    $modul=Modul::where('unit_id',$u->id)->get();
-                    foreach($modul as $mo){
-                        $solution=ModulUser::where('user_id',$user->id)->get();
-                        foreach($solution as $s){ 
-                            if($s->percent > 0){
-                                $sum+=$s->percent;
-                                $count+=1;
-                            }
-                        }
-                    }
-                }
-                if($count>0){
-                    $average=round($sum/$count);
-                }
-                $materialAverage[$m->name]=$average;
-            }
-            return $materialAverage;
+        
     }
 
     /**

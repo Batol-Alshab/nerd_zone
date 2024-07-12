@@ -2,8 +2,12 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Models\Unit;
 use App\Models\User;
 use App\Models\Modul;
+use App\Models\Section;
+use App\Models\Material;
+use App\Models\ModulUser;
 use Illuminate\Http\Request;
 use Tymon\JWTAuth\Facades\JWTAuth;
 use App\Http\Controllers\Controller;
@@ -123,5 +127,41 @@ class UserController extends Controller
 
     return response()->json($favoriteSummaries);
 }
+    public function chart()
+    {
+        $user = Auth::user();     
+        $section=Section::find($user->section_id);
+        $materialAverage;
+        $material=Material::where('section_id',$section->id)->get();
+            foreach($material as $m){
+                $sum=0;
+                $count=0;
+                $average=0;
+                $unit=Unit::where('material_id',$m->id)->get();
+                foreach($unit as $u){
+                    $modul=Modul::where('unit_id',$u->id)->get();       
+                    $count+=$modul->count();
+                    foreach($modul as $mo){
+                        $solution=ModulUser::where('user_id',$user->id)
+                        ->where('modul_id',$mo->id)
+                        ->get();
+                        foreach($solution as $s){ 
+                            if($s->percent > 0){
+                                $sum+=$s->percent;
+                            }
+                        }
+                    }
+                }
+                if($count>0){
+                    $average=round($sum/$count);
+                    $materialAverage[$m->name]=$average;
+                }
+                else{
+                    $materialAverage[$m->name]=0;
+                }
+            }
+            return $this->successResponse($materialAverage, 'chart return successfully', 200);
+            // return $materialAverage;
+    }
 
 }

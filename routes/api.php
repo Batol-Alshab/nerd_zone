@@ -39,6 +39,8 @@ Route::group(['middleware' => ['jwt.auth']], function () {
     Route::get('/model/{is_open}/{unit_id}', [ModulController::class, 'getModelForUnit']);
     //الاسئلة مع الاجوبة
     Route::get('/question/{modul_id}', [QuestionController::class, 'getQuestionFormodul']);
+    //عرض معلومات المخطط للطالب
+    Route::get('/chart', [UserController::class, 'chart']);
 });
 Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);
@@ -85,7 +87,6 @@ Route::get('/systems',[ArticleController::class, 'getStudingSystems']);
 // Route::get('/modul/{unit_id}', [ModulController::class, 'getModulsForUnit']);
 //اسئلة
 // Route::get('/questions', [QuestionController::class, 'index']);
-// Route::get('/mu', [ModulUserController::class, 'index']);
 //admin
 // Route::apiResource('books', BookController::class);
 // Route::post('/refresh', [AuthController::class, 'refresh'])->middleware('jwt.auth');

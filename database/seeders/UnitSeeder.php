@@ -35,6 +35,35 @@ class UnitSeeder extends Seeder
             'image'=>$url.'unit2.png',
             'material_id' => '5'
         ]);
+        Unit::create([ //id=5
+            'name' => 'وحدة النواسات',
+            'image'=>$url.'unit1.png',
+            'material_id' => '2'
+        ]);
+        Unit::create([
+            'name' => 'وحدة المغناطيسية',
+            'image'=>$url.'unit1.png',
+            'material_id' => '2'
+        ]);
+        Unit::create([
+            'name' => 'وحدة الأمواج',
+            'image'=>$url.'unit1.png',
+            'material_id' => '2'
+        ]);
+
+        //material 8
+        Unit::create([
+            'name' => 'وحدة القضايا',
+            'image'=>$url.'unit1.png',
+            'material_id' => '8'
+        ]);
+        Unit::create([
+            'name' => 'وحدة العولمة',
+            'image'=>$url.'unit1.png',
+            'material_id' => '8'
+        ]);
+
+        /////////////////////////////////////////////////////////////////////////
         Unit::create([
             'name' => 'الوحدة الاولى ',
             'image'=>$url.'BOOk.png',
