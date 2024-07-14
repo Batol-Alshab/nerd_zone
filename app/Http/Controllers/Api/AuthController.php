@@ -34,13 +34,9 @@ class AuthController extends Controller
                 'phone_number' => $request->phone_number ?? null,
                 'sex' => $request->sex,
                 'section_id' => $request->section_id,
-                'rate'=>$request->rate ?? 10,
-                'opinion'=>$request->opinion ?? null,
-                'image'=>$request->image ?? null
-
             ]);
+            $user=User::find($user->id);
             $token = JWTAuth::fromUser($user);
-
             $data = [
                 // 'id' => $user->id,
                 'fname' => $user->fname,

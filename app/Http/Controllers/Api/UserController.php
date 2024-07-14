@@ -15,7 +15,9 @@ use App\Http\Resources\UserResource;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use App\Http\Resources\ModulResource;
+use App\Http\Resources\SummeryResource;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\File;
 
 class UserController extends Controller
 {
@@ -57,10 +59,10 @@ class UserController extends Controller
      */
     public function show(User $user)
     {
-        $user = Auth::user();
-        $user = User::with('favouritesummeries')->findOrFail($user->id);
+        // $user = Auth::user();
+        // $user = User::with('favouritesummeries')->findOrFail($user->id);
 
-        return $this->successResponse(new UserResource($user), 'User information retrieved successfully', 200);
+        // return $this->successResponse(new UserResource($user), 'User information retrieved successfully', 200);
     }
 
     /**
@@ -68,48 +70,105 @@ class UserController extends Controller
      */
     public function update(Request $request)
     {
-        $validator = Validator::make($request->all(), [
-            'fname' => 'string',
-            'lname' => 'string',
-            'password' => 'confirmed|min:6',
-            'phone_number' => 'string|nullable|regex:/^([0-9\s\-\+\(\)]*)$/|min:10',
-            'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-        ]);
-
-        if ($validator->fails()) {
-            return $this->errorResponse($validator->errors(), 400);
-        }
         $user = Auth::user();
+        if($user)
+        {
+            try {
+                $validator = $request->validate([
+                    'fname' => 'nullable|regex:/^[^0-9][a-zA-Z0-9\s]*$/|string',
+                    'lname' => 'nullable|regex:/^[a-zA-Z][a-zA-Z0-9\s]*$/|string',
+                    'phone' => 'nullable|string|regex:/^09\d{8}$/',
+                    // 'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:1048',
+                    'opinion' =>'nullable|string|max:100'
+                ]);            
+                   
+                // if ($request->hasFile('image')) {
+                //     $url = $user->image;
+                //     if($url != 'http://127.0.0.1:8000/images/profile_image/profile.jpg')
+                //     {
+                //         $image_url = parse_url($url);
+                //         $image_url = $image_url['path'];
+                //         File::delete(public_path($image_url));
+                //     }  
+                //     $path=$this->uploadAll($request,'images/','profile_image/');
+                // }
+                $user->update([
+                    'lname' =>  $request->lname ?? $user->lname,
+                    'fname' =>  $request->fname ?? $user->fname,
+                    'phone_number' => $request->phone_number ?? $user->phone_number,
+                    // 'image' =>  $path ?? $user->image,
+                    'opinion' =>  $request->opinion ?? $user->opinion,
+                ]);
+                return $this->successResponse(new UserResource($user), 'تم تعديل الملف الشخصي بنجاح', 200);
 
-
-          if($request->email !== $user->email)
-
-           { $validator=Validator::make($request->email,
-            ['email' => 'string|email:rfc,dns|max:100|unique:users,email',
-        ]);}
-
-
-        if ($user) {
-            if ($request->hasFile('image')) {
-                $this->uploadImage($request, $user, 'profile_image', 'image');
+            } catch(\Exception $e){
+                return $this->errorResponse($e->getMessage(),400);
             }
-
-            $user->update([
-                'fname' => $request->fname ?? $user->fname,
-                'lname' => $request->lname?? $user->lname,
-                'password' => Hash::make($request->password)?? $user->password,
-                'email' => $request->email?? $user->email,
-                'phone_number' => $request->phone_number?? $user->phone_number,
-                'image' => $request->image?? $user->image,
-                'sex' => $user->sex,
-                'section_id' => $user->section_id,
-                'opinion' => $request->opinion ?? $user->opinion
-            ]);
-
-            return $this->successResponse(new UserResource($user), 'your profile updated successfully', 200);
-        } else {
-            return $this->unauthorized();
         }
+        else 
+        {
+            return $this->errorResponse('اسم المستخدم غير صحيح',400);
+        }
+    }
+
+    public function updateImage(Request $request)
+    {
+        $user= Auth::user();
+        if($user)
+        {
+            try {
+                $validator = $request->validate([
+                    'image'=>'required|image|mimes:jpeg,png,jpg,gif,svg|max:1048'
+                ]);
+                $url=$user->image;
+                if($url != 'http://127.0.0.1:8000/images/profile_image/profile.jpg')
+                    {
+                        $image_url = parse_url($url);
+                        $image_url = $image_url['path'];
+                        File::delete(public_path($image_url));
+                    }
+                $path=$this->uploadAll($request,'images/','profile_image/');
+                $user->update([
+                    'image'=>$path
+                ]);
+                return $this->successResponse($user->image, 'تم تعديل الصورة بنجاح', 200);
+            }catch(\Exception $e){
+                return $this->errorResponse($e->getMessage(),400);
+            }
+        }
+        else 
+        {
+            return $this->errorResponse('اسم المستخدم غير صحيح',400);
+        }
+    }
+
+    public function updatePassword(Request $request)
+    {
+        $user = Auth::user();
+        if($user)
+        {
+            try {
+                $validator = $request->validate([
+                    'old_password' => 'required|string',
+                    'password' => 'required|string|confirmed|min:6',
+                    ]);
+                    if (Hash::check($request->old_password, $user->password)) {
+                        $user->update([
+                            'password' => Hash::make($request->password),
+                        ]);
+                        return $this->successResponse(new UserResource($user), 'تم تعديل كلمة المرور بنجاح', 200);
+                    } else {
+                        return $this->errorResponse('كلمة المرور غير صحيحة',400);
+                    }
+                        
+            } catch(\Exception $e){
+                return $this->errorResponse($e->getMessage(),400);
+            }
+        }  
+        else 
+        {
+            return $this->errorResponse('اسم المستخدم غير صحيح',400);
+        } 
     }
 
 
@@ -120,48 +179,73 @@ class UserController extends Controller
     {
         //
     }
-    public function getFavoriteSummaries($userId)
-{
-    $user = User::find($userId);
-    $favoriteSummaries = $user->favoriteSummaries;
-
-    return response()->json($favoriteSummaries);
-}
-    public function chart()
+    public function favourite()
     {
-        $user = Auth::user();     
-        $section=Section::find($user->section_id);
-        $materialAverage;
-        $material=Material::where('section_id',$section->id)->get();
-            foreach($material as $m){
-                $sum=0;
-                $count=0;
-                $average=0;
-                $unit=Unit::where('material_id',$m->id)->get();
-                foreach($unit as $u){
-                    $modul=Modul::where('unit_id',$u->id)->get();       
-                    $count+=$modul->count();
-                    foreach($modul as $mo){
-                        $solution=ModulUser::where('user_id',$user->id)
-                        ->where('modul_id',$mo->id)
-                        ->get();
-                        foreach($solution as $s){ 
-                            if($s->percent > 0){
-                                $sum+=$s->percent;
+        try{
+            $user = Auth::user(); 
+            if($user)
+            {
+                $user = User::with('favouritesummeries')->findOrFail($user->id);
+                $user=SummeryResource::collection($user->favouritesummeries) ;
+                return $this->successResponse($user, 'تم عرض المفضلة بنجاح', 200);
+            }
+        }catch(\Exception $e){
+            return $this->errorResponse('اسم المستخدم غير صحيح', 400);
+        }
+    }
+    public function profile()
+    {
+        try{
+            $user = Auth::user(); 
+            if($user)
+            {
+                $information=new UserResource($user);
+                $material_average=[];
+                $all_count=0;
+                $section=Section::find($user->section_id);
+                $material=Material::where('section_id',$section->id)->get();
+                //=ModuleUser::where('user_id', $user->id)->count()
+                    foreach($material as $m){
+                        $sum=0;
+                        $count=0;
+                        $average=0;
+                        $unit=Unit::where('material_id',$m->id)->get();
+                        foreach($unit as $u){
+                            $modul=Modul::where('unit_id',$u->id)->get();       
+                            $count+=$modul->count();
+                            foreach($modul as $mo){
+                                $solution=ModulUser::where('user_id',$user->id)
+                                ->where('modul_id',$mo->id)
+                                ->get();
+                                foreach($solution as $s){ 
+                                    if($s->percent > 0){
+                                        $all_count+=1;
+                                        $sum+=$s->percent;
+                                    }
+                                }
                             }
                         }
+                        if($count>0){
+                            $average=round($sum/$count);
+                            $material_average[$m->name]=$average;
+                        }
+                        else{
+                            $material_average[$m->name]=0;
+                        }
                     }
-                }
-                if($count>0){
-                    $average=round($sum/$count);
-                    $materialAverage[$m->name]=$average;
-                }
-                else{
-                    $materialAverage[$m->name]=0;
-                }
+                    $profile['information']=$information;
+                    $profile['chart']=$material_average;
+                    $profile['complete']=$all_count;
+                    return $this->successResponse($profile, 'تم عرض الملف الشخصي', 200);
+            }  
+            else
+            {
+                return $this->errorResponse('اسم المستخدم غير صحيح', 400);
             }
-            return $this->successResponse($materialAverage, 'chart return successfully', 200);
-            // return $materialAverage;
+        }catch(\Exception $e){
+            return $this->errorResponse('اسم المستخدم غير صحيح', 400);
+        }
+        
     }
 
 }

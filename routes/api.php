@@ -26,9 +26,15 @@ use App\Http\Controllers\Api\ModulUserController;
 Route::group(['middleware' => ['jwt.auth']], function () {
 
     //تعديل الملف الشخصي
-    Route::put('/users/{user}', [UserController::class, 'update'])->middleware('jwt.auth');
+    Route::post('/user/update', [UserController::class, 'update']);
+    //تعديل  كلمة المرور
+    Route::post('/user/update/password', [UserController::class, 'updatePassword']);
+    //تعديل الصورة الشخصية
+    Route::post('/user/update/image', [UserController::class, 'updateImage']);
     //بيانات يوزر حسب المعرف
-    Route::get('/user/profile', [UserController::class, 'show'])->middleware('jwt.auth');
+    Route::get('/user/profile', [UserController::class, 'profile']);
+    // عرض المفضلة
+    Route::get('/user/favourite', [UserController::class, 'favourite']);
     //اضافة الى المفضلة
     Route::post('/user/favourite/{summaryId}', [FavouriteController::class, 'AddOrRemoveFavourite']);
     //عرض ملخصات مادة
@@ -39,8 +45,7 @@ Route::group(['middleware' => ['jwt.auth']], function () {
     Route::get('/model/{is_open}/{unit_id}', [ModulController::class, 'getModelForUnit']);
     //الاسئلة مع الاجوبة
     Route::get('/question/{modul_id}', [QuestionController::class, 'getQuestionFormodul']);
-    //عرض معلومات المخطط للطالب
-    Route::get('/chart', [UserController::class, 'chart']);
+
 });
 Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);
