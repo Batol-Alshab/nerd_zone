@@ -77,7 +77,7 @@ class SectionController extends Controller
             }
             else
             {
-                return $this->errorResponse('المادة التي تبحث عنه غير موجود',404);
+                return $this->errorResponse('الفرع التي تبحث عنه غير موجود',404);
             }
         }catch (\Exception $e) {
             return $this->errorResponse($e->getMessage(), 400);

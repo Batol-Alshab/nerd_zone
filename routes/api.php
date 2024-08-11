@@ -25,10 +25,22 @@ use App\Http\Controllers\Api\ModulUserController;
 //     return $request->user();
 // });
     Route::group(['middleware' => ['jwt.auth','role:admin']], function () {
+        //جلب عدد الطلاب + اعلى عدد نقاط
         Route::get('/analysis',[AdminController::class, 'analysis']);
+        //جلب كل الطلاب 
         Route::get('/students',[AdminController::class, 'students']);
+        //جلب معلومات طالب
         Route::post('/getStudentInfo',[AdminController::class, 'getStudentInfo']);
+        //حذف طالب من قبل الادمن
         Route::post('/destroyUser',[UserController::class,'destroy']);
+        //اضافة فرع جديد
+        Route::post('/section/create', [SectionController::class, 'store']);
+        //تعديل على فرع محدد
+        Route::post('/section/update/{id}', [SectionController::class, 'update']);
+        //حذف فرع محدد
+        Route::get('/section/destroy/{id}', [SectionController::class, 'destroy']);
+        //اضافة مادة جديدة
+        Route::post('material/create', [MaterialController::class, 'store']);
 
     });
 Route::group(['middleware' => ['jwt.auth','role:student']], function () {
@@ -114,20 +126,20 @@ Route::get('/systems',[ArticleController::class, 'getStudingSystems']);
 //عرض كل الافرع
 Route::get('/section', [SectionController::class, 'index']);
 //اضافة فرع جديد
-Route::post('/section/create', [SectionController::class, 'store']);
+// Route::post('/section/create', [SectionController::class, 'store']);
 //اظهار فرع محدد
 Route::get('/section/show/{id}', [SectionController::class, 'show']);
-//تعديل على فرع محدد
-Route::post('/section/update/{id}', [SectionController::class, 'update']);
-//حذف فرع محدد
-Route::get('/section/destroy/{id}', [SectionController::class, 'destroy']);
+// //تعديل على فرع محدد
+// Route::post('/section/update/{id}', [SectionController::class, 'update']);
+// //حذف فرع محدد
+// Route::get('/section/destroy/{id}', [SectionController::class, 'destroy']);
 /* SECTION*/
 
 /*MATERIAL*/
 //عرض كل المواد
 Route::get('/material', [MaterialController::class, 'index']);
-//اضافة مادة جديدة
-Route::post('material/create', [MaterialController::class, 'store']);
+ //اضافة مادة جديدة
+// Route::post('material/create', [MaterialController::class, 'store']);
 //اظهار مادة محددة
 Route::get('/material/show/{id}', [MaterialController::class, 'show']);
 //تعديل على مادة محددة
