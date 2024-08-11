@@ -128,7 +128,7 @@ class ArticleSeeder extends Seeder
 •	حافظ على كل شئ منظم
 
 ',
-            'imge' => $url . 'Group 11.png',
+            'imge' => $url . 'Group11.png',
             'cover'=>$url.'cover.jpg',
             'type'=>'0'
         ]);

@@ -26,7 +26,9 @@ return new class extends Migration
             $table->string('level')->default('مبتدئ');
             $table->rememberToken();
             $table->timestamps();
-            $table->foreignId('section_id')->references('id')->on('sections')->cascadeOnDelete();
+            // $table->foreignId('section_id')->references('id')->on('sections')->cascadeOnDelete();
+            $table->foreignId('section_id')->nullable()->constrained('sections', 'id')->onDelete('cascade');
+
             $table->engine = 'InnoDB';
 
         });
