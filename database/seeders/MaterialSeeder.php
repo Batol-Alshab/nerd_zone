@@ -26,15 +26,25 @@ class MaterialSeeder extends Seeder
         ];
         $url='http://127.0.0.1:8000/images/material_image/';
         $image=[
-            $url.'BOOk.png',
-            $url.'BOOK.png',
-            $url.'BOOK.png',
-            $url.'arabic.jpg',     
-            $url.'biology.jpg',
-            $url.'english.jpg',
-            $url.'BOOK.png',
-            $url.'BOOK.png',
-            $url.'BOOK.png',  
+            $url.'رياضيات.jfif',
+            $url.'فيزياء.jfif',
+            $url.'كيميا.jfif',
+            $url.'عربي.jfif',
+            $url.'علوم.jfif',
+            $url.'انكليزي.png',
+            $url.'فرنسي.jfif',
+            $url.'وطنية.jpg',
+            $url.'ديانة.jfif',
+        ];
+        $image2=[
+            $url.'فلسفة.jfif',
+            $url.'تاريخ.jfif',
+            $url.'جغرافيا.jpg',
+            $url.'عربي.jfif',
+            $url.'انكليزي.png',
+            $url.'فرنسي.jfif',
+            $url.'وطنية.jpg',
+            $url.'ديانة.jfif',
         ];
         $l_material=[
             'الفلسفة',
@@ -46,7 +56,7 @@ class MaterialSeeder extends Seeder
             'التربية الوطنية',
             'التربية الدينية'
         ];
-        for ($i=0; $i <sizeof($s_material) ; $i++) { 
+        for ($i=0; $i <sizeof($s_material) ; $i++) {
             Material::create([
                 'name' => $s_material[$i],
                 'image'=>$image[$i],
@@ -59,13 +69,14 @@ class MaterialSeeder extends Seeder
         //         'name' => $s,
         //         'image'=>$image[$i],
         //         'section_id' => '1',
-                
+
         //     ]);
         //     $i=$i+1;
         // }
-        foreach ($l_material as $l) {
+        for ($i=0; $i <sizeof($l_material) ; $i++){
             Material::create([
-                'name' => $l,
+                'name' => $l_material[$i],
+                'image'=>$image2[$i],
                 'section_id' => '2'
             ]);
         }

@@ -30,7 +30,8 @@ class DatabaseSeeder extends Seeder
             AnswerSeeder::class,
             TermSeeder::class,
             TradeOffSeeder::class,
-            ArticleSeeder::class
+            ArticleSeeder::class,
+            ModulUserSeeder::class
         ]);
     }
 }
