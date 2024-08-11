@@ -320,6 +320,255 @@ class AnswerSeeder extends Seeder
             'الشقيقة'
         ];
         //////////////////
+        //وطنية عند سؤال 51 نموذج 12
+        $answer51 = [
+           ' اتفاقية وادي',
+            '  اتفاقية اوسلو ',
+             ' اتفاقية كامب ديفيد  ',
+             ' اتفاقية سايكس بيكو'
+        ];
+        $answer52 = [
+           ' ماذا حدث',
+            ' لماذا حدث',
+          'كان حدث',
+              ' ماذا سيحدث'
+        ];
+        $answer53 = [
+           ' التمتع بالتفكير النقدي و التحليلي',
+            ' التحيز في تحليل الاحداث',
+            '  ادراك طبيعة المصالح',
+              ' الابتعاد عن الاحكام المطلقة '
+        ];
+        $answer54 = [
+           ' خدمة الوطن',
+            ' التحيز في التحليل',
+             ' الاخذ بالاحكام المطلقة',
+              ' التمتع بالتفكير النقدي و التحليلي'
+        ];
+        $answer55 = [
+           ' ماذا حدث',
+           ' لماذا حدث',
+         'كان حدث',
+             ' ماذا سيحدث'
+        ];
+        $answer56 = [
+          '  الارهاب',
+             'الحرب',
+             ' القتال الاهلي',
+              ' العنف المسلح'
+        ];
+        $answer57 = [
+           ' النظام العالمي الحديث',
+            ' النظام العالمي الجديد',
+             ' النظام العالمي التلقائي',
+              ' النظام العالمي التقليدي'
+        ];
+        $answer58 = [
+            'التناقض',
+             'الإدراك',
+              'السلوك',
+               'التلقائية'
+        ];
+        $answer59 = [
+            'الموارد',
+           '  اختالف الحاجات',
+              'المواقع',
+               'العولمة'
+        ];
+        $answer60 = [
+            'الموارد',
+            ' اختالف وجهات النظر',
+             ' اختالف المصالح',
+              ' التعدي على الحقوق المكتسبة '
+        ];
+        //
+
+        //وطنية عند سؤال 61 نموذج 13
+        $answer61 = [
+            ' اتفاقية وادي',
+             '  اتفاقية اوسلو ',
+              ' اتفاقية كامب ديفيد  ',
+              ' اتفاقية سايكس بيكو'
+         ];
+         $answer62 = [
+            ' ماذا حدث',
+             ' لماذا حدث',
+           'كان حدث',
+               ' ماذا سيحدث'
+         ];
+         $answer63 = [
+            ' التمتع بالتفكير النقدي و التحليلي',
+             ' التحيز في تحليل الاحداث',
+             '  ادراك طبيعة المصالح',
+               ' الابتعاد عن الاحكام المطلقة '
+         ];
+         $answer64 = [
+            ' خدمة الوطن',
+             ' التحيز في التحليل',
+              ' الاخذ بالاحكام المطلقة',
+               ' التمتع بالتفكير النقدي و التحليلي'
+         ];
+         $answer65 = [
+            ' ماذا حدث',
+            ' لماذا حدث',
+          'كان حدث',
+              ' ماذا سيحدث'
+         ];
+         $answer66 = [
+           '  الارهاب',
+              'الحرب',
+              ' القتال الاهلي',
+               ' العنف المسلح'
+         ];
+         $answer67 = [
+            ' النظام العالمي الحديث',
+             ' النظام العالمي الجديد',
+              ' النظام العالمي التلقائي',
+               ' النظام العالمي التقليدي'
+         ];
+         $answer68 = [
+             'التناقض',
+              'الإدراك',
+               'السلوك',
+                'التلقائية'
+         ];
+         $answer69 = [
+             'الموارد',
+            '  اختالف الحاجات',
+               'المواقع',
+                'العولمة'
+         ];
+         $answer70 = [
+             'الموارد',
+             ' اختالف وجهات النظر',
+              ' اختالف المصالح',
+               ' التعدي على الحقوق المكتسبة '
+         ];
+         //وطنية عند سؤال 71 نموذج 14
+        $answer71 = [
+            ' اتفاقية وادي',
+             '  اتفاقية اوسلو ',
+              ' اتفاقية كامب ديفيد  ',
+              ' اتفاقية سايكس بيكو'
+         ];
+         $answer72 = [
+            ' ماذا حدث',
+             ' لماذا حدث',
+           'كان حدث',
+               ' ماذا سيحدث'
+         ];
+         $answer73 = [
+            ' التمتع بالتفكير النقدي و التحليلي',
+             ' التحيز في تحليل الاحداث',
+             '  ادراك طبيعة المصالح',
+               ' الابتعاد عن الاحكام المطلقة '
+         ];
+         $answer74 = [
+            ' خدمة الوطن',
+             ' التحيز في التحليل',
+              ' الاخذ بالاحكام المطلقة',
+               ' التمتع بالتفكير النقدي و التحليلي'
+         ];
+         $answer75 = [
+            ' ماذا حدث',
+            ' لماذا حدث',
+          'كان حدث',
+              ' ماذا سيحدث'
+         ];
+         $answer76 = [
+           '  الارهاب',
+              'الحرب',
+              ' القتال الاهلي',
+               ' العنف المسلح'
+         ];
+         $answer77 = [
+            ' النظام العالمي الحديث',
+             ' النظام العالمي الجديد',
+              ' النظام العالمي التلقائي',
+               ' النظام العالمي التقليدي'
+         ];
+         $answer78 = [
+             'التناقض',
+              'الإدراك',
+               'السلوك',
+                'التلقائية'
+         ];
+         $answer79 = [
+             'الموارد',
+            '  اختالف الحاجات',
+               'المواقع',
+                'العولمة'
+         ];
+         $answer80 = [
+             'الموارد',
+             ' اختالف وجهات النظر',
+              ' اختالف المصالح',
+               ' التعدي على الحقوق المكتسبة '
+         ];
+         //وطنية عند سؤال 81 نموذج 15
+        $answer81 = [
+            ' اتفاقية وادي',
+             '  اتفاقية اوسلو ',
+              ' اتفاقية كامب ديفيد  ',
+              ' اتفاقية سايكس بيكو'
+         ];
+         $answer82 = [
+            ' ماذا حدث',
+             ' لماذا حدث',
+           'كان حدث',
+               ' ماذا سيحدث'
+         ];
+         $answer83 = [
+            ' التمتع بالتفكير النقدي و التحليلي',
+             ' التحيز في تحليل الاحداث',
+             '  ادراك طبيعة المصالح',
+               ' الابتعاد عن الاحكام المطلقة '
+         ];
+         $answer84 = [
+            ' خدمة الوطن',
+             ' التحيز في التحليل',
+              ' الاخذ بالاحكام المطلقة',
+               ' التمتع بالتفكير النقدي و التحليلي'
+         ];
+         $answer85 = [
+            ' ماذا حدث',
+            ' لماذا حدث',
+          'كان حدث',
+              ' ماذا سيحدث'
+         ];
+         $answer86 = [
+           '  الارهاب',
+              'الحرب',
+              ' القتال الاهلي',
+               ' العنف المسلح'
+         ];
+         $answer87 = [
+            ' النظام العالمي الحديث',
+             ' النظام العالمي الجديد',
+              ' النظام العالمي التلقائي',
+               ' النظام العالمي التقليدي'
+         ];
+         $answer88 = [
+             'التناقض',
+              'الإدراك',
+               'السلوك',
+                'التلقائية'
+         ];
+         $answer89 = [
+             'الموارد',
+            '  اختالف الحاجات',
+               'المواقع',
+                'العولمة'
+         ];
+         $answer90 = [
+             'الموارد',
+             ' اختالف وجهات النظر',
+              ' اختالف المصالح',
+               ' التعدي على الحقوق المكتسبة '
+         ];
+
+
+
         $index = ['0', '0', '1', '0'];
         foreach ($answer1 as $indexKey => $ans) {
             Answer::create([
@@ -712,6 +961,292 @@ class AnswerSeeder extends Seeder
             ]);
             
         }
+        //////وطنية
+        foreach ($answer51 as $indexKey => $ans) {
+            Answer::create([
+                'content' => $ans,
+                'is_true' => $index[$indexKey],
+                'question_id' => '51'
+            ]);    
+        }
+        foreach ($answer52 as $indexKey => $ans) {
+            Answer::create([
+                'content' => $ans,
+                'is_true' => $index[$indexKey],
+                'question_id' => '52'
+            ]);    
+        }
+        foreach ($answer53 as $indexKey => $ans) {
+            Answer::create([
+                'content' => $ans,
+                'is_true' => $index[$indexKey],
+                'question_id' => '53'
+            ]);    
+        }
+        foreach ($answer54 as $indexKey => $ans) {
+            Answer::create([
+                'content' => $ans,
+                'is_true' => $index[$indexKey],
+                'question_id' => '54'
+            ]);    
+        }
+        foreach ($answer55 as $indexKey => $ans) {
+            Answer::create([
+                'content' => $ans,
+                'is_true' => $index[$indexKey],
+                'question_id' => '55'
+            ]);    
+        }
+        foreach ($answer56 as $indexKey => $ans) {
+            Answer::create([
+                'content' => $ans,
+                'is_true' => $index[$indexKey],
+                'question_id' => '56'
+            ]);    
+        }
+        foreach ($answer57 as $indexKey => $ans) {
+            Answer::create([
+                'content' => $ans,
+                'is_true' => $index[$indexKey],
+                'question_id' => '57'
+            ]);    
+        }
+        foreach ($answer58 as $indexKey => $ans) {
+            Answer::create([
+                'content' => $ans,
+                'is_true' => $index[$indexKey],
+                'question_id' => '58'
+            ]);    
+        }
+        foreach ($answer59 as $indexKey => $ans) {
+            Answer::create([
+                'content' => $ans,
+                'is_true' => $index[$indexKey],
+                'question_id' => '59'
+            ]);    
+        }
+        foreach ($answer60 as $indexKey => $ans) {
+            Answer::create([
+                'content' => $ans,
+                'is_true' => $index[$indexKey],
+                'question_id' => '60'
+            ]);    
+        }
+        /// وطنية نموذج 13
+        foreach ($answer61 as $indexKey => $ans) {
+            Answer::create([
+                'content' => $ans,
+                'is_true' => $index[$indexKey],
+                'question_id' => '61'
+            ]);    
+        }
+        foreach ($answer62 as $indexKey => $ans) {
+            Answer::create([
+                'content' => $ans,
+                'is_true' => $index[$indexKey],
+                'question_id' => '62'
+            ]);    
+        }
+        foreach ($answer63 as $indexKey => $ans) {
+            Answer::create([
+                'content' => $ans,
+                'is_true' => $index[$indexKey],
+                'question_id' => '63'
+            ]);    
+        }
+        foreach ($answer64 as $indexKey => $ans) {
+            Answer::create([
+                'content' => $ans,
+                'is_true' => $index[$indexKey],
+                'question_id' => '64'
+            ]);    
+        }
+        foreach ($answer65 as $indexKey => $ans) {
+            Answer::create([
+                'content' => $ans,
+                'is_true' => $index[$indexKey],
+                'question_id' => '65'
+            ]);    
+        }
+        foreach ($answer66 as $indexKey => $ans) {
+            Answer::create([
+                'content' => $ans,
+                'is_true' => $index[$indexKey],
+                'question_id' => '66'
+            ]);    
+        }
+        foreach ($answer67 as $indexKey => $ans) {
+            Answer::create([
+                'content' => $ans,
+                'is_true' => $index[$indexKey],
+                'question_id' => '67'
+            ]);    
+        }
+        foreach ($answer68 as $indexKey => $ans) {
+            Answer::create([
+                'content' => $ans,
+                'is_true' => $index[$indexKey],
+                'question_id' => '68'
+            ]);    
+        }
+        foreach ($answer69 as $indexKey => $ans) {
+            Answer::create([
+                'content' => $ans,
+                'is_true' => $index[$indexKey],
+                'question_id' => '69'
+            ]);    
+        }
+        foreach ($answer70 as $indexKey => $ans) {
+            Answer::create([
+                'content' => $ans,
+                'is_true' => $index[$indexKey],
+                'question_id' => '70'
+            ]);    
+        }
+        /// وطنية نموذج 14
+        foreach ($answer71 as $indexKey => $ans) {
+            Answer::create([
+                'content' => $ans,
+                'is_true' => $index[$indexKey],
+                'question_id' => '71'
+            ]);    
+        }
+        foreach ($answer72 as $indexKey => $ans) {
+            Answer::create([
+                'content' => $ans,
+                'is_true' => $index[$indexKey],
+                'question_id' => '72'
+            ]);    
+        }
+        foreach ($answer73 as $indexKey => $ans) {
+            Answer::create([
+                'content' => $ans,
+                'is_true' => $index[$indexKey],
+                'question_id' => '73'
+            ]);    
+        }
+        foreach ($answer74 as $indexKey => $ans) {
+            Answer::create([
+                'content' => $ans,
+                'is_true' => $index[$indexKey],
+                'question_id' => '74'
+            ]);    
+        }
+        foreach ($answer75 as $indexKey => $ans) {
+            Answer::create([
+                'content' => $ans,
+                'is_true' => $index[$indexKey],
+                'question_id' => '75'
+            ]);    
+        }
+        foreach ($answer76 as $indexKey => $ans) {
+            Answer::create([
+                'content' => $ans,
+                'is_true' => $index[$indexKey],
+                'question_id' => '76'
+            ]);    
+        }
+        foreach ($answer77 as $indexKey => $ans) {
+            Answer::create([
+                'content' => $ans,
+                'is_true' => $index[$indexKey],
+                'question_id' => '77'
+            ]);    
+        }
+        foreach ($answer78 as $indexKey => $ans) {
+            Answer::create([
+                'content' => $ans,
+                'is_true' => $index[$indexKey],
+                'question_id' => '78'
+            ]);    
+        }
+        foreach ($answer79 as $indexKey => $ans) {
+            Answer::create([
+                'content' => $ans,
+                'is_true' => $index[$indexKey],
+                'question_id' => '79'
+            ]);    
+        }
+        foreach ($answer80 as $indexKey => $ans) {
+            Answer::create([
+                'content' => $ans,
+                'is_true' => $index[$indexKey],
+                'question_id' => '80'
+            ]);    
+        }
+        /// وطنية نموذج 15
+        foreach ($answer81 as $indexKey => $ans) {
+            Answer::create([
+                'content' => $ans,
+                'is_true' => $index[$indexKey],
+                'question_id' => '81'
+            ]);    
+        }
+        foreach ($answer82 as $indexKey => $ans) {
+            Answer::create([
+                'content' => $ans,
+                'is_true' => $index[$indexKey],
+                'question_id' => '82'
+            ]);    
+        }
+        foreach ($answer83 as $indexKey => $ans) {
+            Answer::create([
+                'content' => $ans,
+                'is_true' => $index[$indexKey],
+                'question_id' => '83'
+            ]);    
+        }
+        foreach ($answer84 as $indexKey => $ans) {
+            Answer::create([
+                'content' => $ans,
+                'is_true' => $index[$indexKey],
+                'question_id' => '84'
+            ]);    
+        }
+        foreach ($answer85 as $indexKey => $ans) {
+            Answer::create([
+                'content' => $ans,
+                'is_true' => $index[$indexKey],
+                'question_id' => '85'
+            ]);    
+        }
+        foreach ($answer86 as $indexKey => $ans) {
+            Answer::create([
+                'content' => $ans,
+                'is_true' => $index[$indexKey],
+                'question_id' => '86'
+            ]);    
+        }
+        foreach ($answer87 as $indexKey => $ans) {
+            Answer::create([
+                'content' => $ans,
+                'is_true' => $index[$indexKey],
+                'question_id' => '87'
+            ]);    
+        }
+        foreach ($answer88 as $indexKey => $ans) {
+            Answer::create([
+                'content' => $ans,
+                'is_true' => $index[$indexKey],
+                'question_id' => '88'
+            ]);    
+        }
+        foreach ($answer89 as $indexKey => $ans) {
+            Answer::create([
+                'content' => $ans,
+                'is_true' => $index[$indexKey],
+                'question_id' => '89'
+            ]);    
+        }
+        foreach ($answer90 as $indexKey => $ans) {
+            Answer::create([
+                'content' => $ans,
+                'is_true' => $index[$indexKey],
+                'question_id' => '90'
+            ]);    
+        }
+
+
 
     }
 }

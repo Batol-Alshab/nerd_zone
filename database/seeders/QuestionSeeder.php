@@ -269,6 +269,212 @@ class QuestionSeeder extends Seeder
             'content' => 'سببه هو موت الخاليا العصبية في المادة السوداء',
            'modul_id'=>'5'
         ]);
+        ///وطنية نموذج 12
+        Question::create([
+            'title'=>'السؤال الأول',
+            'content' => 'أوضح مؤامرة أصابت العرب في العصر الحديث',
+           'modul_id'=>'12'
+        ]);
+        Question::create([
+            'title'=>'السؤال الثاني',
+            'content' => 'جوهر التحليل السياسي هو الاجابة عن سؤال',
+           'modul_id'=>'12'
+        ]);
+        Question::create([
+            'title'=>'السؤال الثالث',
+            'content' => 'من قواعد التحليل السياسي',
+           'modul_id'=>'12'
+        ]);
+        Question::create([
+            'title'=>'السؤال الرابع',
+            'content' => 'من صفات المحلل السياسي ',
+           'modul_id'=>'12'
+        ]);
+        Question::create([
+            'title'=>'السؤال الخامس',
+            'content' => ' إدراك الاسباب التي أدت إلى بروز الحدث',
+           'modul_id'=>'12'
+        ]);
+        Question::create([
+            'title'=>'السؤال السادس',
+            'content' => 'مصطلح العنف المنظم يراد به ',
+           'modul_id'=>'12'
+        ]);
+        Question::create([
+            'title'=>'السؤال السابع',
+            'content' => ' مشروع يهدف إلى إعادة رسم خارطة العالم العربي يدعى',  
+            'modul_id'=>'12'
+        ]);
+        Question::create([
+            'title'=>'السؤال الثامن',
+            'content' =>'الوضع الذي يظهر فيه عدم التوافق في الاهداف والمصالح بين الاطراف',
+            'modul_id'=>'12'
+        ]);
+        Question::create([
+            'title'=>'السؤال التاسع',
+            'content' => 'من أسباب  النزاع ',
+           'modul_id'=>'12'
+        ]);
+        Question::create([
+            'title'=>'السؤال العاشر',
+            'content' =>'من أسباب النزاع الدولي',
+           'modul_id'=>'12'
+        ]);
+
+        ///وطنية نموذج 13
+        Question::create([
+            'title'=>'السؤال الأول',
+            'content' => 'أوضح مؤامرة أصابت العرب في العصر الحديث',
+           'modul_id'=>'13'
+        ]);
+        Question::create([
+            'title'=>'السؤال الثاني',
+            'content' => 'جوهر التحليل السياسي هو الاجابة عن سؤال',
+           'modul_id'=>'13'
+        ]);
+        Question::create([
+            'title'=>'السؤال الثالث',
+            'content' => 'من قواعد التحليل السياسي',
+           'modul_id'=>'13'
+        ]);
+        Question::create([
+            'title'=>'السؤال الرابع',
+            'content' => 'من صفات المحلل السياسي ',
+           'modul_id'=>'13'
+        ]);
+        Question::create([
+            'title'=>'السؤال الخامس',
+            'content' => ' إدراك الاسباب التي أدت إلى بروز الحدث',
+           'modul_id'=>'13'
+        ]);
+        Question::create([
+            'title'=>'السؤال السادس',
+            'content' => 'مصطلح العنف المنظم يراد به ',
+           'modul_id'=>'13'
+        ]);
+        Question::create([
+            'title'=>'السؤال السابع',
+            'content' => ' مشروع يهدف إلى إعادة رسم خارطة العالم العربي يدعى',  
+            'modul_id'=>'13'
+        ]);
+        Question::create([
+            'title'=>'السؤال الثامن',
+            'content' =>'الوضع الذي يظهر فيه عدم التوافق في الاهداف والمصالح بين الاطراف',
+            'modul_id'=>'13'
+        ]);
+        Question::create([
+            'title'=>'السؤال التاسع',
+            'content' => 'من أسباب  النزاع ',
+           'modul_id'=>'13'
+        ]);
+        Question::create([
+            'title'=>'السؤال العاشر',
+            'content' =>'من أسباب النزاع الدولي',
+           'modul_id'=>'13'
+        ]);
+        ///14
+        Question::create([
+            'title'=>'السؤال الأول',
+            'content' => 'أوضح مؤامرة أصابت العرب في العصر الحديث',
+           'modul_id'=>'14'
+        ]);
+        Question::create([
+            'title'=>'السؤال الثاني',
+            'content' => 'جوهر التحليل السياسي هو الاجابة عن سؤال',
+           'modul_id'=>'14'
+        ]);
+        Question::create([
+            'title'=>'السؤال الثالث',
+            'content' => 'من قواعد التحليل السياسي',
+           'modul_id'=>'14'
+        ]);
+        Question::create([
+            'title'=>'السؤال الرابع',
+            'content' => 'من صفات المحلل السياسي ',
+           'modul_id'=>'14'
+        ]);
+        Question::create([
+            'title'=>'السؤال الخامس',
+            'content' => ' إدراك الاسباب التي أدت إلى بروز الحدث',
+           'modul_id'=>'14'
+        ]);
+        Question::create([
+            'title'=>'السؤال السادس',
+            'content' => 'مصطلح العنف المنظم يراد به ',
+           'modul_id'=>'14'
+        ]);
+        Question::create([
+            'title'=>'السؤال السابع',
+            'content' => ' مشروع يهدف إلى إعادة رسم خارطة العالم العربي يدعى',  
+            'modul_id'=>'14'
+        ]);
+        Question::create([
+            'title'=>'السؤال الثامن',
+            'content' =>'الوضع الذي يظهر فيه عدم التوافق في الاهداف والمصالح بين الاطراف',
+            'modul_id'=>'14'
+        ]);
+        Question::create([
+            'title'=>'السؤال التاسع',
+            'content' => 'من أسباب  النزاع ',
+           'modul_id'=>'14'
+        ]);
+        Question::create([
+            'title'=>'السؤال العاشر',
+            'content' =>'من أسباب النزاع الدولي',
+           'modul_id'=>'14'
+        ]);
+        ///وطنية نموذج 15
+        Question::create([
+            'title'=>'السؤال الأول',
+            'content' => 'أوضح مؤامرة أصابت العرب في العصر الحديث',
+           'modul_id'=>'15'
+        ]);
+        Question::create([
+            'title'=>'السؤال الثاني',
+            'content' => 'جوهر التحليل السياسي هو الاجابة عن سؤال',
+           'modul_id'=>'15'
+        ]);
+        Question::create([
+            'title'=>'السؤال الثالث',
+            'content' => 'من قواعد التحليل السياسي',
+           'modul_id'=>'15'
+        ]);
+        Question::create([
+            'title'=>'السؤال الرابع',
+            'content' => 'من صفات المحلل السياسي ',
+           'modul_id'=>'15'
+        ]);
+        Question::create([
+            'title'=>'السؤال الخامس',
+            'content' => ' إدراك الاسباب التي أدت إلى بروز الحدث',
+           'modul_id'=>'15'
+        ]);
+        Question::create([
+            'title'=>'السؤال السادس',
+            'content' => 'مصطلح العنف المنظم يراد به ',
+           'modul_id'=>'15'
+        ]);
+        Question::create([
+            'title'=>'السؤال السابع',
+            'content' => ' مشروع يهدف إلى إعادة رسم خارطة العالم العربي يدعى',  
+            'modul_id'=>'15'
+        ]);
+        Question::create([
+            'title'=>'السؤال الثامن',
+            'content' =>'الوضع الذي يظهر فيه عدم التوافق في الاهداف والمصالح بين الاطراف',
+            'modul_id'=>'15'
+        ]);
+        Question::create([
+            'title'=>'السؤال التاسع',
+            'content' => 'من أسباب  النزاع ',
+           'modul_id'=>'15'
+        ]);
+        Question::create([
+            'title'=>'السؤال العاشر',
+            'content' =>'من أسباب النزاع الدولي',
+           'modul_id'=>'15'
+        ]);
+
 
 
     }

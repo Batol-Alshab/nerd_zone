@@ -19,8 +19,15 @@ class UserSeeder extends Seeder
             'password'=>'123456',
             'email'=>'nerd@zone.com',
             'sex'=>0,
-            'section_id'=>'1'
-            
+            'section_id'=>'1'    
+        ]);
+        User::create([
+            'fname'=>'Nerd1',
+            'lname'=>'Zone1',
+            'password'=>'123456',
+            'email'=>'nerd1@zone1.com',
+            'sex'=>0,
+            'section_id'=>'1'    
         ]);
     }
 }

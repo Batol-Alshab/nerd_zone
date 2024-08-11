@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
-            $table->string('image')->nullable()->default('http://127.0.0.1:8000/images/profile_image/profile.jpg');
+            $table->string('image')->nullable()->default('http://127.0.0.1:8000/images/profile_image/Male.svg');
             $table->integer('rate')->default(10);
             $table->longText('opinion')->nullable();
             $table->string('level')->default('مبتدئ');

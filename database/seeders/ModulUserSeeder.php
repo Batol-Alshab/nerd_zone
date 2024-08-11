@@ -43,7 +43,7 @@ class ModulUserSeeder extends Seeder
             'modul_id'=>11,
             'percent'=>0
         ]);
-        //material 2
+        //material 8
         ModulUser::create([
             'user_id'=>1,
             'modul_id'=>12,

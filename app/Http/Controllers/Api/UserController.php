@@ -75,8 +75,9 @@ class UserController extends Controller
         {
             try {
                 $validator = $request->validate([
-                    'fname' => 'nullable|regex:/^[^0-9][a-zA-Z0-9\s]*$/|string',
-                    'lname' => 'nullable|regex:/^[a-zA-Z][a-zA-Z0-9\s]*$/|string',
+                    // 'fname' => 'nullable|regex:/^[^0-9][a-zA-Z0-9\s]*$/|string',
+                    'fname' => 'nullable|regex:/^[\p{Arabic}a-zA-Z]+[\p{Arabic}a-zA-Z0-9\s]*$/u|string',
+                    'lname' => 'nullable|regex:/^[\p{Arabic}a-zA-Z]+[\p{Arabic}a-zA-Z0-9\s]*$/u|string',
                     'phone' => 'nullable|string|regex:/^09\d{8}$/',
                     // 'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:1048',
                     'opinion' =>'nullable|string|max:100'
@@ -121,7 +122,7 @@ class UserController extends Controller
                     'image'=>'required|image|mimes:jpeg,png,jpg,gif,svg|max:1048'
                 ]);
                 $url=$user->image;
-                if($url != 'http://127.0.0.1:8000/images/profile_image/profile.jpg')
+                if($url != 'http://127.0.0.1:8000/images/profile_image/Male.svg' || 'http://127.0.0.1:8000/images/profile_image/Female.svg')
                     {
                         $image_url = parse_url($url);
                         $image_url = $image_url['path'];
@@ -233,11 +234,27 @@ class UserController extends Controller
                             $material_average[$m->name]=0;
                         }
                     }
+                    //if user is nerd1@zone1.com
+                    if($user->email=='nerd1@zone1.com')
+                    {
+                        $section=Section::find($user->section_id);
+                        $material=Material::where('section_id',$section->id)->get();
+                        $material_average=[];
+                        $avg=[40,60,80,40,90,66,20,35,80];
+                        $i=0;
+                        
+                            foreach($material as $m){
+                                $material_average[$m->name]=$avg[$i];
+                                echo $material_average[$m->name];
+                                $i+=1;
+                            }
+                    }
                     $profile['information']=$information;
                     $profile['chart']=$material_average;
                     $profile['complete']=$all_count;
                     return $this->successResponse($profile, 'تم عرض الملف الشخصي', 200);
-            }  
+                 
+        } 
             else
             {
                 return $this->errorResponse('اسم المستخدم غير صحيح', 400);

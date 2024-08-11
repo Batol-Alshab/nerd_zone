@@ -19,5 +19,10 @@ class BookSeeder extends Seeder
         'url'=>$url.'كتاب العلوم.pdf', 
         'material_id'=> '5' 
         ]);
+        Book_url::create([
+            'name'=>'كتاب الوطنية',
+            'url'=>$url.'كتاب الوطنية.pdf', 
+            'material_id'=> '8' 
+            ]);
     }
 }

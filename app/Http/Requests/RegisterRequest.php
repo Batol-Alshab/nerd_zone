@@ -22,11 +22,11 @@ class RegisterRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'fname' => 'required|regex:/^[^0-9][a-zA-Z0-9\s]*$/|string',
-            'lname' => 'required|regex:/^[^0-9][a-zA-Z0-9\s]*$/|string',
+            'fname' => 'required|regex:/^[\p{Arabic}a-zA-Z]+[\p{Arabic}a-zA-Z0-9\s]*$/u|string',
+            'lname' => 'required|regex:/^[\p{Arabic}a-zA-Z]+[\p{Arabic}a-zA-Z0-9\s]*$/u|string',
             'password' => 'required|confirmed|min:6',
             'email' => 'required|string|email:filter|max:100|unique:users,email',
-            'phone_number' => 'string|nullable|regex:/^([0-9\s\-\+\(\)]*)$/|min:10',
+            'phone_number' => 'string|nullable|regex:/^09\d{8}$/|min:10',
             'sex' => 'required',
             'section_id' => 'required|exists:sections,id'
         ];

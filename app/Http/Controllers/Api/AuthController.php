@@ -25,7 +25,6 @@ class AuthController extends Controller
     public function register(RegisterRequest $request)
     {
         try {
-
             $user = User::create([
                 'fname' => $request->fname,
                 'lname' => $request->lname,
@@ -35,6 +34,19 @@ class AuthController extends Controller
                 'sex' => $request->sex,
                 'section_id' => $request->section_id,
             ]);
+            // return $user->sex;
+            if($user->sex==0)
+            {
+                $user->update([
+                    'image'=>'http://127.0.0.1:8000/images/profile_image/Male.svg'
+                ]);
+            }
+            else
+            {
+                $user->update([
+                    'image'=>'http://127.0.0.1:8000/images/profile_image/Female.svg'
+                ]);
+            }
             $user=User::find($user->id);
             $token = JWTAuth::fromUser($user);
             $data = [

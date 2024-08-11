@@ -53,12 +53,12 @@ class UnitSeeder extends Seeder
 
         //material 8
         Unit::create([
-            'name' => 'وحدة القضايا',
+            'name' => ' تطوير الذات',
             'image'=>$url.'unit1.png',
             'material_id' => '8'
         ]);
         Unit::create([
-            'name' => 'وحدة العولمة',
+            'name' => 'الوطن والمواطن',
             'image'=>$url.'unit1.png',
             'material_id' => '8'
         ]);
