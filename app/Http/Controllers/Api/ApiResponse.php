@@ -47,7 +47,7 @@ trait ApiResponse
 
         ],400);
     }
-    public function unauthorized($message= 'Unauthorized')
+    public function unauthorized($message= 'لا يوجد صلاحية')
     {
         return response()->json([
             'status' => false,

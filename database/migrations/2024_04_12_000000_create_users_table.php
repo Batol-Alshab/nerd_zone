@@ -23,10 +23,8 @@ return new class extends Migration
             $table->string('image')->nullable()->default('http://127.0.0.1:8000/images/profile_image/Male.svg');
             $table->integer('rate')->default(10);
             $table->longText('opinion')->nullable();
-            $table->string('level')->default('مبتدئ');
             $table->rememberToken();
             $table->timestamps();
-            // $table->foreignId('section_id')->references('id')->on('sections')->cascadeOnDelete();
             $table->foreignId('section_id')->nullable()->constrained('sections', 'id')->onDelete('cascade');
 
             $table->engine = 'InnoDB';

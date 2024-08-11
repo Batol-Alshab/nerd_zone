@@ -176,9 +176,29 @@ class UserController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
-    {
-        //
+    public function destroy(Request $request)
+    {  
+        $user=User::find($request->id);
+        if($user && $user->id !=1){
+            if (Auth::user()->hasRole('admin')){
+                $url=$user->image;
+                if($url != 'http://127.0.0.1:8000/images/profile_image/Male.svg' || 'http://127.0.0.1:8000/images/profile_image/Female.svg')
+                    {
+                        $image_url = parse_url($url);
+                        $image_url = $image_url['path'];
+                        File::delete(public_path($image_url));
+                    }
+                $user->delete();
+                return $this->successResponse(null, "تم حذف المستخدم بنجاح", 200);
+            }
+            else{
+                return $this->unauthorized();
+            }
+        }
+        else{
+            return $this->errorResponse('المستخدم غير موجود ', 400);
+        }
+        
     }
     public function favourite()
     {

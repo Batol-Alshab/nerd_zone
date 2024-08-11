@@ -6,11 +6,14 @@ use Carbon\carbon;
 use App\Models\User;
 use Monolog\Registry;
 use Illuminate\Http\Request;
+use Spatie\Permission\Models\Role;
+use Spatie\Permission\Models\Permission;
+
 use Tymon\JWTAuth\Facades\JWTAuth;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\UserResource;
-use Illuminate\Support\Facades\Hash;
 
+use Illuminate\Support\Facades\Hash;
 use Tymon\JWTAuth\Facades\JWTFactory;
 use App\Http\Requests\RegisterRequest;
 use Illuminate\Support\Facades\Validator;
@@ -34,6 +37,7 @@ class AuthController extends Controller
                 'sex' => $request->sex,
                 'section_id' => $request->section_id,
             ]);
+            
             // return $user->sex;
             if($user->sex==0)
             {
@@ -47,6 +51,12 @@ class AuthController extends Controller
                     'image'=>'http://127.0.0.1:8000/images/profile_image/Female.svg'
                 ]);
             }
+            //Role and Permission
+            
+            $studentRole=Role::where('name','student')->first();
+            $user->assignRole($studentRole);
+            $studentPermission=$studentRole->permissions()->pluck('name')->toArray();
+            $user->givePermissionTo($studentPermission);
             $user=User::find($user->id);
             $token = JWTAuth::fromUser($user);
             $data = [

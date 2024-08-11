@@ -8,6 +8,7 @@ use App\Http\Controllers\Api\BookController;
 use App\Http\Controllers\Api\TermController;
 use App\Http\Controllers\Api\UnitController;
 use App\Http\Controllers\Api\UserController;
+use App\Http\Controllers\Api\AdminController;
 use App\Http\Controllers\Api\ImageController;
 use App\Http\Controllers\Api\ModulController;
 use App\Http\Controllers\Api\AnswerController;
@@ -23,8 +24,15 @@ use App\Http\Controllers\Api\ModulUserController;
 // Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 //     return $request->user();
 // });
-Route::group(['middleware' => ['jwt.auth']], function () {
+    Route::group(['middleware' => ['jwt.auth','role:admin']], function () {
+        Route::get('/analysis',[AdminController::class, 'analysis']);
+        Route::get('/students',[AdminController::class, 'students']);
+        Route::post('/getStudentInfo',[AdminController::class, 'getStudentInfo']);
+        Route::post('/destroyUser',[UserController::class,'destroy']);
 
+    });
+Route::group(['middleware' => ['jwt.auth','role:student']], function () {
+   
     //تعديل الملف الشخصي
     Route::post('/user/update', [UserController::class, 'update']);
     //تعديل  كلمة المرور
