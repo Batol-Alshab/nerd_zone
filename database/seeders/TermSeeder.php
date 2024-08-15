@@ -16,8 +16,15 @@ class TermSeeder extends Seeder
         $url='http://127.0.0.1:8000/file/terms/';
         Term::create([
             'name'=>'2020 الدورة الاولى',
-            'url'=>$url.'دورة اولى 2020.pdf', 
-            'material_id'=> '5' 
+            'url'=>$url.'دورة اولى 2020.pdf',
+            'material_id'=> '5'
             ]);
+            $url='http://127.0.0.1:8000/file/terms/';
+            Term::create([
+                'name'=>'2023 الدورة الاولى',
+                'url'=>$url.'دورة اولى 2023.pdf',
+                'material_id'=> '8'
+                ]);
+
     }
 }

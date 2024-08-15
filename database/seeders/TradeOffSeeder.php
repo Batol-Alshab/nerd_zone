@@ -16,8 +16,8 @@ class TradeOffSeeder extends Seeder
         $url='http://127.0.0.1:8000/file/tradeOffs/';
         TradeOff::create([
             'name'=>'المفاضلة الأولى',
-            'url'=>$url.'المفاضلة الأولى  .pdf', 
-            'section_id'=> '1' 
+            'url'=>$url.'المفاضلةالأولى.pdf',
+            'section_id'=> '1'
             ]);
     }
 }
